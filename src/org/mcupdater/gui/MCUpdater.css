@@ -1,0 +1,7 @@
+.root {
+    -fx-background-color: #CCCCCC;
+}
+
+.sidebar {
+    -fx-padding: 5 2 0 5;
+}
