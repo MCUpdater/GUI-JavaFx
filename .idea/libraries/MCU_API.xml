@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="MCU-API">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MCU-API.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
