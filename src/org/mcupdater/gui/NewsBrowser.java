@@ -15,8 +15,6 @@ public class NewsBrowser extends Region {
     WebEngine engine = view.getEngine();
 
     public NewsBrowser() {
-        engine.load("http://www.mcupdater.com");
-
         getChildren().add(view);
     }
 

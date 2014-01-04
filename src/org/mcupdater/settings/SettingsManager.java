@@ -2,6 +2,7 @@ package org.mcupdater.settings;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.mcupdater.gui.MCUSettings;
 import org.mcupdater.util.MCUpdater;
 
 import java.io.*;
@@ -45,7 +46,7 @@ public class SettingsManager {
 			this.settings = gson.fromJson(reader, Settings.class);
 			reader.close();
 			this.dirty=false;
-			//TODO: MCUSettings.setState(false);
+			MCUSettings.setState(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
