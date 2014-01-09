@@ -1,49 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
-
+<?import org.mcupdater.gui.MCUSettings?>
 <?import org.mcupdater.gui.NewsBrowser?>
-<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <BorderPane prefHeight="301.0" prefWidth="401.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.mcupdater.gui.MainController" styleClass="root">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab text="News">
-                    <content>
-                        <AnchorPane>
-                            <children>
-                                <NewsBrowser fx:id="newsBrowser" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Console">
-                    <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <Label text="Foo"/>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Settings">
-                    <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Modules">
-                    <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Progress">
-                    <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-            </tabs>
+            <Tab text="News">
+                <AnchorPane>
+                    <NewsBrowser fx:id="newsBrowser" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Console">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <Label text="Foo"/>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Settings">
+                <MCUSettings />
+            </Tab>
+            <Tab text="Modules">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </Tab>
+            <Tab text="Progress">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </Tab>
         </TabPane>
     </center>
     <left>
@@ -59,9 +43,7 @@
     <bottom>
         <HBox prefHeight="30.0" prefWidth="200.0">
             <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
-            <children>
-                <Button text="Foo!" onAction="#ClickButton"/>
-            </children>
+            <Button text="Foo!" onAction="#ClickButton"/>
         </HBox>
     </bottom>
 

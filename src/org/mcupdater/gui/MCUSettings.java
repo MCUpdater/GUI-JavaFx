@@ -1,15 +1,22 @@
 package org.mcupdater.gui;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-/**
- * Created by sbarbour on 1/3/14.
- */
-public class MCUSettings extends GridPane {
+public class MCUSettings extends BorderPane {
     private static MCUSettings INSTANCE;
+    public Button btnSave;
+    public Button btnReload;
+    public Label lblState;
+    public Label lblProfiles;
+    public Button btnProfileAdd;
+    public Button btnProfileRemove;
+    public ListView lstProfiles;
 
     public MCUSettings() {
         INSTANCE = this;
@@ -22,6 +29,16 @@ public class MCUSettings extends GridPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        setupControls();
+    }
+
+    private void setupControls() {
+        btnSave.setText("Save");
+        btnReload.setText("Reload");
+        lblState.setText("State: Saved");
+        lblProfiles.setText("Profiles:");
+        btnProfileAdd.setText("Add");
+        btnProfileRemove.setText("Remove");
     }
 
     public static void setState(boolean isDirty) {

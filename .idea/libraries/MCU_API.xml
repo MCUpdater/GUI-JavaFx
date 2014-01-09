@@ -1,9 +1,19 @@
 <component name="libraryTable">
   <library name="MCU-API">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/MCU-API.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/MCU-DownloadLib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gson-2.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jopt-simple-4.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/MCU-API.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/MCU-Yggdrasil.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/MCU-Yggdrasil.jar!/doc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/MCU-DownloadLib.jar!/" />
+    </SOURCES>
   </library>
 </component>
