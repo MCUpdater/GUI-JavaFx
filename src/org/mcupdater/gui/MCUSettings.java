@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -17,6 +18,12 @@ public class MCUSettings extends BorderPane {
     public Button btnProfileAdd;
     public Button btnProfileRemove;
     public ListView lstProfiles;
+    public Label lblMinMemory;
+    public TextField txtMinMemory;
+    public Label lblMaxMemory;
+    public TextField txtMaxMemory;
+    public Label lblPermGen;
+    public TextField txtPermGen;
 
     public MCUSettings() {
         INSTANCE = this;
@@ -39,6 +46,9 @@ public class MCUSettings extends BorderPane {
         lblProfiles.setText("Profiles:");
         btnProfileAdd.setText("Add");
         btnProfileRemove.setText("Remove");
+        lblMinMemory.setText("Minimum Memory:");
+        lblMaxMemory.setText("Maximum Memory:");
+        lblPermGen.setText("PermGen Space:");
     }
 
     public static void setState(boolean isDirty) {
