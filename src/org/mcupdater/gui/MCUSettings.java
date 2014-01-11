@@ -24,6 +24,16 @@ public class MCUSettings extends BorderPane {
     public TextField txtMaxMemory;
     public Label lblPermGen;
     public TextField txtPermGen;
+    public Label lblMemMessage;
+    public Label lblFullscreen;
+    public Label lblResolution;
+    public Label lblJRE;
+    public Label lblJVMOpts;
+    public Label lblInstancePath;
+    public Label lblProgramWrapper;
+    public Label lblMinimizeAtLaunch;
+    public Label lblAutoConnect;
+    public Label lblPackURLs;
 
     public MCUSettings() {
         INSTANCE = this;
@@ -49,6 +59,16 @@ public class MCUSettings extends BorderPane {
         lblMinMemory.setText("Minimum Memory:");
         lblMaxMemory.setText("Maximum Memory:");
         lblPermGen.setText("PermGen Space:");
+        lblMemMessage.setText("Memory can be specified in MB or GB (i.e. 512M or 1G).\nIncreasing memory may help performance, but often has no measurable impact.");
+        lblFullscreen.setText("Fullscreen:");
+        lblResolution.setText("Resolution:");
+        lblJRE.setText("Java Home Path:");
+        lblJVMOpts.setText("JVM Options:");
+        lblInstancePath.setText("Instance Root Path:");
+        lblProgramWrapper.setText("Program Wrapper:");
+        lblMinimizeAtLaunch.setText("Minimize On Launch:");
+        lblAutoConnect.setText("Automatically Connect:");
+        lblPackURLs.setText("Defined Pack URLs:");
     }
 
     public static void setState(boolean isDirty) {
