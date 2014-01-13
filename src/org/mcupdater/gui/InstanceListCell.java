@@ -10,12 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import org.mcupdater.model.ServerList;
 
-/**
- * Created by sbarbour on 1/2/14.
- */
-public class InstanceListCell extends ListCell<ServerList> {
+class InstanceListCell extends ListCell<ServerList> {
 
-    BorderPane cell = new BorderPane();
+    private final BorderPane cell = new BorderPane();
 
     @Override
     public void updateItem(ServerList item, boolean empty){

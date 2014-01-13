@@ -1,6 +1,6 @@
 package org.mcupdater.translate;
 
-public class USEnglish extends TranslateProxy {
+class USEnglish extends TranslateProxy {
 	public USEnglish(){
 		instances = "Instances";
 		update = "Update";

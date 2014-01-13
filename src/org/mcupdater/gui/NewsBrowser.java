@@ -7,12 +7,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-/**
- * Created by sbarbour on 1/2/14.
- */
 public class NewsBrowser extends Region {
-    WebView view = new WebView();
-    WebEngine engine = view.getEngine();
+    final WebView view = new WebView();
+    final WebEngine engine = view.getEngine();
 
     public NewsBrowser() {
         getChildren().add(view);

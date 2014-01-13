@@ -1,7 +1,6 @@
 package org.mcupdater.settings;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Settings {
@@ -177,9 +176,7 @@ public class Settings {
 	}
 
 	public synchronized void addOrReplaceProfile(Profile newProfile) {
-		Iterator<Profile> it = new ArrayList<Profile>(this.profiles).iterator();
-		while (it.hasNext()) {
-			Profile entry = it.next();
+		for (Profile entry : new ArrayList<Profile>(this.profiles)) {
 			if (entry.getName().equals(newProfile.getName())) {
 				this.profiles.remove(entry);
 			}

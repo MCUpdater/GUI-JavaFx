@@ -1,6 +1,6 @@
 package org.mcupdater.translate;
 
-public class FRFrench extends TranslateProxy {
+class FRFrench extends TranslateProxy {
 	public FRFrench(){
 		instances = "Instances";
 		update = "Mettre à jour";

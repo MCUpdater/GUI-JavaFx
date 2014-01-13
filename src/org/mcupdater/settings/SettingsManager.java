@@ -17,9 +17,9 @@ import java.util.Properties;
 public class SettingsManager {
 
 	private static SettingsManager instance;
-	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	private Settings settings;
-	private Path configFile = MCUpdater.getInstance().getArchiveFolder().resolve("config.json");
+	private final Path configFile = MCUpdater.getInstance().getArchiveFolder().resolve("config.json");
 	private boolean dirty = false;
 	
 	public SettingsManager() {
@@ -136,7 +136,7 @@ public class SettingsManager {
 			writer.append(jsonOut);
 			writer.close();
 			this.dirty = false;
-			//TODO: MCUSettings.setState(false);
+			MCUSettings.setState(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -148,6 +148,6 @@ public class SettingsManager {
 	
 	public void setDirty() {
 		this.dirty = true;
-		//TODO: MCUSettings.setState(true);
+		MCUSettings.setState(true);
 	}
 }

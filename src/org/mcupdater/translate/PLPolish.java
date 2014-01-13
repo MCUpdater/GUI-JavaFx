@@ -1,6 +1,6 @@
 package org.mcupdater.translate;
 
-public class PLPolish extends TranslateProxy {
+class PLPolish extends TranslateProxy {
 	public PLPolish(){
 		instances = "Instancje";
 		update = "Aktualizuj";
