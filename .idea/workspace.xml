@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Current" comment="Current">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/MCU-API.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/MCU-DownloadLib.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/MCU-Yggdrasil.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-io-2.1.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-lang3-3.1.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/gson-2.2.4.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jopt-simple-4.5.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/xz-1.4.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/sbarbour.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    </list>
+    <ignored path="JavaFxApplication.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored mask="hs_err*.log" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="JavaFxApplication" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="profiles_settings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/copyright/profiles_settings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JavaFXApp.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/artifacts/JavaFXApp.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scope_settings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/scopes/scope_settings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ant.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/ant.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="codeStyleSettings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/codeStyleSettings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="compiler.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gradle.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/gradle.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="432">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="misc.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modules.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workspace.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="0" selection-start="201" selection-end="201" vertical-scroll-proportion="0.17142858" vertical-offset="0" max-vertical-offset="20232">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Scott M. Barbour &lt;smbarbour..." />
+        <option value="Scott M. Barbour &lt;smbarbour@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="tasksExpandState">
+      <map>
+        <entry key="" value="true" />
+      </map>
+    </option>
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="MCU-FXGUI" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value=":" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/MCUpdater.css" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/Main.java" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/InstanceListCell.java" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/MainController.java" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/settings/Profile.java" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/NewsBrowser.java" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/settings/SettingsManager.java" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/MainDialog.fxml" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.java" />
+        <option value="$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.fxml" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="52" />
+    <option name="width" value="1440" />
+    <option name="height" value="824" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mcupdater" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mcupdater" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scopes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dictionaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="copyright" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MCU-FXGUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artifacts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="OverrideImplement.combined" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.lastSelected" value="preferences.sourceCode.XML" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="114" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="126" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="130" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1038" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="114" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="126" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="130" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1038" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/xz-1.4.jar!/" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.mcupdater.gui" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Main" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="org.mcupdater.gui.Main" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="MCU-FXGUI" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+    </list>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="false">$USER_HOME$/.subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+      <created>1359379246138</created>
+      <updated>1359379246138</updated>
+      <workItem from="1359379250712" duration="1302000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit (local)">
+      <created>1388522325690</created>
+      <updated>1388522325690</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Work on adding the settings tab contents&#10;&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is up-to-date with 'origin/master'.&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   src/org/mcupdater/gui/MCUSettings.fxml&#10;#&#9;new file:   src/org/mcupdater/gui/MCUSettings.java&#10;#&#9;modified:   src/org/mcupdater/gui/NewsBrowser.java&#10;#&#9;modified:   src/org/mcupdater/settings/SettingsManager.java&#10;#&#10;# Untracked files:&#10;#&#9;.idea/workspace.xml&#10;#&#10;diff --git a/src/org/mcupdater/gui/MCUSettings.fxml b/src/org/mcupdater/gui/MCUSettings.fxml&#10;new file mode 100644&#10;index 0000000..b52078a&#10;--- /dev/null&#10;+++ b/src/org/mcupdater/gui/MCUSettings.fxml&#10;@@ -0,0 +1,48 @@&#10;+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;+&#10;+&lt;?import java.lang.*?&gt;&#10;+&lt;?import javafx.geometry.*?&gt;&#10;+&lt;?import javafx.scene.control.*?&gt;&#10;+&lt;?import javafx.scene.layout.*?&gt;&#10;+&#10;+&lt;fx:root type=&quot;javafx.scene.layout.BorderPane&quot; prefHeight=&quot;675.0&quot; prefWidth=&quot;597.0&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot; xmlns=&quot;http://javafx.com/javafx/2.2&quot;&gt;&#10;+    &lt;center&gt;&#10;+        &lt;GridPane&gt;&#10;+            &lt;children&gt;&#10;+                &lt;Label text=&quot;Profiles:&quot; GridPane.columnIndex=&quot;0&quot; GridPane.rowIndex=&quot;0&quot; GridPane.valignment=&quot;TOP&quot; /&gt;&#10;+                &lt;ListView prefHeight=&quot;100.0&quot; prefWidth=&quot;200.0&quot; GridPane.columnIndex=&quot;1&quot; GridPane.rowIndex=&quot;0&quot; /&gt;&#10;+                &lt;VBox prefHeight=&quot;200.0&quot; prefWidth=&quot;100.0&quot; spacing=&quot;5.0&quot; GridPane.columnIndex=&quot;2&quot; GridPane.rowIndex=&quot;0&quot;&gt;&#10;+                    &lt;children&gt;&#10;+                        &lt;Button minWidth=&quot;-1.0&quot; mnemonicParsing=&quot;false&quot; prefWidth=&quot;80.0&quot; text=&quot;Add&quot; /&gt;&#10;+                        &lt;Button mnemonicParsing=&quot;false&quot; prefWidth=&quot;80.0&quot; text=&quot;Remove&quot; /&gt;&#10;+                    &lt;/children&gt;&#10;+                    &lt;padding&gt;&#10;+                        &lt;Insets left=&quot;2.0&quot; top=&quot;2.0&quot;/&gt;&#10;+                    &lt;/padding&gt;&#10;+                &lt;/VBox&gt;&#10;+            &lt;/children&gt;&#10;+            &lt;columnConstraints&gt;&#10;+                &lt;ColumnConstraints halignment=&quot;RIGHT&quot; hgrow=&quot;SOMETIMES&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+                &lt;ColumnConstraints hgrow=&quot;ALWAYS&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+                &lt;ColumnConstraints hgrow=&quot;SOMETIMES&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+            &lt;/columnConstraints&gt;&#10;+            &lt;rowConstraints&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+            &lt;/rowConstraints&gt;&#10;+        &lt;/GridPane&gt;&#10;+    &lt;/center&gt;&#10;+    &lt;top&gt;&#10;+        &lt;HBox prefHeight=&quot;30.0&quot; prefWidth=&quot;200.0&quot; spacing=&quot;5.0&quot;&gt;&#10;+            &lt;padding&gt;&#10;+                &lt;Insets left=&quot;2.0&quot; top=&quot;2.0&quot;/&gt;&#10;+            &lt;/padding&gt;&#10;+            &lt;children&gt;&#10;+                &lt;Button mnemonicParsing=&quot;false&quot; text=&quot;Save&quot; /&gt;&#10;+                &lt;Button mnemonicParsing=&quot;false&quot; text=&quot;Reload&quot; /&gt;&#10;+                &lt;Label text=&quot;State: Saved&quot; /&gt;&#10;+            &lt;/children&gt;&#10;+        &lt;/HBox&gt;&#10;+    &lt;/top&gt;&#10;+&lt;/fx:root&gt;&#10;diff --git a/src/org/mcupdater/gui/MCUSettings.java b/src/org/mcupdater/gui/MCUSettings.java&#10;new file mode 100644&#10;index 0000000..944781d&#10;--- /dev/null&#10;+++ b/src/org/mcupdater/gui/MCUSettings.java&#10;@@ -0,0 +1,33 @@&#10;+package org.mcupdater.gui;&#10;+&#10;+import javafx.fxml.FXMLLoader;&#10;+import javafx.scene.layout.GridPane;&#10;+&#10;+import java.io.IOException;&#10;+&#10;+/**&#10;+ * Created by sbarbour on 1/3/14.&#10;+ */&#10;+public class MCUSettings extends GridPane {&#10;+    private static MCUSettings INSTANCE;&#10;+&#10;+    public MCUSettings() {&#10;+        INSTANCE = this;&#10;+        FXMLLoader fxml = new FXMLLoader(getClass().getResource(&quot;MCUSettings.fxml&quot;));&#10;+        fxml.setRoot(this);&#10;+        fxml.setController(this);&#10;+&#10;+        try {&#10;+            fxml.load();&#10;+        } catch (IOException exception) {&#10;+            throw new RuntimeException(exception);&#10;+        }&#10;+    }&#10;+&#10;+    public static void setState(boolean isDirty) {&#10;+        if (!(INSTANCE == null)) {&#10;+            //TODO&#10;+            System.out.println(isDirty);&#10;+        }&#10;+    }&#10;+}&#10;diff --git a/src/org/mcupdater/gui/NewsBrowser.java b/src/org/mcupdater/gui/NewsBrowser.java&#10;index a296a8a..df2188a 100644&#10;--- a/src/org/mcupdater/gui/NewsBrowser.java&#10;+++ b/src/org/mcupdater/gui/NewsBrowser.java&#10;@@ -15,8 +15,6 @@ public class NewsBrowser extends Region {&#10;     WebEngine engine = view.getEngine();&#10; &#10;     public NewsBrowser() {&#10;-        engine.load(&quot;http://www.mcupdater.com&quot;);&#10;-&#10;         getChildren().add(view);&#10;     }&#10; &#10;diff --git a/src/org/mcupdater/settings/SettingsManager.java b/src/org/mcupdater/settings/SettingsManager.java&#10;index e631db2..1cb9528 100644&#10;--- a/src/org/mcupdater/settings/SettingsManager.java&#10;+++ b/src/org/mcupdater/settings/SettingsManager.java&#10;@@ -2,6 +2,7 @@ package org.mcupdater.settings;&#10; &#10; import com.google.gson.Gson;&#10; import com.google.gson.GsonBuilder;&#10;+import org.mcupdater.gui.MCUSettings;&#10; import org.mcupdater.util.MCUpdater;&#10; &#10; import java.io.*;&#10;@@ -45,7 +46,7 @@ public class SettingsManager {&#10; &#9;&#9;&#9;this.settings = gson.fromJson(reader, Settings.class);&#10; &#9;&#9;&#9;reader.close();&#10; &#9;&#9;&#9;this.dirty=false;&#10;-&#9;&#9;&#9;//TODO: MCUSettings.setState(false);&#10;+&#9;&#9;&#9;MCUSettings.setState(false);&#10; &#9;&#9;} catch (IOException e) {&#10; &#9;&#9;&#9;e.printStackTrace();&#10; &#9;&#9;}&#10;">
+      <created>1389299154462</created>
+      <updated>1389299154462</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1302000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="52" width="1440" height="824" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32967034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997253" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32692307" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32692307" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24964131" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25681493" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33791208" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32933334" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USERS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <MESSAGE value="Initial commit (local)" />
+    <MESSAGE value="Work on adding the settings tab contents&#10;&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is up-to-date with 'origin/master'.&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   src/org/mcupdater/gui/MCUSettings.fxml&#10;#&#9;new file:   src/org/mcupdater/gui/MCUSettings.java&#10;#&#9;modified:   src/org/mcupdater/gui/NewsBrowser.java&#10;#&#9;modified:   src/org/mcupdater/settings/SettingsManager.java&#10;#&#10;# Untracked files:&#10;#&#9;.idea/workspace.xml&#10;#&#10;diff --git a/src/org/mcupdater/gui/MCUSettings.fxml b/src/org/mcupdater/gui/MCUSettings.fxml&#10;new file mode 100644&#10;index 0000000..b52078a&#10;--- /dev/null&#10;+++ b/src/org/mcupdater/gui/MCUSettings.fxml&#10;@@ -0,0 +1,48 @@&#10;+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;+&#10;+&lt;?import java.lang.*?&gt;&#10;+&lt;?import javafx.geometry.*?&gt;&#10;+&lt;?import javafx.scene.control.*?&gt;&#10;+&lt;?import javafx.scene.layout.*?&gt;&#10;+&#10;+&lt;fx:root type=&quot;javafx.scene.layout.BorderPane&quot; prefHeight=&quot;675.0&quot; prefWidth=&quot;597.0&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot; xmlns=&quot;http://javafx.com/javafx/2.2&quot;&gt;&#10;+    &lt;center&gt;&#10;+        &lt;GridPane&gt;&#10;+            &lt;children&gt;&#10;+                &lt;Label text=&quot;Profiles:&quot; GridPane.columnIndex=&quot;0&quot; GridPane.rowIndex=&quot;0&quot; GridPane.valignment=&quot;TOP&quot; /&gt;&#10;+                &lt;ListView prefHeight=&quot;100.0&quot; prefWidth=&quot;200.0&quot; GridPane.columnIndex=&quot;1&quot; GridPane.rowIndex=&quot;0&quot; /&gt;&#10;+                &lt;VBox prefHeight=&quot;200.0&quot; prefWidth=&quot;100.0&quot; spacing=&quot;5.0&quot; GridPane.columnIndex=&quot;2&quot; GridPane.rowIndex=&quot;0&quot;&gt;&#10;+                    &lt;children&gt;&#10;+                        &lt;Button minWidth=&quot;-1.0&quot; mnemonicParsing=&quot;false&quot; prefWidth=&quot;80.0&quot; text=&quot;Add&quot; /&gt;&#10;+                        &lt;Button mnemonicParsing=&quot;false&quot; prefWidth=&quot;80.0&quot; text=&quot;Remove&quot; /&gt;&#10;+                    &lt;/children&gt;&#10;+                    &lt;padding&gt;&#10;+                        &lt;Insets left=&quot;2.0&quot; top=&quot;2.0&quot;/&gt;&#10;+                    &lt;/padding&gt;&#10;+                &lt;/VBox&gt;&#10;+            &lt;/children&gt;&#10;+            &lt;columnConstraints&gt;&#10;+                &lt;ColumnConstraints halignment=&quot;RIGHT&quot; hgrow=&quot;SOMETIMES&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+                &lt;ColumnConstraints hgrow=&quot;ALWAYS&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+                &lt;ColumnConstraints hgrow=&quot;SOMETIMES&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+            &lt;/columnConstraints&gt;&#10;+            &lt;rowConstraints&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+            &lt;/rowConstraints&gt;&#10;+        &lt;/GridPane&gt;&#10;+    &lt;/center&gt;&#10;+    &lt;top&gt;&#10;+        &lt;HBox prefHeight=&quot;30.0&quot; prefWidth=&quot;200.0&quot; spacing=&quot;5.0&quot;&gt;&#10;+            &lt;padding&gt;&#10;+                &lt;Insets left=&quot;2.0&quot; top=&quot;2.0&quot;/&gt;&#10;+            &lt;/padding&gt;&#10;+            &lt;children&gt;&#10;+                &lt;Button mnemonicParsing=&quot;false&quot; text=&quot;Save&quot; /&gt;&#10;+                &lt;Button mnemonicParsing=&quot;false&quot; text=&quot;Reload&quot; /&gt;&#10;+                &lt;Label text=&quot;State: Saved&quot; /&gt;&#10;+            &lt;/children&gt;&#10;+        &lt;/HBox&gt;&#10;+    &lt;/top&gt;&#10;+&lt;/fx:root&gt;&#10;diff --git a/src/org/mcupdater/gui/MCUSettings.java b/src/org/mcupdater/gui/MCUSettings.java&#10;new file mode 100644&#10;index 0000000..944781d&#10;--- /dev/null&#10;+++ b/src/org/mcupdater/gui/MCUSettings.java&#10;@@ -0,0 +1,33 @@&#10;+package org.mcupdater.gui;&#10;+&#10;+import javafx.fxml.FXMLLoader;&#10;+import javafx.scene.layout.GridPane;&#10;+&#10;+import java.io.IOException;&#10;+&#10;+/**&#10;+ * Created by sbarbour on 1/3/14.&#10;+ */&#10;+public class MCUSettings extends GridPane {&#10;+    private static MCUSettings INSTANCE;&#10;+&#10;+    public MCUSettings() {&#10;+        INSTANCE = this;&#10;+        FXMLLoader fxml = new FXMLLoader(getClass().getResource(&quot;MCUSettings.fxml&quot;));&#10;+        fxml.setRoot(this);&#10;+        fxml.setController(this);&#10;+&#10;+        try {&#10;+            fxml.load();&#10;+        } catch (IOException exception) {&#10;+            throw new RuntimeException(exception);&#10;+        }&#10;+    }&#10;+&#10;+    public static void setState(boolean isDirty) {&#10;+        if (!(INSTANCE == null)) {&#10;+            //TODO&#10;+            System.out.println(isDirty);&#10;+        }&#10;+    }&#10;+}&#10;diff --git a/src/org/mcupdater/gui/NewsBrowser.java b/src/org/mcupdater/gui/NewsBrowser.java&#10;index a296a8a..df2188a 100644&#10;--- a/src/org/mcupdater/gui/NewsBrowser.java&#10;+++ b/src/org/mcupdater/gui/NewsBrowser.java&#10;@@ -15,8 +15,6 @@ public class NewsBrowser extends Region {&#10;     WebEngine engine = view.getEngine();&#10; &#10;     public NewsBrowser() {&#10;-        engine.load(&quot;http://www.mcupdater.com&quot;);&#10;-&#10;         getChildren().add(view);&#10;     }&#10; &#10;diff --git a/src/org/mcupdater/settings/SettingsManager.java b/src/org/mcupdater/settings/SettingsManager.java&#10;index e631db2..1cb9528 100644&#10;--- a/src/org/mcupdater/settings/SettingsManager.java&#10;+++ b/src/org/mcupdater/settings/SettingsManager.java&#10;@@ -2,6 +2,7 @@ package org.mcupdater.settings;&#10; &#10; import com.google.gson.Gson;&#10; import com.google.gson.GsonBuilder;&#10;+import org.mcupdater.gui.MCUSettings;&#10; import org.mcupdater.util.MCUpdater;&#10; &#10; import java.io.*;&#10;@@ -45,7 +46,7 @@ public class SettingsManager {&#10; &#9;&#9;&#9;this.settings = gson.fromJson(reader, Settings.class);&#10; &#9;&#9;&#9;reader.close();&#10; &#9;&#9;&#9;this.dirty=false;&#10;-&#9;&#9;&#9;//TODO: MCUSettings.setState(false);&#10;+&#9;&#9;&#9;MCUSettings.setState(false);&#10; &#9;&#9;} catch (IOException e) {&#10; &#9;&#9;&#9;e.printStackTrace();&#10; &#9;&#9;}&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work on adding the settings tab contents&#10;&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is up-to-date with 'origin/master'.&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   src/org/mcupdater/gui/MCUSettings.fxml&#10;#&#9;new file:   src/org/mcupdater/gui/MCUSettings.java&#10;#&#9;modified:   src/org/mcupdater/gui/NewsBrowser.java&#10;#&#9;modified:   src/org/mcupdater/settings/SettingsManager.java&#10;#&#10;# Untracked files:&#10;#&#9;.idea/workspace.xml&#10;#&#10;diff --git a/src/org/mcupdater/gui/MCUSettings.fxml b/src/org/mcupdater/gui/MCUSettings.fxml&#10;new file mode 100644&#10;index 0000000..b52078a&#10;--- /dev/null&#10;+++ b/src/org/mcupdater/gui/MCUSettings.fxml&#10;@@ -0,0 +1,48 @@&#10;+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;+&#10;+&lt;?import java.lang.*?&gt;&#10;+&lt;?import javafx.geometry.*?&gt;&#10;+&lt;?import javafx.scene.control.*?&gt;&#10;+&lt;?import javafx.scene.layout.*?&gt;&#10;+&#10;+&lt;fx:root type=&quot;javafx.scene.layout.BorderPane&quot; prefHeight=&quot;675.0&quot; prefWidth=&quot;597.0&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot; xmlns=&quot;http://javafx.com/javafx/2.2&quot;&gt;&#10;+    &lt;center&gt;&#10;+        &lt;GridPane&gt;&#10;+            &lt;children&gt;&#10;+                &lt;Label text=&quot;Profiles:&quot; GridPane.columnIndex=&quot;0&quot; GridPane.rowIndex=&quot;0&quot; GridPane.valignment=&quot;TOP&quot; /&gt;&#10;+                &lt;ListView prefHeight=&quot;100.0&quot; prefWidth=&quot;200.0&quot; GridPane.columnIndex=&quot;1&quot; GridPane.rowIndex=&quot;0&quot; /&gt;&#10;+                &lt;VBox prefHeight=&quot;200.0&quot; prefWidth=&quot;100.0&quot; spacing=&quot;5.0&quot; GridPane.columnIndex=&quot;2&quot; GridPane.rowIndex=&quot;0&quot;&gt;&#10;+                    &lt;children&gt;&#10;+                        &lt;Button minWidth=&quot;-1.0&quot; mnemonicParsing=&quot;false&quot; prefWidth=&quot;80.0&quot; text=&quot;Add&quot; /&gt;&#10;+                        &lt;Button mnemonicParsing=&quot;false&quot; prefWidth=&quot;80.0&quot; text=&quot;Remove&quot; /&gt;&#10;+                    &lt;/children&gt;&#10;+                    &lt;padding&gt;&#10;+                        &lt;Insets left=&quot;2.0&quot; top=&quot;2.0&quot;/&gt;&#10;+                    &lt;/padding&gt;&#10;+                &lt;/VBox&gt;&#10;+            &lt;/children&gt;&#10;+            &lt;columnConstraints&gt;&#10;+                &lt;ColumnConstraints halignment=&quot;RIGHT&quot; hgrow=&quot;SOMETIMES&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+                &lt;ColumnConstraints hgrow=&quot;ALWAYS&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+                &lt;ColumnConstraints hgrow=&quot;SOMETIMES&quot; minWidth=&quot;10.0&quot; prefWidth=&quot;100.0&quot; /&gt;&#10;+            &lt;/columnConstraints&gt;&#10;+            &lt;rowConstraints&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+                &lt;RowConstraints minHeight=&quot;10.0&quot; prefHeight=&quot;30.0&quot; vgrow=&quot;SOMETIMES&quot; /&gt;&#10;+            &lt;/rowConstraints&gt;&#10;+        &lt;/GridPane&gt;&#10;+    &lt;/center&gt;&#10;+    &lt;top&gt;&#10;+        &lt;HBox prefHeight=&quot;30.0&quot; prefWidth=&quot;200.0&quot; spacing=&quot;5.0&quot;&gt;&#10;+            &lt;padding&gt;&#10;+                &lt;Insets left=&quot;2.0&quot; top=&quot;2.0&quot;/&gt;&#10;+            &lt;/padding&gt;&#10;+            &lt;children&gt;&#10;+                &lt;Button mnemonicParsing=&quot;false&quot; text=&quot;Save&quot; /&gt;&#10;+                &lt;Button mnemonicParsing=&quot;false&quot; text=&quot;Reload&quot; /&gt;&#10;+                &lt;Label text=&quot;State: Saved&quot; /&gt;&#10;+            &lt;/children&gt;&#10;+        &lt;/HBox&gt;&#10;+    &lt;/top&gt;&#10;+&lt;/fx:root&gt;&#10;diff --git a/src/org/mcupdater/gui/MCUSettings.java b/src/org/mcupdater/gui/MCUSettings.java&#10;new file mode 100644&#10;index 0000000..944781d&#10;--- /dev/null&#10;+++ b/src/org/mcupdater/gui/MCUSettings.java&#10;@@ -0,0 +1,33 @@&#10;+package org.mcupdater.gui;&#10;+&#10;+import javafx.fxml.FXMLLoader;&#10;+import javafx.scene.layout.GridPane;&#10;+&#10;+import java.io.IOException;&#10;+&#10;+/**&#10;+ * Created by sbarbour on 1/3/14.&#10;+ */&#10;+public class MCUSettings extends GridPane {&#10;+    private static MCUSettings INSTANCE;&#10;+&#10;+    public MCUSettings() {&#10;+        INSTANCE = this;&#10;+        FXMLLoader fxml = new FXMLLoader(getClass().getResource(&quot;MCUSettings.fxml&quot;));&#10;+        fxml.setRoot(this);&#10;+        fxml.setController(this);&#10;+&#10;+        try {&#10;+            fxml.load();&#10;+        } catch (IOException exception) {&#10;+            throw new RuntimeException(exception);&#10;+        }&#10;+    }&#10;+&#10;+    public static void setState(boolean isDirty) {&#10;+        if (!(INSTANCE == null)) {&#10;+            //TODO&#10;+            System.out.println(isDirty);&#10;+        }&#10;+    }&#10;+}&#10;diff --git a/src/org/mcupdater/gui/NewsBrowser.java b/src/org/mcupdater/gui/NewsBrowser.java&#10;index a296a8a..df2188a 100644&#10;--- a/src/org/mcupdater/gui/NewsBrowser.java&#10;+++ b/src/org/mcupdater/gui/NewsBrowser.java&#10;@@ -15,8 +15,6 @@ public class NewsBrowser extends Region {&#10;     WebEngine engine = view.getEngine();&#10; &#10;     public NewsBrowser() {&#10;-        engine.load(&quot;http://www.mcupdater.com&quot;);&#10;-&#10;         getChildren().add(view);&#10;     }&#10; &#10;diff --git a/src/org/mcupdater/settings/SettingsManager.java b/src/org/mcupdater/settings/SettingsManager.java&#10;index e631db2..1cb9528 100644&#10;--- a/src/org/mcupdater/settings/SettingsManager.java&#10;+++ b/src/org/mcupdater/settings/SettingsManager.java&#10;@@ -2,6 +2,7 @@ package org.mcupdater.settings;&#10; &#10; import com.google.gson.Gson;&#10; import com.google.gson.GsonBuilder;&#10;+import org.mcupdater.gui.MCUSettings;&#10; import org.mcupdater.util.MCUpdater;&#10; &#10; import java.io.*;&#10;@@ -45,7 +46,7 @@ public class SettingsManager {&#10; &#9;&#9;&#9;this.settings = gson.fromJson(reader, Settings.class);&#10; &#9;&#9;&#9;reader.close();&#10; &#9;&#9;&#9;this.dirty=false;&#10;-&#9;&#9;&#9;//TODO: MCUSettings.setState(false);&#10;+&#9;&#9;&#9;MCUSettings.setState(false);&#10; &#9;&#9;} catch (IOException e) {&#10; &#9;&#9;&#9;e.printStackTrace();&#10; &#9;&#9;}&#10;" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="82" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1206">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="21" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="1062">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/NewsBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="3" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/InstanceListCell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="24" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="954">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="21" selection-start="634" selection-end="634" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="594">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MainDialog.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="35" selection-start="1511" selection-end="1511" vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="1386">
+          <folding>
+            <marker date="1389299079084" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUpdater.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="21" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="216">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0" vertical-offset="128" max-vertical-offset="756">
+          <folding>
+            <element signature="e#803#804#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/settings/SettingsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="25" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="2862">
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4561#4562#0" expanded="false" />
+            <element signature="e#4583#4584#0" expanded="false" />
+            <element signature="e#5093#5094#0" expanded="false" />
+            <element signature="e#5117#5118#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="82" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1206">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="21" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="1062">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/NewsBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="3" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/InstanceListCell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="24" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="954">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="21" selection-start="634" selection-end="634" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="594">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MainDialog.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="35" selection-start="1511" selection-end="1511" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1386">
+          <folding>
+            <marker date="1389299079084" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUpdater.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="21" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="216">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/settings/SettingsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="25" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="2862">
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4561#4562#0" expanded="false" />
+            <element signature="e#4583#4584#0" expanded="false" />
+            <element signature="e#5093#5094#0" expanded="false" />
+            <element signature="e#5117#5118#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="29" selection-start="495" selection-end="495" vertical-scroll-proportion="0.0" vertical-offset="86" max-vertical-offset="1170">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="21" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0" vertical-offset="211" max-vertical-offset="1062">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/NewsBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="3" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/InstanceListCell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="24" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="954">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="21" selection-start="634" selection-end="634" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="594">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MainDialog.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="35" selection-start="1511" selection-end="1511" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1386">
+          <folding>
+            <marker date="1389299079084" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUpdater.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="21" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="216">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="18" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="234">
+          <folding>
+            <element signature="e#803#804#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="721" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/uiDesigner.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.059322" vertical-offset="1458" max-vertical-offset="2358" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/translate/TranslateProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="22" selection-start="56" selection-end="56" vertical-scroll-proportion="0.08" vertical-offset="0" max-vertical-offset="828" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/settings/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="376" selection-end="376" vertical-scroll-proportion="0.576659" vertical-offset="0" max-vertical-offset="1926" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/settings/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="125" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3474" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/translate/Languages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="12" selection-start="46" selection-end="46" vertical-scroll-proportion="0.06888889" vertical-offset="5" max-vertical-offset="702" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/NewsBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="3" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0" vertical-offset="122" max-vertical-offset="666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/InstanceListCell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="24" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="954">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="21" selection-start="634" selection-end="634" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="594">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/settings/SettingsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="25" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="2790">
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4561#4562#0" expanded="false" />
+            <element signature="e#4583#4584#0" expanded="false" />
+            <element signature="e#5093#5094#0" expanded="false" />
+            <element signature="e#5117#5118#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUpdater.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="21" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="216">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="63" selection-start="599" selection-end="599" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <folding>
+            <element signature="e#803#804#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MainDialog.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1062">
+          <folding>
+            <marker date="1389299079084" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="4" selection-start="2513" selection-end="2513" vertical-scroll-proportion="0.0" vertical-offset="798" max-vertical-offset="1422">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/mcupdater/gui/MCUSettings.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="34" selection-start="3945" selection-end="3945" vertical-scroll-proportion="0.0" vertical-offset="792" max-vertical-offset="1854">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dictionaries/sbarbour.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/copyright/profiles_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/artifacts/JavaFXApp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/scopes/scope_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/ant.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/codeStyleSettings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/gradle.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="432">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="201" selection-end="201" vertical-scroll-proportion="0.17142858" vertical-offset="0" max-vertical-offset="20232">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>JavaFXApp</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>MCU-FXGUI</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>MCU-API</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+

@@ -1,7 +1,3 @@
 *.class
 out/*
-
-# Package Files #
-*.jar
-*.war
-*.ear
+hs_err*.log
