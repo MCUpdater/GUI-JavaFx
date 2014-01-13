@@ -14,7 +14,7 @@ public class USEnglish extends TranslateProxy {
 		maxMemory = "Maximum Memory:";
 		permGen = "PermGen Space:";
 		memDisclaimer = "Memory can be specified in MB or GB (i.e. 512M or 1G).\nIncreasing memory may help performance, but often has no measurable impact.";
-		resolution = "Resolution:";
+		resolution = "Windowed Resolution:";
 		javaHome = "Java Home Path:";
 		browse = "Browse";
 		jvmOpts = "JVM Opts:";

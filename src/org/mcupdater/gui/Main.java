@@ -5,12 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.mcupdater.translate.Languages;
+import org.mcupdater.translate.TranslateProxy;
 
-/**
- * Created by sbarbour on 1/2/14.
- */
 public class Main extends Application {
+	private static TranslateProxy translation;
+
     public static void main(String[] args) {
+	    try {
+		    translation = Languages.valueOf(Languages.getLocale()).getProxy();
+	    } catch (Exception e) {
+		    System.out.println("No translation for " + Languages.getLocale() + "!");
+		    translation = Languages.en_US.getProxy();
+	    }
         launch(args);
     }
 
@@ -24,4 +31,8 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+	public static TranslateProxy getTranslation() {
+		return translation;
+	}
 }
