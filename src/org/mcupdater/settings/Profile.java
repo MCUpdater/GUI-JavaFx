@@ -107,7 +107,8 @@ public class Profile {
 		return uuid;
 	}
 
-	public void setUUID(String uuid) {
-		this.uuid = uuid;
-	}
+	public void setUUID(String uuid) { this.uuid = uuid; }
+
+	@Override
+	public String toString() { return this.getName(); }
 }

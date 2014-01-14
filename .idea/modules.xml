@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MCU-FXGUI.iml" filepath="$PROJECT_DIR$/MCU-FXGUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../MCU-API/MCU-API.iml" filepath="$PROJECT_DIR$/../MCU-API/MCU-API.iml" group="MCUpdater" />
+      <module fileurl="file://$PROJECT_DIR$/MCU-FXGUI.iml" filepath="$PROJECT_DIR$/MCU-FXGUI.iml" group="MCUpdater" />
     </modules>
   </component>
 </project>

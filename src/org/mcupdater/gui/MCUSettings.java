@@ -7,12 +7,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
 import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.TranslateProxy;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class MCUSettings extends BorderPane {
     public static MCUSettings INSTANCE;
@@ -22,7 +22,7 @@ public class MCUSettings extends BorderPane {
     public Label lblProfiles;
     public Button btnProfileAdd;
     public Button btnProfileRemove;
-    public ListView lstProfiles;
+    public ListView<Profile> lstProfiles;
     public Label lblMinMemory;
     public TextField txtMinMemory;
     public Label lblMaxMemory;
@@ -50,7 +50,7 @@ public class MCUSettings extends BorderPane {
 	public TextField txtProgramWrapper;
 	public CheckBox chkMinimize;
 	public CheckBox chkAutoConnect;
-	public ListView<URL> lstPackURLs;
+	public ListView<String> lstPackURLs;
 	public TextField txtNewURL;
 	public Button btnPackURLAdd;
 	public Button btnPackURLRemove;
@@ -135,6 +135,17 @@ public class MCUSettings extends BorderPane {
 		txtProgramWrapper.setText(imported.getProgramWrapper());
 		chkMinimize.setSelected(imported.isMinimizeOnLaunch());
 		chkAutoConnect.setSelected(imported.isAutoConnect());
+		lstProfiles.getItems().clear();
+		for (Profile entry : imported.getProfiles())
+		{
+			lstProfiles.getItems().add(entry);
+		}
+		lstPackURLs.getItems().clear();
+		for (String entry : imported.getPackURLs())
+		{
+			lstPackURLs.getItems().add(entry);
+		}
+		MainController.getInstance().refreshInstanceList();
 		allowEvents=true;
 	}
 

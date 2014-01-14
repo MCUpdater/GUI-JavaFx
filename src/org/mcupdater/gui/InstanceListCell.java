@@ -9,6 +9,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import org.mcupdater.model.ServerList;
+import org.mcupdater.util.MCUpdater;
+
+import java.net.URI;
+import java.net.URL;
 
 class InstanceListCell extends ListCell<ServerList> {
 
@@ -21,7 +25,13 @@ class InstanceListCell extends ListCell<ServerList> {
         if (empty) {
             setGraphic(null);
         } else {
-            serverIcon.setImage(new Image(item.getIconUrl()));
+	        URL icon = null;
+	        try {
+		        icon = (new URI(item.getIconUrl())).toURL();
+	        } catch (Exception e) {
+		        icon = MCUpdater.class.getResource("/minecraft.png");
+	        }
+	        serverIcon.setImage(new Image(icon.toString()));
             serverIcon.setFitHeight(32);
             serverIcon.setPreserveRatio(true);
             serverIcon.setSmooth(true);
