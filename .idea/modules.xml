@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../MCU-API/MCU-API.iml" filepath="$PROJECT_DIR$/../MCU-API/MCU-API.iml" group="MCUpdater" />
       <module fileurl="file://$PROJECT_DIR$/MCU-FXGUI.iml" filepath="$PROJECT_DIR$/MCU-FXGUI.iml" group="MCUpdater" />
+      <module fileurl="file://$PROJECT_DIR$/../MCU-Yggdrasil/MCU-Yggdrasil.iml" filepath="$PROJECT_DIR$/../MCU-Yggdrasil/MCU-Yggdrasil.iml" group="MCUpdater" />
     </modules>
   </component>
 </project>
