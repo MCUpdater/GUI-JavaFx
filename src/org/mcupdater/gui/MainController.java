@@ -31,6 +31,7 @@ public class MainController implements Initializable {
 	public Tab tabModules;
 	public Tab tabProgress;
 	public Label lblInstances;
+	public ProgressView progress;
 
 	public MainController() {
 		INSTANCE = this;
