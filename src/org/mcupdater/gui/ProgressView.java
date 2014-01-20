@@ -13,7 +13,7 @@ public class ProgressView extends Region
 {
 	private ScrollPane scroll = new ScrollPane();
 	private Accordion content = new Accordion();
-	private Map<MultiKey, ProgressItem> items = new HashMap<MultiKey, ProgressItem>();
+	private Map<MultiKey, ProgressItem> items = new HashMap<>();
 
 	public ProgressView() {
 		getChildren().add(scroll);

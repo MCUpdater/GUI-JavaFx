@@ -25,7 +25,7 @@ class InstanceListCell extends ListCell<ServerList> {
         if (empty) {
             setGraphic(null);
         } else {
-	        URL icon = null;
+	        URL icon;
 	        try {
 		        icon = (new URI(item.getIconUrl())).toURL();
 	        } catch (Exception e) {

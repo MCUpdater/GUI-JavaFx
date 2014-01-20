@@ -17,7 +17,7 @@ public class Settings {
 		timeoutLength
 	}
 
-	private List<Profile> profiles = new ArrayList<Profile>();
+	private List<Profile> profiles = new ArrayList<>();
 	private String lastProfile;
 	private String minMemory;
 	private String maxMemory;
@@ -32,7 +32,7 @@ public class Settings {
 	private int timeoutLength;
 	private boolean autoConnect;
 	private boolean minimizeOnLaunch;
-	private List<String> packURLs = new ArrayList<String>();
+	private List<String> packURLs = new ArrayList<>();
 
 	public List<Profile> getProfiles() {
 		return profiles;
@@ -176,7 +176,7 @@ public class Settings {
 	}
 
 	public synchronized void addOrReplaceProfile(Profile newProfile) {
-		for (Profile entry : new ArrayList<Profile>(this.profiles)) {
+		for (Profile entry : new ArrayList<>(this.profiles)) {
 			if (entry.getName().equals(newProfile.getName())) {
 				this.profiles.remove(entry);
 			}

@@ -62,8 +62,6 @@ public class SettingsManager {
 		Properties oldConfig = new Properties();
 		try {
 			oldConfig.load(new FileInputStream(oldConfigFile));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -74,9 +74,9 @@ public class MainController implements Initializable {
 	public void refreshInstanceList()
 	{
 		Settings current = SettingsManager.getInstance().getSettings();
-		List<ServerList> slList = new ArrayList<ServerList>();
+		List<ServerList> slList = new ArrayList<>();
 
-		Set<String> urls = new HashSet<String>();
+		Set<String> urls = new HashSet<>();
 		urls.addAll(current.getPackURLs());
 
 		for (String serverUrl : urls)
