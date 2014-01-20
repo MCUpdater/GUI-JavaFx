@@ -93,13 +93,11 @@ public class MainController implements Initializable {
 						for (int i = 0; i < servers.getLength(); i++)
 						{
 							docEle = (Element)servers.item(i);
-							ServerList sl = new ServerList(docEle.getAttribute("id"), docEle.getAttribute("name"), serverUrl, docEle.getAttribute("newsUrl"), docEle.getAttribute("iconUrl"), docEle.getAttribute("version"), docEle.getAttribute("serverAddress"), ServerPackParser.parseBoolean(docEle.getAttribute("generateList"), true), ServerPackParser.parseBoolean(docEle.getAttribute("autoConnect"), true), docEle.getAttribute("revision"), ServerPackParser.parseBoolean(docEle.getAttribute("abstract"), false), docEle.getAttribute("mainClass")); //TODO: Add method to ServerList to get ServerList object from Element
-							sl.setMCUVersion(mcuVersion);
+							ServerList sl = ServerList.fromElement(mcuVersion, serverUrl, docEle);
 							if (!sl.isFakeServer()) { slList.add(sl); }
 						}
 					} else {
-						ServerList sl = new ServerList(parent.getAttribute("id"), parent.getAttribute("name"), serverUrl, parent.getAttribute("newsUrl"), parent.getAttribute("iconUrl"), parent.getAttribute("version"), parent.getAttribute("serverAddress"), ServerPackParser.parseBoolean(parent.getAttribute("generateList"), true), ServerPackParser.parseBoolean(parent.getAttribute("autoConnect"), true), parent.getAttribute("revision"), ServerPackParser.parseBoolean(parent.getAttribute("abstract"), false), parent.getAttribute("mainClass"));
-						sl.setMCUVersion("1.0");
+						ServerList sl = ServerList.fromElement("1.0", serverUrl, parent);
 						slList.add(sl);
 					}
 				} else {

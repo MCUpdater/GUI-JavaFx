@@ -12,21 +12,12 @@ import java.util.Map;
 public class ProgressView extends Region
 {
 	private ScrollPane scroll = new ScrollPane();
-	private Accordion content = new Accordion();
+	private VBox content = new VBox();
 	private Map<MultiKey, ProgressItem> items = new HashMap<>();
 
 	public ProgressView() {
 		getChildren().add(scroll);
 		scroll.setContent(content);
-		TitledPane special = new TitledPane("",null);
-		BorderPane testHeader = new BorderPane();
-		testHeader.setLeft(new Label("Foobar!"));
-		ProgressBar pbTest = new ProgressBar();
-		pbTest.setProgress(0.65);
-		testHeader.setCenter(pbTest);
-		testHeader.setRight(new Button("I'm a button!"));
-		special.setGraphic(HBoxBuilder.create().children(testHeader).build());
-		content.getPanes().addAll(new TitledPane("T1", new Button("A")), new TitledPane("T2", new Button("B")), special);
 		scroll.setFitToHeight(true);
 		scroll.setFitToWidth(true);
 	}
