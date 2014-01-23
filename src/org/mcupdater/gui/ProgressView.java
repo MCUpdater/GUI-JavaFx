@@ -1,9 +1,17 @@
 package org.mcupdater.gui;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.HashMap;
@@ -20,6 +28,31 @@ public class ProgressView extends Region
 		scroll.setContent(content);
 		scroll.setFitToHeight(true);
 		scroll.setFitToWidth(true);
+		scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+		content.setPadding(new Insets(5));
+		content.setSpacing(3);
+		//Testing code
+		addProgressBar("I haz long name!", "Test");
+		addProgressBar("2", "Test");
+		addProgressBar("3", "Test");
+		updateProgress("2", "Test", 0.25f, 4, 1);
+		updateProgress("3", "Test", 1f, 1000,300);
+	}
+
+	public synchronized void addProgressBar(String jobName, String parentId) {
+		MultiKey key = new MultiKey(parentId, jobName);
+		content.getChildren().remove(key); // Remove old row if one exists
+		ProgressItem newItem = new ProgressItem(jobName, parentId);
+		content.getChildren().add(newItem);
+		items.put(key, newItem);
+	}
+
+	public synchronized void updateProgress(final String jobName, final String parentId, float newProgress, int totalFiles, int successfulFiles) {
+		ProgressItem bar = items.get(new MultiKey(parentId, jobName));
+		synchronized(bar){
+			if (bar == null) { return; }
+			bar.setProgress(newProgress, totalFiles, successfulFiles);
+		}
 	}
 
 	@Override
@@ -63,7 +96,60 @@ public class ProgressView extends Region
 		}
 	}
 
-	private class ProgressItem
+	private class ProgressItem extends GridPane
 	{
+		private Label lblName;
+		private ProgressBar pbProgress;
+		private Label lblStatus;
+		private Button btnDismiss;
+		private boolean active;
+
+		public ProgressItem(final String jobName, final String parentId) {
+			active = true;
+			lblName = new Label(parentId + " - " + jobName);
+			pbProgress = new ProgressBar();
+			pbProgress.setMaxWidth(Double.MAX_VALUE);
+			lblStatus = new Label("Inactive");
+			btnDismiss = new Button("", new ImageView(new Image(getClass().getResourceAsStream("remove.png"))));
+			btnDismiss.setDisable(true);
+			btnDismiss.setOnAction(new EventHandler<ActionEvent>(){
+				@Override
+				public void handle(ActionEvent event) {
+					MultiKey key = new MultiKey(parentId, jobName);
+					ProgressItem self = items.get(key);
+					items.remove(key);
+					content.getChildren().remove(self);
+				}
+			});
+			ColumnConstraints ccJob = new ColumnConstraints();
+			ColumnConstraints ccProgress = new ColumnConstraints(100,100,Double.MAX_VALUE, Priority.SOMETIMES, HPos.CENTER, true);
+			ColumnConstraints ccStatus = new ColumnConstraints();
+			ColumnConstraints ccDismiss = new ColumnConstraints();
+			this.getColumnConstraints().addAll(ccJob, ccProgress, ccStatus, ccDismiss);
+			this.setColumnIndex(lblName,0);
+			this.setColumnIndex(pbProgress,1);
+			this.setColumnIndex(lblStatus,2);
+			this.setColumnIndex(btnDismiss,3);
+			this.setHgap(5);
+			this.getChildren().addAll(lblName, pbProgress, lblStatus, btnDismiss);
+		}
+
+		public void setProgress(final float progress, final int totalFiles, final int successfulFiles) {
+			pbProgress.setProgress(progress);
+			lblStatus.setText(String.format("%d/%d downloaded",successfulFiles,totalFiles));
+			if (progress >= 1) {
+				if (successfulFiles == totalFiles) {
+					lblStatus.setText("Finished");
+				} else {
+					lblStatus.setText((totalFiles - successfulFiles) + " failed!");
+				}
+				btnDismiss.setDisable(false);
+				active = false;
+			}
+		}
+
+		public boolean isActive() {
+			return active;
+		}
 	}
 }
