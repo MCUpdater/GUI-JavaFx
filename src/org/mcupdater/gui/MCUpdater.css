@@ -6,7 +6,7 @@
     -fx-padding: 5 2 0 5;
 }
 
-.list-cell {
+.instances .list-cell {
     -fx-cell-size: 40;
 }
 

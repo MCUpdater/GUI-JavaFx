@@ -136,12 +136,12 @@ public class ProgressView extends Region
 
 		public void setProgress(final float progress, final int totalFiles, final int successfulFiles) {
 			pbProgress.setProgress(progress);
-			lblStatus.setText(String.format("%d/%d downloaded",successfulFiles,totalFiles));
+			lblStatus.setText(String.format("%d/%d downloaded",successfulFiles,totalFiles)); //TODO: i18n
 			if (progress >= 1) {
 				if (successfulFiles == totalFiles) {
-					lblStatus.setText("Finished");
+					lblStatus.setText("Finished"); //TODO: i18n
 				} else {
-					lblStatus.setText((totalFiles - successfulFiles) + " failed!");
+					lblStatus.setText((totalFiles - successfulFiles) + " failed!"); //TODO: i18n
 				}
 				btnDismiss.setDisable(false);
 				active = false;

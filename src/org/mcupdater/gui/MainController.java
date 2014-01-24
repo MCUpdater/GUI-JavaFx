@@ -3,12 +3,16 @@ package org.mcupdater.gui;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.mcupdater.DownloadQueue;
+import org.mcupdater.Downloadable;
+import org.mcupdater.MCUApp;
+import org.mcupdater.TrackerListener;
 import org.mcupdater.model.ServerList;
+import org.mcupdater.mojang.MinecraftVersion;
 import org.mcupdater.settings.Settings;
 import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.TranslateProxy;
@@ -17,10 +21,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-public class MainController implements Initializable {
+public class MainController extends MCUApp implements Initializable, TrackerListener
+{
 
 	private static MainController INSTANCE;
 	public NewsBrowser newsBrowser;
@@ -32,6 +38,13 @@ public class MainController implements Initializable {
 	public Tab tabProgress;
 	public Label lblInstances;
 	public ProgressView progress;
+	public Label lblStatus;
+	public ProfilePane profiles;
+	public Button btnUpdate;
+	public Button btnLaunch;
+	//public Tab tabPackXML;
+	//public NewsBrowser xmlBrowser;
+	private int updateCounter = 0;
 
 	public MainController() {
 		INSTANCE = this;
@@ -49,6 +62,7 @@ public class MainController implements Initializable {
 		setupControls();
         System.out.println("Initialized");
 		refreshInstanceList();
+		profiles.refreshProfiles(SettingsManager.getInstance().getSettings());
     }
 
 	private void setupControls()
@@ -60,11 +74,9 @@ public class MainController implements Initializable {
 		tabSettings.setText(translate.settings);
 		tabModules.setText(translate.modules);
 		tabProgress.setText(translate.progress);
+		btnUpdate.setText(translate.update);
+		btnLaunch.setText(translate.launchMinecraft);
 	}
-
-	public void ClickButton(@SuppressWarnings("UnusedParameters") ActionEvent actionEvent) {
-        newsBrowser.navigate("http://www.google.com");
-    }
 
 	public static MainController getInstance()
 	{
@@ -101,17 +113,100 @@ public class MainController implements Initializable {
 						slList.add(sl);
 					}
 				} else {
-					//TODO: Log
-					System.out.println("Unable to get server information from " + serverUrl);
+					log("Unable to get server information from " + serverUrl);
 				}
 			} catch (Exception e) {
-				//TODO: Log
-				//apiLogger.log(Level.SEVERE, "General Error", e);
-				e.printStackTrace();
+				log(ExceptionUtils.getStackTrace(e));
 			}
 		}
 		if (listInstances != null) {
 			listInstances.setItems(FXCollections.observableList(slList));
 		}
 	}
+
+	public void doUpdate(ActionEvent event) {
+
+	}
+
+	public void doLaunch(ActionEvent event) {
+
+	}
+
+	public void instanceClicked(MouseEvent event) {
+		instanceChanged(listInstances.getSelectionModel().getSelectedItem());
+	}
+
+	public void instanceChanged(ServerList selected) {
+		newsBrowser.navigate(selected.getNewsUrl());
+	}
+
+	@Override
+	public void setStatus(String newStatus) {
+		lblStatus.setText(newStatus);
+	}
+
+	@Override
+	public void addProgressBar(String title, String parent) {
+		progress.addProgressBar(title, parent);
+	}
+
+	@Override
+	public void log(String msg) {
+		baseLogger.info(msg);
+	}
+
+	@Override
+	public boolean requestLogin() {
+		return false;
+	}
+
+	@Override
+	public void addServer(ServerList entry) {
+
+	}
+
+	@Override
+	public DownloadQueue submitNewQueue(String queueName, String parent, Collection<Downloadable> files, File basePath, File cachePath) {
+		progress.addProgressBar(queueName, parent);
+		if (profiles.getSelectedProfile() != null) {
+			return new DownloadQueue(queueName, parent, this, files, basePath, cachePath, profiles.getSelectedProfile().getName());
+		} else {
+			return new DownloadQueue(queueName, parent, this, files, basePath, cachePath);
+		}
+	}
+
+	@Override
+	public DownloadQueue submitAssetsQueue(String queueName, String parent, MinecraftVersion version) {
+		return null;
+	}
+
+	@Override
+	public void onQueueFinished(DownloadQueue queue) {
+		synchronized (progress) {
+			log(queue.getParent() + " - " + queue.getName() + ": Finished!"); //TODO: i18n
+			if (progress != null) {
+				progress.updateProgress(queue.getName(), queue.getParent(), 1f, queue.getTotalFileCount(), queue.getSuccessFileCount());
+			}
+		}
+	}
+
+	@Override
+	public void onQueueProgress(DownloadQueue queue) {
+		updateCounter++;
+		if (updateCounter == 10) {
+			synchronized (progress) {
+				if (progress != null) {
+					progress.updateProgress(queue.getName(),queue.getParent(),queue.getProgress(),queue.getTotalFileCount(),queue.getSuccessFileCount());
+				}
+			}
+			updateCounter = 0;
+		}
+	}
+
+	@Override
+	public void printMessage(String msg) {
+		log(msg);
+	}
+
+	public void setSelectedInstance(String instanceId) {}
 }

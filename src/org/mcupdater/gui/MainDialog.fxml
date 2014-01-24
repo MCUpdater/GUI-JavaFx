@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.mcupdater.gui.MCUSettings?>
 <?import org.mcupdater.gui.NewsBrowser?>
+<?import org.mcupdater.gui.ProfilePane?>
 <?import org.mcupdater.gui.ProgressView?>
 <?import java.net.URL?>
 <BorderPane prefHeight="301.0" prefWidth="401.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.mcupdater.gui.MainController" styleClass="root">
@@ -31,12 +32,19 @@
                     <ProgressView fx:id="progress" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
                 </AnchorPane>
             </Tab>
+            <!--
+            <Tab fx:id="tabPackXML" text="Pack XML">
+                <AnchorPane>
+                    <NewsBrowser fx:id="xmlBrowser" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
+                </AnchorPane>
+            </Tab>
+            -->
         </TabPane>
     </center>
     <left>
         <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="sidebar">
             <center>
-                <ListView fx:id="listInstances"/>
+                <ListView fx:id="listInstances" styleClass="instances" onMouseClicked="#instanceClicked"/>
             </center>
             <top>
                 <Label fx:id="lblInstances" />
@@ -44,10 +52,24 @@
         </BorderPane>
     </left>
     <bottom>
-        <HBox prefHeight="30.0" prefWidth="200.0">
-            <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
-            <Button text="Foo!" onAction="#ClickButton"/>
-        </HBox>
+        <GridPane hgap="3" minHeight="40" prefHeight="40">
+            <Label fx:id="lblStatus" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="LEFT"/>
+            <ProfilePane fx:id="profiles" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Button fx:id="btnUpdate" GridPane.rowIndex="0" GridPane.columnIndex="2" onAction="#doUpdate"/>
+            <Button fx:id="btnLaunch" GridPane.rowIndex="0" GridPane.columnIndex="3" onAction="#doLaunch"/>
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS" fillHeight="true"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="NEVER"/>
+                <ColumnConstraints hgrow="NEVER"/>
+            </columnConstraints>
+            <padding>
+                <Insets top="5" left="5" right="5" bottom="5"/>
+            </padding>
+        </GridPane>
     </bottom>
 
     <stylesheets>
