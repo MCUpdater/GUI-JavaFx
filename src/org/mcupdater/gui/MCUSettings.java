@@ -75,24 +75,7 @@ public class MCUSettings extends BorderPane {
     private void setupControls() {
 	    TranslateProxy translate = Main.getTranslation();
         btnSave.setText(translate.save);
-	    btnSave.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
-	    {
-		    @Override
-		    public void handle(ActionEvent actionEvent)
-		    {
-			    settingsManager.saveSettings();
-		    }
-	    });
         btnReload.setText(translate.reload);
-	    btnReload.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
-	    {
-		    @Override
-		    public void handle(ActionEvent actionEvent)
-		    {
-			    settingsManager.reload();
-			    loadFields();
-		    }
-	    });
         lblState.setText("State: Saved");
         lblProfiles.setText(translate.profiles);
         btnProfileAdd.setText(translate.add);
@@ -215,5 +198,34 @@ public class MCUSettings extends BorderPane {
 				}
 			}
 		});
+	}
+
+	public void saveSettings(ActionEvent event) {
+		settingsManager.saveSettings();
+	}
+
+	public void reloadSettings(ActionEvent event) {
+		settingsManager.reload();
+		loadFields();
+	}
+
+	public void addProfile(ActionEvent event) {
+		System.out.println("Profile: Add clicked");
+
+	}
+
+	public void removeProfile(ActionEvent event) {
+		System.out.println("Profile: Remove clicked");
+
+	}
+
+	public void addPack(ActionEvent event) {
+		System.out.println("Pack: Add clicked");
+
+	}
+
+	public void removePack(ActionEvent event) {
+		System.out.println("Pack: Remove clicked");
+
 	}
 }

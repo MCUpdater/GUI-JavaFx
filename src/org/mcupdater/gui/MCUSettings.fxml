@@ -16,8 +16,8 @@
 						</center>
 						<right>
 							<VBox prefHeight="200.0" prefWidth="80.0" spacing="5.0">
-								<Button fx:id="btnProfileAdd" mnemonicParsing="false" prefWidth="80.0"/>
-								<Button fx:id="btnProfileRemove" mnemonicParsing="false" prefWidth="80.0"/>
+								<Button fx:id="btnProfileAdd" onAction="#addProfile" mnemonicParsing="false" prefWidth="80.0"/>
+								<Button fx:id="btnProfileRemove" onAction="#removeProfile" mnemonicParsing="false" prefWidth="80.0"/>
 								<padding>
 									<Insets left="2.0" top="2.0" />
 								</padding>
@@ -95,8 +95,8 @@
 							<ListView fx:id="lstPackURLs" GridPane.rowIndex="0" GridPane.columnSpan="4" GridPane.valignment="TOP" />
 							<Label fx:id="lblNewURL" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
 							<TextField fx:id="txtNewURL" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-							<Button fx:id="btnPackURLAdd" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
-							<Button fx:id="btnPackURLRemove" GridPane.rowIndex="1" GridPane.columnIndex="3" GridPane.valignment="CENTER" />
+							<Button fx:id="btnPackURLAdd" onAction="#addPack" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.valignment="CENTER" />
+							<Button fx:id="btnPackURLRemove" onAction="#removePack" GridPane.rowIndex="1" GridPane.columnIndex="3" GridPane.valignment="CENTER" />
 						</children>
 						<rowConstraints>
 							<RowConstraints vgrow="ALWAYS" />
@@ -141,8 +141,8 @@
     </center>
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
-            <Button fx:id="btnSave" mnemonicParsing="false"/>
-            <Button fx:id="btnReload" mnemonicParsing="false"/>
+            <Button fx:id="btnSave" onAction="#saveSettings" mnemonicParsing="false"/>
+            <Button fx:id="btnReload" onAction="#reloadSettings" mnemonicParsing="false"/>
             <Label fx:id="lblState"/>
             <padding>
                 <Insets left="2.0" top="2.0" />
