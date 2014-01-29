@@ -209,4 +209,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	}
 
 	public void setSelectedInstance(String instanceId) {}
+
+	public void refreshProfiles() {
+
+	}
 }

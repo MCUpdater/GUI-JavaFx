@@ -61,4 +61,7 @@ public class ProfilePane extends GridPane
 		imgFace.setImage(new Image(avatarUrl));
 	}
 
+	public void setSelectedProfile(String selectedProfile) {
+
+	}
 }

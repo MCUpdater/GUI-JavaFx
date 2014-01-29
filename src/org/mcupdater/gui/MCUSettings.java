@@ -210,8 +210,20 @@ public class MCUSettings extends BorderPane {
 	}
 
 	public void addProfile(ActionEvent event) {
-		System.out.println("Profile: Add clicked");
+		Profile newProfile = LoginDialog.doLogin(this.getScene().getWindow(), "");
+		if (newProfile.getStyle().equals("Yggdrasil")) {
+			settingsManager.getSettings().addOrReplaceProfile(newProfile);
+			settingsManager.setDirty();
+			reloadProfiles();
+			String selectedProfile = MainController.getInstance().profiles.getSelectedProfile().getName();
+			MainController.getInstance().refreshProfiles();
+			MainController.getInstance().profiles.setSelectedProfile(selectedProfile);
+		}
+	}
 
+	private void reloadProfiles() {
+		lstProfiles.getItems().clear();
+		lstProfiles.getItems().addAll(settingsManager.getSettings().getProfiles());
 	}
 
 	public void removeProfile(ActionEvent event) {
