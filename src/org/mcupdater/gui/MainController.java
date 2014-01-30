@@ -62,7 +62,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		setupControls();
         System.out.println("Initialized");
 		refreshInstanceList();
-		profiles.refreshProfiles(SettingsManager.getInstance().getSettings());
+		refreshProfiles();
     }
 
 	private void setupControls()
@@ -208,9 +208,18 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		log(msg);
 	}
 
-	public void setSelectedInstance(String instanceId) {}
+	public void setSelectedInstance(String instanceId) {
+		for (ServerList entry : listInstances.getItems()) {
+			if (entry.getServerId().equals(instanceId)) {
+				listInstances.getSelectionModel().select(entry);
+				return;
+			}
+		}
+	}
 
 	public void refreshProfiles() {
-
+		if (profiles != null) {
+			profiles.refreshProfiles();
+		}
 	}
 }

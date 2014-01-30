@@ -57,7 +57,7 @@
 					<GridPane GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="CENTER" hgap="5">
 						<children>
 							<TextField fx:id="txtJRE" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
-							<Button fx:id="btnJREBrowse" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+							<Button fx:id="btnJREBrowse" onAction="#jreBrowse" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
 						</children>
 						<columnConstraints>
 							<ColumnConstraints hgrow="ALWAYS"/>
@@ -72,7 +72,7 @@
 					<GridPane GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.valignment="CENTER" hgap="5">
 						<children>
 							<TextField fx:id="txtInstancePath" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
-							<Button fx:id="btnInstancePathBrowse" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+							<Button fx:id="btnInstancePathBrowse" onAction="#instanceBrowse" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
 						</children>
 						<columnConstraints>
 							<ColumnConstraints hgrow="ALWAYS"/>

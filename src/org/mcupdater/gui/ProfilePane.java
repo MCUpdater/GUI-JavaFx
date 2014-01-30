@@ -13,6 +13,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
+import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.TranslateProxy;
 
 public class ProfilePane extends GridPane
@@ -25,7 +26,8 @@ public class ProfilePane extends GridPane
 		return null;
 	}
 
-	public void refreshProfiles(Settings settings) {
+	public void refreshProfiles() {
+		Settings settings = SettingsManager.getInstance().getSettings();
 		if (cmbProfile != null) {
 			cmbProfile.setItems(FXCollections.observableList(settings.getProfiles()));
 		}

@@ -7,11 +7,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
 import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.TranslateProxy;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MCUSettings extends BorderPane {
@@ -118,17 +120,10 @@ public class MCUSettings extends BorderPane {
 		txtProgramWrapper.setText(imported.getProgramWrapper());
 		chkMinimize.setSelected(imported.isMinimizeOnLaunch());
 		chkAutoConnect.setSelected(imported.isAutoConnect());
-		lstProfiles.getItems().clear();
-		for (Profile entry : imported.getProfiles())
-		{
-			lstProfiles.getItems().add(entry);
-		}
-		lstPackURLs.getItems().clear();
-		for (String entry : imported.getPackURLs())
-		{
-			lstPackURLs.getItems().add(entry);
-		}
+		reloadProfiles();
+		reloadURLs();
 		MainController.getInstance().refreshInstanceList();
+		MainController.getInstance().refreshProfiles();
 		allowEvents=true;
 	}
 
@@ -204,12 +199,22 @@ public class MCUSettings extends BorderPane {
 		settingsManager.saveSettings();
 	}
 
-	public void reloadSettings(ActionEvent event) {
+	private void reloadProfiles() {
+		lstProfiles.getItems().clear();
+		lstProfiles.getItems().addAll(settingsManager.getSettings().getProfiles());
+	}
+
+	private void reloadURLs() {
+		lstPackURLs.getItems().clear();
+		lstPackURLs.getItems().addAll(settingsManager.getSettings().getPackURLs());
+	}
+
+	public void reloadSettings() {
 		settingsManager.reload();
 		loadFields();
 	}
 
-	public void addProfile(ActionEvent event) {
+	public void addProfile() {
 		Profile newProfile = LoginDialog.doLogin(this.getScene().getWindow(), "");
 		if (newProfile.getStyle().equals("Yggdrasil")) {
 			settingsManager.getSettings().addOrReplaceProfile(newProfile);
@@ -221,23 +226,47 @@ public class MCUSettings extends BorderPane {
 		}
 	}
 
-	private void reloadProfiles() {
-		lstProfiles.getItems().clear();
-		lstProfiles.getItems().addAll(settingsManager.getSettings().getProfiles());
+	public void removeProfile() {
+		if (lstProfiles.getSelectionModel().getSelectedItem() != null) {
+			settingsManager.getSettings().removeProfile(lstProfiles.getSelectionModel().getSelectedItem().getName());
+			settingsManager.setDirty();
+			reloadProfiles();
+			MainController.getInstance().refreshProfiles();
+		}
 	}
 
-	public void removeProfile(ActionEvent event) {
-		System.out.println("Profile: Remove clicked");
-
+	public void jreBrowse() {
+		DirectoryChooser chooser = new DirectoryChooser();
+		File selected = chooser.showDialog(this.getScene().getWindow());
+		if (selected != null) {
+			txtJRE.setText(selected.getAbsolutePath());
+		}
 	}
 
-	public void addPack(ActionEvent event) {
-		System.out.println("Pack: Add clicked");
-
+	public void instanceBrowse() {
+		DirectoryChooser chooser = new DirectoryChooser();
+		File selected = chooser.showDialog(this.getScene().getWindow());
+		if (selected != null) {
+			txtInstancePath.setText(selected.getAbsolutePath());
+		}
 	}
 
-	public void removePack(ActionEvent event) {
-		System.out.println("Pack: Remove clicked");
+	public void addPack() {
+		if (!txtNewURL.getText().isEmpty()) {
+			settingsManager.getSettings().addPackURL(txtNewURL.getText());
+			settingsManager.setDirty();
+			txtNewURL.setText("");
+			reloadURLs();
+			MainController.getInstance().refreshInstanceList();
+		}
+	}
 
+	public void removePack() {
+		if (lstPackURLs.getSelectionModel().getSelectedIndex() != -1) {
+			settingsManager.getSettings().removePackUrl(lstPackURLs.getSelectionModel().getSelectedItem());
+			settingsManager.setDirty();
+			reloadURLs();
+			MainController.getInstance().refreshInstanceList();
+		}
 	}
 }
