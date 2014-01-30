@@ -10,13 +10,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
+import org.mcupdater.settings.SettingsListener;
 import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.TranslateProxy;
 
 import java.io.File;
 import java.io.IOException;
 
-public class MCUSettings extends BorderPane {
+public class MCUSettings extends BorderPane implements SettingsListener {
     public static MCUSettings INSTANCE;
     public Button btnSave;
     public Button btnReload;
@@ -62,6 +63,7 @@ public class MCUSettings extends BorderPane {
 
 	public MCUSettings() {
         INSTANCE = this;
+		settingsManager.addListener(this);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("MCUSettings.fxml"));
         fxml.setRoot(this);
         fxml.setController(this);
@@ -145,6 +147,8 @@ public class MCUSettings extends BorderPane {
 		    {
 			    if (allowEvents) {
 				    settingsManager.getSettings().setFullScreen(chkFullscreen.isSelected());
+				    settingsManager.setDirty();
+				    settingsManager.fireSettingsUpdate();
 			    }
 		    }
 	    });
@@ -155,6 +159,8 @@ public class MCUSettings extends BorderPane {
 		    {
 			    if (allowEvents) {
 				    settingsManager.getSettings().setMinimizeOnLaunch(chkMinimize.isSelected());
+				    settingsManager.setDirty();
+				    settingsManager.fireSettingsUpdate();
 			    }
 		    }
 	    });
@@ -165,19 +171,11 @@ public class MCUSettings extends BorderPane {
 		    {
 			    if (allowEvents) {
 				    settingsManager.getSettings().setAutoConnect(chkAutoConnect.isSelected());
+				    settingsManager.setDirty();
+				    settingsManager.fireSettingsUpdate();
 			    }
 		    }
 	    });
-    }
-
-    public static void setState(boolean isDirty) {
-        if (!(INSTANCE == null)) {
-	        if (isDirty) {
-		        INSTANCE.lblState.setText("State: Not Saved");
-	        } else {
-		        INSTANCE.lblState.setText("State: Saved");
-	        }
-        }
     }
 
 	private void watchField(final TextField toWatch, final Settings.TextField toChange)
@@ -185,17 +183,17 @@ public class MCUSettings extends BorderPane {
 		toWatch.textProperty().addListener(new ChangeListener<String>()
 		{
 			@Override
-			public void changed(ObservableValue<? extends String> observableValue, String oldVal, String newVal)
-			{
+			public void changed(ObservableValue<? extends String> observableValue, String oldVal, String newVal) {
 				if (allowEvents) {
 					settingsManager.getSettings().updateField(toChange, newVal);
 					settingsManager.setDirty();
+					settingsManager.fireSettingsUpdate();
 				}
 			}
 		});
 	}
 
-	public void saveSettings(ActionEvent event) {
+	public void saveSettings() {
 		settingsManager.saveSettings();
 	}
 
@@ -219,6 +217,7 @@ public class MCUSettings extends BorderPane {
 		if (newProfile.getStyle().equals("Yggdrasil")) {
 			settingsManager.getSettings().addOrReplaceProfile(newProfile);
 			settingsManager.setDirty();
+			settingsManager.fireSettingsUpdate();
 			reloadProfiles();
 			String selectedProfile = MainController.getInstance().profiles.getSelectedProfile().getName();
 			MainController.getInstance().refreshProfiles();
@@ -230,6 +229,7 @@ public class MCUSettings extends BorderPane {
 		if (lstProfiles.getSelectionModel().getSelectedItem() != null) {
 			settingsManager.getSettings().removeProfile(lstProfiles.getSelectionModel().getSelectedItem().getName());
 			settingsManager.setDirty();
+			settingsManager.fireSettingsUpdate();
 			reloadProfiles();
 			MainController.getInstance().refreshProfiles();
 		}
@@ -255,6 +255,7 @@ public class MCUSettings extends BorderPane {
 		if (!txtNewURL.getText().isEmpty()) {
 			settingsManager.getSettings().addPackURL(txtNewURL.getText());
 			settingsManager.setDirty();
+			settingsManager.fireSettingsUpdate();
 			txtNewURL.setText("");
 			reloadURLs();
 			MainController.getInstance().refreshInstanceList();
@@ -265,8 +266,22 @@ public class MCUSettings extends BorderPane {
 		if (lstPackURLs.getSelectionModel().getSelectedIndex() != -1) {
 			settingsManager.getSettings().removePackUrl(lstPackURLs.getSelectionModel().getSelectedItem());
 			settingsManager.setDirty();
+			settingsManager.fireSettingsUpdate();
 			reloadURLs();
 			MainController.getInstance().refreshInstanceList();
 		}
+	}
+
+	@Override
+	public void stateChanged(boolean newState) {
+		if (newState) {
+			lblState.setText("State: Not Saved");
+		} else {
+			lblState.setText("State: Saved");
+		}
+	}
+
+	@Override
+	public void settingsChanged(Settings newSettings) {
 	}
 }

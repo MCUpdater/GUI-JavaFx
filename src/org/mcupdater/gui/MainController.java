@@ -1,10 +1,9 @@
 package org.mcupdater.gui;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.mcupdater.DownloadQueue;
@@ -13,6 +12,7 @@ import org.mcupdater.MCUApp;
 import org.mcupdater.TrackerListener;
 import org.mcupdater.model.ServerList;
 import org.mcupdater.mojang.MinecraftVersion;
+import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
 import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.TranslateProxy;
@@ -42,6 +42,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	public ProfilePane profiles;
 	public Button btnUpdate;
 	public Button btnLaunch;
+	public BorderPane pnlContent;
 	//public Tab tabPackXML;
 	//public NewsBrowser xmlBrowser;
 	private int updateCounter = 0;
@@ -124,15 +125,15 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		}
 	}
 
-	public void doUpdate(ActionEvent event) {
-
+	public void doUpdate() {
+		//TODO: Code here
 	}
 
-	public void doLaunch(ActionEvent event) {
-
+	public void doLaunch() {
+		//TODO: Code here
 	}
 
-	public void instanceClicked(MouseEvent event) {
+	public void instanceClicked() {
 		instanceChanged(listInstances.getSelectionModel().getSelectedItem());
 	}
 
@@ -146,18 +147,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	}
 
 	@Override
-	public void addProgressBar(String title, String parent) {
-		progress.addProgressBar(title, parent);
-	}
-
-	@Override
 	public void log(String msg) {
 		baseLogger.info(msg);
 	}
 
 	@Override
-	public boolean requestLogin() {
-		return false;
+	public Profile requestLogin(String username) {
+		return LoginDialog.doLogin(pnlContent.getScene().getWindow(), username);
 	}
 
 	@Override

@@ -8,7 +8,7 @@
 <?import org.mcupdater.gui.ProfilePane?>
 <?import org.mcupdater.gui.ProgressView?>
 <?import java.net.URL?>
-<BorderPane prefHeight="301.0" prefWidth="401.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.mcupdater.gui.MainController" styleClass="root">
+<BorderPane fx:id="pnlContent" prefHeight="301.0" prefWidth="401.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.mcupdater.gui.MainController" styleClass="root">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
             <Tab fx:id="tabNews">
