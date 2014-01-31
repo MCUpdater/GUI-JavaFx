@@ -23,7 +23,7 @@ public class ProfilePane extends GridPane
 	private final ComboBox<Profile> cmbProfile;
 
 	public Profile getSelectedProfile() {
-		return null;
+		return cmbProfile.getSelectionModel().getSelectedItem();
 	}
 
 	public void refreshProfiles() {
@@ -64,6 +64,11 @@ public class ProfilePane extends GridPane
 	}
 
 	public void setSelectedProfile(String selectedProfile) {
-
+		for (Profile entry : cmbProfile.getItems()) {
+			if (entry.getName().equals(selectedProfile)) {
+				cmbProfile.getSelectionModel().select(entry);
+				return;
+			}
+		}
 	}
 }

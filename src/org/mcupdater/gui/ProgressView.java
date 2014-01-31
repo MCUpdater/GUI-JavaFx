@@ -126,10 +126,10 @@ public class ProgressView extends Region
 			ColumnConstraints ccStatus = new ColumnConstraints();
 			ColumnConstraints ccDismiss = new ColumnConstraints();
 			this.getColumnConstraints().addAll(ccJob, ccProgress, ccStatus, ccDismiss);
-			this.setColumnIndex(lblName,0);
-			this.setColumnIndex(pbProgress,1);
-			this.setColumnIndex(lblStatus,2);
-			this.setColumnIndex(btnDismiss,3);
+			setColumnIndex(lblName, 0);
+			setColumnIndex(pbProgress, 1);
+			setColumnIndex(lblStatus, 2);
+			setColumnIndex(btnDismiss, 3);
 			this.setHgap(5);
 			this.getChildren().addAll(lblName, pbProgress, lblStatus, btnDismiss);
 		}
