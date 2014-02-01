@@ -6,16 +6,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.mcupdater.DownloadQueue;
-import org.mcupdater.Downloadable;
-import org.mcupdater.MCUApp;
-import org.mcupdater.TrackerListener;
+import org.mcupdater.*;
 import org.mcupdater.model.ServerList;
 import org.mcupdater.mojang.MinecraftVersion;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
+import org.mcupdater.settings.SettingsListener;
 import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.TranslateProxy;
+import org.mcupdater.util.MCUpdater;
 import org.mcupdater.util.ServerPackParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,11 +23,15 @@ import org.w3c.dom.NodeList;
 import java.io.File;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class MainController extends MCUApp implements Initializable, TrackerListener
+public class MainController extends MCUApp implements Initializable, TrackerListener, SettingsListener
 {
 
 	private static MainController INSTANCE;
+	private FileHandler mcuHandler;
 	public NewsBrowser newsBrowser;
     public ListView<ServerList> listInstances;
 	public Tab tabNews;
@@ -45,10 +48,23 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	public BorderPane pnlContent;
 	//public Tab tabPackXML;
 	//public NewsBrowser xmlBrowser;
+	private Thread daemonMonitor;
 	private int updateCounter = 0;
+	private boolean playing;
 
 	public MainController() {
 		INSTANCE = this;
+		MCUpdater.getInstance().setParent(this);
+		this.baseLogger = Logger.getLogger("MCUpdater");
+		baseLogger.setLevel(Level.ALL);
+		try {
+			mcuHandler = new FileHandler(MCUpdater.getInstance().getArchiveFolder().resolve("MCUpdater.log").toString(),0,3);
+			mcuHandler.setFormatter(new FMLStyleFormatter());
+			baseLogger.addHandler(mcuHandler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Version.setApp(this);
 	}
 
 	@Override
@@ -62,9 +78,73 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         });
 		setupControls();
         System.out.println("Initialized");
+		SettingsManager.getInstance().addListener(this);
+		Settings settings = SettingsManager.getInstance().getSettings();
+		Profile newProfile;
+		if (settings.getProfiles().size() == 0) {
+			newProfile = LoginDialog.doLogin(pnlContent.getScene().getWindow(), "");
+			if (newProfile.getStyle().equals("Yggdrasil")) {
+				settings.addOrReplaceProfile(newProfile);
+				settings.setLastProfile(newProfile.getName());
+				if (!SettingsManager.getInstance().isDirty()) {
+					SettingsManager.getInstance().saveSettings();
+				}
+			}
+		} else {
+			newProfile = settings.findProfile(settings.getLastProfile());
+		}
 		refreshInstanceList();
 		refreshProfiles();
+		profiles.setSelectedProfile(newProfile.getName());
+		daemonMonitor = new Thread(){
+			private ServerList currentSelection;
+			private int activeJobs = 0;
+			private boolean playState;
+
+			@Override
+			public void run() {
+				while(true){
+					try {
+						if (activeJobs != progress.getActiveCount() || currentSelection != listInstances.getSelectionModel().getSelectedItem() || playState != isPlaying()) {
+							currentSelection = listInstances.getSelectionModel().getSelectedItem();
+							activeJobs = progress.getActiveCount();
+							playState = isPlaying();
+							lblStatus.setText("Active jobs: " + activeJobs);
+							if (activeJobs > 0) {
+								btnLaunch.setDisable(true);
+							} else {
+								if (!(currentSelection == null) && !playState) {
+									btnLaunch.setDisable(false);
+								} else {
+									btnLaunch.setDisable(true);
+								}
+							}
+							if (!(currentSelection == null)) {
+								if (progress.getActiveById(currentSelection.getServerId()) > 0) {
+									btnUpdate.setDisable(true);
+								} else {
+									btnUpdate.setDisable(false);
+								}
+							} else {
+								btnUpdate.setDisable(true);
+							}
+						}
+					} finally {
+					}
+				}
+			}
+		};
+		daemonMonitor.setDaemon(true);
+		daemonMonitor.start();
     }
+
+	private boolean isPlaying() {
+		return this.playing;
+	}
+
+	public void setPlaying(boolean playing) {
+		this.playing = playing;
+	}
 
 	private void setupControls()
 	{
@@ -218,4 +298,15 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			profiles.refreshProfiles();
 		}
 	}
+
+	@Override
+	public void stateChanged(boolean newState) {
+
+	}
+
+	@Override
+	public void settingsChanged(Settings newSettings) {
+
+	}
+
 }

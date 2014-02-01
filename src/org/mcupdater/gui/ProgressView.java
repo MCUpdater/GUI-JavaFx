@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class ProgressView extends Region
 {
@@ -32,11 +33,11 @@ public class ProgressView extends Region
 		content.setPadding(new Insets(5));
 		content.setSpacing(3);
 		//Testing code
-		addProgressBar("I haz long name!", "Test");
-		addProgressBar("2", "Test");
-		addProgressBar("3", "Test");
-		updateProgress("2", "Test", 0.25f, 4, 1);
-		updateProgress("3", "Test", 1f, 1000,300);
+		//addProgressBar("I haz long name!", "Test");
+		//addProgressBar("2", "Test");
+		//addProgressBar("3", "Test");
+		//updateProgress("2", "Test", 0.25f, 4, 1);
+		//updateProgress("3", "Test", 1f, 1000,300);
 	}
 
 	public synchronized void addProgressBar(String jobName, String parentId) {
@@ -60,6 +61,28 @@ public class ProgressView extends Region
 		for (Node node: getChildren()) {
 			layoutInArea(node, 0, 0, getWidth(), getHeight(), 0, HPos.LEFT, VPos.TOP);
 		}
+	}
+
+	public int getActiveCount() {
+		int activeCount = 0;
+		for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
+			 if (item.getValue().isActive()) {
+				 activeCount++;
+			 }
+		}
+		return activeCount;
+	}
+
+	public int getActiveById(String serverId) {
+		int activeCount = 0;
+		for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
+			if (item.getKey().getParent().equals(serverId)) {
+				if (item.getValue().isActive()) {
+					activeCount++;
+				}
+			}
+		}
+		return activeCount;
 	}
 
 	private class MultiKey
