@@ -1,5 +1,7 @@
 package org.mcupdater.gui;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -7,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.mcupdater.*;
+import org.mcupdater.instance.Instance;
+import org.mcupdater.model.Module;
 import org.mcupdater.model.ServerList;
 import org.mcupdater.mojang.MinecraftVersion;
 import org.mcupdater.settings.Profile;
@@ -20,8 +24,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -31,6 +40,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 {
 
 	private static MainController INSTANCE;
+	public ModulePanel pnlModule;
 	private FileHandler mcuHandler;
 	public NewsBrowser newsBrowser;
     public ListView<ServerList> listInstances;
@@ -51,6 +61,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	private Thread daemonMonitor;
 	private int updateCounter = 0;
 	private boolean playing;
+	private ServerList selected;
+	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public MainController() {
 		INSTANCE = this;
@@ -80,6 +92,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         System.out.println("Initialized");
 		SettingsManager.getInstance().addListener(this);
 		Settings settings = SettingsManager.getInstance().getSettings();
+		MCUpdater.getInstance().setInstanceRoot(new File(settings.getInstanceRoot()).toPath());
 		Profile newProfile;
 		if (settings.getProfiles().size() == 0) {
 			newProfile = LoginDialog.doLogin(pnlContent.getScene().getWindow(), "");
@@ -217,8 +230,24 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		instanceChanged(listInstances.getSelectionModel().getSelectedItem());
 	}
 
-	public void instanceChanged(ServerList selected) {
+	public void instanceChanged(ServerList entry) {
+		this.selected = entry;
 		newsBrowser.navigate(selected.getNewsUrl());
+		List<Module> modList = ServerPackParser.loadFromURL(selected.getPackUrl(), selected.getServerId());
+		Instance instData = new Instance();
+		final Path instanceFile = MCUpdater.getInstance().getInstanceRoot().resolve(entry.getServerId()).resolve("instance.json");
+		try {
+			BufferedReader reader = Files.newBufferedReader(instanceFile, StandardCharsets.UTF_8);
+			instData = gson.fromJson(reader, Instance.class);
+			reader.close();
+		} catch (IOException e) {
+			baseLogger.log(Level.WARNING, "instance.json file not found.  This is not an error if the instance has not been installed.");
+		}
+		refreshModList(modList, instData.getOptionalMods());
+	}
+
+	private void refreshModList(List<Module> modList, Map<String, Boolean> optionalMods) {
+		pnlModule.reload(modList, optionalMods);
 	}
 
 	@Override
@@ -306,7 +335,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 
 	@Override
 	public void settingsChanged(Settings newSettings) {
-
+		MCUpdater.getInstance().setInstanceRoot(new File(newSettings.getInstanceRoot()).toPath());
 	}
 
 }

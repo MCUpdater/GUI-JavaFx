@@ -22,7 +22,7 @@
                 <MCUSettings />
             </Tab>
             <Tab fx:id="tabModules">
-                <ModulePanel />
+                <ModulePanel fx:id="pnlModule" />
             </Tab>
             <Tab fx:id="tabProgress">
                 <AnchorPane>
