@@ -1,5 +1,6 @@
 package org.mcupdater.gui;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -42,7 +43,7 @@ public class ProgressView extends Region
 
 	public synchronized void addProgressBar(String jobName, String parentId) {
 		MultiKey key = new MultiKey(parentId, jobName);
-		content.getChildren().remove(key); // Remove old row if one exists
+		content.getChildren().remove(items.get(key)); // Remove old row if one exists
 		ProgressItem newItem = new ProgressItem(jobName, parentId);
 		content.getChildren().add(newItem);
 		items.put(key, newItem);
@@ -85,6 +86,16 @@ public class ProgressView extends Region
 		return activeCount;
 	}
 
+	public String getActiveJobs() {
+		String jobs = "";
+		for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
+			if (item.getValue().isActive()) {
+				 jobs += item.getKey().toString() + "|";
+			}
+		}
+		return jobs;
+	}
+
 	private class MultiKey
 	{
 		private final String parent;
@@ -102,6 +113,9 @@ public class ProgressView extends Region
 		public String getJob(){
 			return job;
 		}
+
+		@Override
+		public String toString() { return parent + "/" + job; }
 
 		@Override
 		public boolean equals(Object o) {
@@ -158,17 +172,22 @@ public class ProgressView extends Region
 		}
 
 		public void setProgress(final float progress, final int totalFiles, final int successfulFiles) {
-			pbProgress.setProgress(progress);
-			lblStatus.setText(String.format("%d/%d downloaded",successfulFiles,totalFiles)); //TODO: i18n
-			if (progress >= 1) {
-				if (successfulFiles == totalFiles) {
-					lblStatus.setText("Finished"); //TODO: i18n
-				} else {
-					lblStatus.setText((totalFiles - successfulFiles) + " failed!"); //TODO: i18n
+			Platform.runLater(new Runnable(){
+				@Override
+				public void run() {
+					pbProgress.setProgress(progress);
+					lblStatus.setText(String.format("%d/%d downloaded",successfulFiles,totalFiles)); //TODO: i18n
+					if (progress >= 1) {
+						if (successfulFiles == totalFiles) {
+							lblStatus.setText("Finished"); //TODO: i18n
+						} else {
+							lblStatus.setText((totalFiles - successfulFiles) + " failed!"); //TODO: i18n
+						}
+						btnDismiss.setDisable(false);
+						active = false;
+					}
 				}
-				btnDismiss.setDisable(false);
-				active = false;
-			}
+			});
 		}
 
 		public boolean isActive() {

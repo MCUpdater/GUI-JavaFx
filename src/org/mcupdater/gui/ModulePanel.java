@@ -6,12 +6,14 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.mcupdater.model.Module;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ModulePanel extends ScrollPane
 {
 	VBox content = new VBox();
+	private List<ModuleEntry> modules = new ArrayList<>();
 
 	public ModulePanel(){
 		super();
@@ -30,13 +32,19 @@ public class ModulePanel extends ScrollPane
 
 	public void reload(List<Module> modList, Map<String, Boolean> optionalSelections) {
 		this.clear();
+		modules = new ArrayList<>();
 		for (Module m : modList) {
 			ModuleEntry newEntry = new ModuleEntry(m);
 			if (!m.getRequired() && optionalSelections.containsKey(m.getId())) {
 				newEntry.setSelected(optionalSelections.get(m.getId()));
 			}
 			this.content.getChildren().add(newEntry);
+			modules.add(newEntry);
 		}
 		this.content.setFillWidth(true);
+	}
+
+	public List<ModuleEntry> getModules() {
+		return modules;
 	}
 }

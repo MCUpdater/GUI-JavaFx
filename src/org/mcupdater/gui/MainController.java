@@ -2,6 +2,7 @@ package org.mcupdater.gui;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,8 +11,8 @@ import javafx.util.Callback;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.mcupdater.*;
 import org.mcupdater.instance.Instance;
-import org.mcupdater.model.Module;
-import org.mcupdater.model.ServerList;
+import org.mcupdater.model.*;
+import org.mcupdater.mojang.AssetManager;
 import org.mcupdater.mojang.MinecraftVersion;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
@@ -26,6 +27,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -116,13 +118,23 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 
 			@Override
 			public void run() {
+				int x=0;
+				//noinspection InfiniteLoopStatement
 				while(true){
+					if (x >= 100000) {
+						x=0;
+						activeJobs=99;
+						currentSelection = null;
+						playState = false;
+					} else {
+						x++;
+					}
 					try {
 						if (activeJobs != progress.getActiveCount() || currentSelection != listInstances.getSelectionModel().getSelectedItem() || playState != isPlaying()) {
 							currentSelection = listInstances.getSelectionModel().getSelectedItem();
 							activeJobs = progress.getActiveCount();
 							playState = isPlaying();
-							lblStatus.setText("Active jobs: " + activeJobs);
+							setStatus("Active jobs: " + activeJobs);
 							if (activeJobs > 0) {
 								btnLaunch.setDisable(true);
 							} else {
@@ -219,7 +231,42 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	}
 
 	public void doUpdate() {
-		//TODO: Code here
+		btnUpdate.setDisable(true);
+		MCUpdater.getInstance().getInstanceRoot().resolve(selected.getServerId()).toFile().mkdirs();
+
+		Instance instData;
+		final Path instanceFile = MCUpdater.getInstance().getInstanceRoot().resolve(selected.getServerId()).resolve("instance.json");
+		try {
+			BufferedReader reader = Files.newBufferedReader(instanceFile, StandardCharsets.UTF_8);
+			instData = gson.fromJson(reader, Instance.class);
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			instData = new Instance();
+		}
+
+		final List<GenericModule> selectedMods = new ArrayList<>();
+		final List<ConfigFile> selectedConfigs = new ArrayList<>();
+		for (ModuleEntry entry : pnlModule.getModules()) {
+			System.out.println(entry.getModule().getName() + " - " + entry.getModule().getModType().toString());
+			if (entry.isSelected()) {
+				selectedMods.add(entry.getModule());
+				if (entry.getModule().hasConfigs()){
+					selectedConfigs.addAll(entry.getModule().getConfigs());
+				}
+				if (entry.getModule().hasSubmodules()) {
+					selectedMods.addAll(entry.getModule().getSubmodules());
+				}
+			}
+			if (!entry.getModule().getRequired()) {
+				instData.setModStatus(entry.getModule().getId(), entry.isSelected());
+			}
+		}
+		try {
+			MCUpdater.getInstance().installMods(selected, selectedMods, selectedConfigs, false, instData, ModSide.CLIENT);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void doLaunch() {
@@ -251,8 +298,14 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	}
 
 	@Override
-	public void setStatus(String newStatus) {
-		lblStatus.setText(newStatus);
+	public void setStatus(final String newStatus) {
+		Platform.runLater(new Runnable()
+		{
+			@Override
+			public void run() {
+				lblStatus.setText(newStatus);
+			}
+		});
 	}
 
 	@Override
@@ -282,7 +335,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 
 	@Override
 	public DownloadQueue submitAssetsQueue(String queueName, String parent, MinecraftVersion version) {
-		return null;
+		progress.addProgressBar(queueName, parent);
+		return AssetManager.downloadAssets(queueName, parent, MCUpdater.getInstance().getArchiveFolder().resolve("assets").toFile(), this, version);
 	}
 
 	@Override
