@@ -3,6 +3,8 @@ package org.mcupdater.gui;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -74,6 +76,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		try {
 			mcuHandler = new FileHandler(MCUpdater.getInstance().getArchiveFolder().resolve("MCUpdater.log").toString(),0,3);
 			mcuHandler.setFormatter(new FMLStyleFormatter());
+			mcuHandler.setLevel(Level.CONFIG);
 			baseLogger.addHandler(mcuHandler);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,11 +124,14 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 				int x=0;
 				//noinspection InfiniteLoopStatement
 				while(true){
-					if (x >= 100000) {
+					if (x >= 1000000) {
 						x=0;
 						activeJobs=99;
 						currentSelection = null;
 						playState = false;
+						if (progress.getActiveCount() > 0) {
+							baseLogger.finest("Active jobs: " + progress.getActiveJobs());
+						}
 					} else {
 						x++;
 					}
@@ -182,6 +188,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		tabProgress.setText(translate.progress);
 		btnUpdate.setText(translate.update);
 		btnLaunch.setText(translate.launchMinecraft);
+		listInstances.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ServerList>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends ServerList> observableValue, ServerList oldSL, ServerList newSL) {
+				instanceChanged(newSL);
+			}
+		});
 	}
 
 	public static MainController getInstance()
@@ -241,9 +254,21 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			instData = gson.fromJson(reader, Instance.class);
 			reader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			instData = new Instance();
 		}
+		Set<String> digests = new HashSet<>();
+		List<Module> fullModList = ServerPackParser.loadFromURL(selected.getPackUrl(), selected.getServerId());
+		for (Module mod : fullModList) {
+			if ( !mod.getMD5().isEmpty() ) { digests.add(mod.getMD5()); }
+			for (ConfigFile cf : mod.getConfigs()) {
+				if ( !cf.getMD5().isEmpty() ) { digests.add(cf.getMD5()); }
+			}
+			for (GenericModule sm : mod.getSubmodules()) {
+				if ( !sm.getMD5().isEmpty() ) { digests.add(sm.getMD5()); }
+			}
+		}
+		instData.setHash(MCUpdater.calculateGroupHash(digests));
 
 		final List<GenericModule> selectedMods = new ArrayList<>();
 		final List<ConfigFile> selectedConfigs = new ArrayList<>();
@@ -273,14 +298,22 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		//TODO: Code here
 	}
 
-	public void instanceClicked() {
-		instanceChanged(listInstances.getSelectionModel().getSelectedItem());
-	}
-
 	public void instanceChanged(ServerList entry) {
 		this.selected = entry;
 		newsBrowser.navigate(selected.getNewsUrl());
 		List<Module> modList = ServerPackParser.loadFromURL(selected.getPackUrl(), selected.getServerId());
+		Set<String> digests = new HashSet<>();
+		for (Module mod : modList) {
+			if ( !mod.getMD5().isEmpty() ) { digests.add(mod.getMD5()); }
+			for (ConfigFile cf : mod.getConfigs()) {
+				if ( !cf.getMD5().isEmpty() ) { digests.add(cf.getMD5()); }
+			}
+			for (GenericModule sm : mod.getSubmodules()) {
+				if ( !sm.getMD5().isEmpty() ) { digests.add(sm.getMD5()); }
+			}
+		}
+		String remoteHash = MCUpdater.calculateGroupHash(digests);
+		//System.out.println("Hash: " + MCUpdater.calculateGroupHash(digests));
 		Instance instData = new Instance();
 		final Path instanceFile = MCUpdater.getInstance().getInstanceRoot().resolve(entry.getServerId()).resolve("instance.json");
 		try {
@@ -291,6 +324,18 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			baseLogger.log(Level.WARNING, "instance.json file not found.  This is not an error if the instance has not been installed.");
 		}
 		refreshModList(modList, instData.getOptionalMods());
+		boolean needUpdate = (!instData.getHash().isEmpty() || !instData.getHash().equals(remoteHash));
+		boolean needNewMCU = Version.isVersionOld(entry.getMCUVersion());
+
+		if (needUpdate) {
+			//TODO: Show warning
+			//Dialogs.showWarningDialog(null, Main.getTranslation().updateRequired, "Instance Out Of Sync", "MCUpdater");
+			//showDialog(Main.getTranslation().updateRequired);
+		}
+		if (needNewMCU) {
+			//TODO: Show warning
+			//showDialog(Main.getTranslation().oldMCUpdater);
+		}
 	}
 
 	private void refreshModList(List<Module> modList, Map<String, Boolean> optionalMods) {
@@ -345,6 +390,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			log(queue.getParent() + " - " + queue.getName() + ": Finished!"); //TODO: i18n
 			if (progress != null) {
 				progress.updateProgress(queue.getName(), queue.getParent(), 1f, queue.getTotalFileCount(), queue.getSuccessFileCount());
+			}
+			for (Downloadable entry : queue.getFailures()) {
+				System.out.println("Failed: " + entry.getFilename());
 			}
 		}
 	}

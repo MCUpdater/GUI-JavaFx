@@ -66,18 +66,8 @@ public class ProgressView extends Region
 
 	public int getActiveCount() {
 		int activeCount = 0;
-		for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
-			 if (item.getValue().isActive()) {
-				 activeCount++;
-			 }
-		}
-		return activeCount;
-	}
-
-	public int getActiveById(String serverId) {
-		int activeCount = 0;
-		for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
-			if (item.getKey().getParent().equals(serverId)) {
+		synchronized (this) {
+			for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
 				if (item.getValue().isActive()) {
 					activeCount++;
 				}
@@ -86,11 +76,27 @@ public class ProgressView extends Region
 		return activeCount;
 	}
 
+	public int getActiveById(String serverId) {
+		int activeCount = 0;
+		synchronized (this) {
+			for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
+				if (item.getKey().getParent().equals(serverId)) {
+					if (item.getValue().isActive()) {
+						activeCount++;
+					}
+				}
+			}
+		}
+		return activeCount;
+	}
+
 	public String getActiveJobs() {
 		String jobs = "";
-		for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
-			if (item.getValue().isActive()) {
-				 jobs += item.getKey().toString() + "|";
+		synchronized (this) {
+			for (Entry<MultiKey, ProgressItem> item : items.entrySet()) {
+				if (item.getValue().isActive()) {
+					jobs += item.getKey().toString() + "|";
+				}
 			}
 		}
 		return jobs;
