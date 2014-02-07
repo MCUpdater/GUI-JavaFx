@@ -96,24 +96,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		setupControls();
         System.out.println("Initialized");
 		SettingsManager.getInstance().addListener(this);
-		Settings settings = SettingsManager.getInstance().getSettings();
-		MCUpdater.getInstance().setInstanceRoot(new File(settings.getInstanceRoot()).toPath());
-		Profile newProfile;
-		if (settings.getProfiles().size() == 0) {
-			newProfile = LoginDialog.doLogin(pnlContent.getScene().getWindow(), "");
-			if (newProfile.getStyle().equals("Yggdrasil")) {
-				settings.addOrReplaceProfile(newProfile);
-				settings.setLastProfile(newProfile.getName());
-				if (!SettingsManager.getInstance().isDirty()) {
-					SettingsManager.getInstance().saveSettings();
-				}
-			}
-		} else {
-			newProfile = settings.findProfile(settings.getLastProfile());
-		}
-		refreshInstanceList();
-		refreshProfiles();
-		profiles.setSelectedProfile(newProfile.getName());
 		daemonMonitor = new Thread(){
 			private ServerList currentSelection;
 			private int activeJobs = 0;
@@ -328,8 +310,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		boolean needNewMCU = Version.isVersionOld(entry.getMCUVersion());
 
 		if (needUpdate) {
-			//TODO: Show warning
-			//Dialogs.showWarningDialog(null, Main.getTranslation().updateRequired, "Instance Out Of Sync", "MCUpdater");
+			MessageDialog.showMessage(pnlContent.getScene().getWindow(), Main.getTranslation().updateRequired, "MCUpdater");
 			//showDialog(Main.getTranslation().updateRequired);
 		}
 		if (needNewMCU) {

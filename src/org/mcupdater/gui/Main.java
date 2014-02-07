@@ -10,6 +10,9 @@ import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import org.mcupdater.Version;
+import org.mcupdater.settings.Profile;
+import org.mcupdater.settings.Settings;
+import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.translate.Languages;
 import org.mcupdater.translate.TranslateProxy;
 import org.mcupdater.util.MCUpdater;
@@ -38,7 +41,8 @@ public class Main extends Application {
 
 	@Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("MainDialog.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainDialog.fxml"));
+        Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root, 1175, 600);
 
@@ -46,6 +50,25 @@ public class Main extends Application {
         stage.setScene(scene);
 	    stage.getIcons().add(new Image(Main.class.getResourceAsStream("mcu-icon.png")));
         stage.show();
+		MainController controller = loader.getController();
+		Settings settings = SettingsManager.getInstance().getSettings();
+		MCUpdater.getInstance().setInstanceRoot(new File(settings.getInstanceRoot()).toPath());
+		Profile newProfile;
+		if (settings.getProfiles().size() == 0) {
+			newProfile = LoginDialog.doLogin(stage, "");
+			if (newProfile.getStyle().equals("Yggdrasil")) {
+				settings.addOrReplaceProfile(newProfile);
+				settings.setLastProfile(newProfile.getName());
+				if (!SettingsManager.getInstance().isDirty()) {
+					SettingsManager.getInstance().saveSettings();
+				}
+			}
+		} else {
+			newProfile = settings.findProfile(settings.getLastProfile());
+		}
+		controller.refreshInstanceList();
+		controller.refreshProfiles();
+		controller.profiles.setSelectedProfile(newProfile.getName());
     }
 
 	public static TranslateProxy getTranslation() {
