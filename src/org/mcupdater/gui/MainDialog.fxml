@@ -14,9 +14,7 @@
                 </AnchorPane>
             </Tab>
             <Tab fx:id="tabConsole">
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <Label text="Foo"/>
-                </AnchorPane>
+                <ConsolePane fx:id="mcuConsole"/>
             </Tab>
             <Tab fx:id="tabSettings">
                 <MCUSettings />

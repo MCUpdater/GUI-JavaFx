@@ -4,16 +4,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane hgap="5.0" prefWidth="350.0" vgap="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.mcupdater.gui.MessageDialog">
+<GridPane hgap="5.0" prefWidth="600.0" prefHeight="100.0" vgap="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.mcupdater.gui.MessageDialog">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" halignment="CENTER" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" maxHeight="2000.0" vgrow="ALWAYS" valignment="TOP" />
+        <RowConstraints minHeight="10.0" prefHeight="20" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label fx:id="lblMessage" textAlignment="CENTER" text="" wrapText="true" prefHeight="50" maxHeight="200" GridPane.rowIndex="0" />
+        <Label fx:id="lblMessage" alignment="TOP_CENTER" textAlignment="CENTER" GridPane.valignment="TOP" text="" wrapText="true" maxHeight="2000" GridPane.rowIndex="0" maxWidth="2000" />
         <HBox alignment="BOTTOM_CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
             <children>
                 <Button fx:id="btnOK" defaultButton="true" mnemonicParsing="false" text="OK" onAction="#dismiss" />

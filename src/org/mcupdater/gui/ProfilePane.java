@@ -46,6 +46,7 @@ public class ProfilePane extends GridPane
 				changeProfile(cmbProfile.getSelectionModel().getSelectedItem());
 			}
 		});
+		cmbProfile.setMinWidth(100);
 		GridPane.setColumnIndex(imgFace, 0);
 		GridPane.setColumnIndex(lblProfile,1);
 		GridPane.setColumnIndex(cmbProfile,2);
