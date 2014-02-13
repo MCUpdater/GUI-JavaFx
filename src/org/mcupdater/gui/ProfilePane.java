@@ -59,9 +59,13 @@ public class ProfilePane extends GridPane
 	}
 
 	private void changeProfile(Profile selectedItem) {
-		MainController.getInstance().setSelectedInstance(selectedItem.getLastInstance());
-		String avatarUrl = "http://cravatar.eu/helmavatar/" + selectedItem.getName() + "/16";
-		imgFace.setImage(new Image(avatarUrl));
+		try {
+			MainController.getInstance().setSelectedInstance(selectedItem.getLastInstance());
+			String avatarUrl = "http://cravatar.eu/helmavatar/" + selectedItem.getName() + "/16";
+			imgFace.setImage(new Image(avatarUrl));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setSelectedProfile(String selectedProfile) {

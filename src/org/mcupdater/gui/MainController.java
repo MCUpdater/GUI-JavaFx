@@ -461,38 +461,40 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 
 	public void instanceChanged(ServerList entry) {
 		this.selected = entry;
-		newsBrowser.navigate(selected.getNewsUrl());
-		List<Module> modList = ServerPackParser.loadFromURL(selected.getPackUrl(), selected.getServerId());
-		Set<String> digests = new HashSet<>();
-		for (Module mod : modList) {
-			if ( !mod.getMD5().isEmpty() ) { digests.add(mod.getMD5()); }
-			for (ConfigFile cf : mod.getConfigs()) {
-				if ( !cf.getMD5().isEmpty() ) { digests.add(cf.getMD5()); }
+		if (entry != null) {
+			newsBrowser.navigate(selected.getNewsUrl());
+			List<Module> modList = ServerPackParser.loadFromURL(selected.getPackUrl(), selected.getServerId());
+			Set<String> digests = new HashSet<>();
+			for (Module mod : modList) {
+				if ( !mod.getMD5().isEmpty() ) { digests.add(mod.getMD5()); }
+				for (ConfigFile cf : mod.getConfigs()) {
+					if ( !cf.getMD5().isEmpty() ) { digests.add(cf.getMD5()); }
+				}
+				for (GenericModule sm : mod.getSubmodules()) {
+					if ( !sm.getMD5().isEmpty() ) { digests.add(sm.getMD5()); }
+				}
 			}
-			for (GenericModule sm : mod.getSubmodules()) {
-				if ( !sm.getMD5().isEmpty() ) { digests.add(sm.getMD5()); }
+			String remoteHash = MCUpdater.calculateGroupHash(digests);
+			//System.out.println("Hash: " + MCUpdater.calculateGroupHash(digests));
+			Instance instData = new Instance();
+			final Path instanceFile = MCUpdater.getInstance().getInstanceRoot().resolve(entry.getServerId()).resolve("instance.json");
+			try {
+				BufferedReader reader = Files.newBufferedReader(instanceFile, StandardCharsets.UTF_8);
+				instData = gson.fromJson(reader, Instance.class);
+				reader.close();
+			} catch (IOException e) {
+				baseLogger.log(Level.WARNING, "instance.json file not found.  This is not an error if the instance has not been installed.");
 			}
-		}
-		String remoteHash = MCUpdater.calculateGroupHash(digests);
-		//System.out.println("Hash: " + MCUpdater.calculateGroupHash(digests));
-		Instance instData = new Instance();
-		final Path instanceFile = MCUpdater.getInstance().getInstanceRoot().resolve(entry.getServerId()).resolve("instance.json");
-		try {
-			BufferedReader reader = Files.newBufferedReader(instanceFile, StandardCharsets.UTF_8);
-			instData = gson.fromJson(reader, Instance.class);
-			reader.close();
-		} catch (IOException e) {
-			baseLogger.log(Level.WARNING, "instance.json file not found.  This is not an error if the instance has not been installed.");
-		}
-		refreshModList(modList, instData.getOptionalMods());
-		boolean needUpdate = (instData.getHash().isEmpty() || !instData.getHash().equals(remoteHash));
-		boolean needNewMCU = Version.isVersionOld(entry.getMCUVersion());
+			refreshModList(modList, instData.getOptionalMods());
+			boolean needUpdate = (instData.getHash().isEmpty() || !instData.getHash().equals(remoteHash));
+			boolean needNewMCU = Version.isVersionOld(entry.getMCUVersion());
 
-		if (needUpdate) {
-			MessageDialog.showMessage(pnlContent.getScene().getWindow(), Main.getTranslation().updateRequired, "MCUpdater");
-		}
-		if (needNewMCU) {
-			MessageDialog.showMessage(pnlContent.getScene().getWindow(), Main.getTranslation().oldMCUpdater, "MCUpdater");
+			if (needUpdate) {
+				MessageDialog.showMessage(pnlContent.getScene().getWindow(), Main.getTranslation().updateRequired, "MCUpdater");
+			}
+			if (needNewMCU) {
+				MessageDialog.showMessage(pnlContent.getScene().getWindow(), Main.getTranslation().oldMCUpdater, "MCUpdater");
+			}
 		}
 	}
 
