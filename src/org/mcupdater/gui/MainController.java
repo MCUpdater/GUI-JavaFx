@@ -91,12 +91,15 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
         listInstances.setCellFactory(new Callback<ListView<ServerList>, ListCell<ServerList>>(){
-
             @Override
             public ListCell<ServerList> call(ListView<ServerList> serverListListView) {
                 return new InstanceListCell();
             }
         });
+		if (!SettingsManager.getInstance().getSettings().getPackURLs().contains(Main.getDefaultPackURL())) {
+			SettingsManager.getInstance().getSettings().addPackURL(Main.getDefaultPackURL());
+			SettingsManager.getInstance().saveSettings();
+		}
 		setupControls();
         System.out.println("Initialized");
 		SettingsManager.getInstance().addListener(this);
