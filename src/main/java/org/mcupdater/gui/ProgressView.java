@@ -21,9 +21,9 @@ import java.util.Map.Entry;
 
 public class ProgressView extends Region
 {
-	private ScrollPane scroll = new ScrollPane();
-	private VBox content = new VBox();
-	private Map<MultiKey, ProgressItem> items = new HashMap<>();
+	private final ScrollPane scroll = new ScrollPane();
+	private final VBox content = new VBox();
+	private final Map<MultiKey, ProgressItem> items = new HashMap<>();
 
 	public ProgressView() {
 		getChildren().add(scroll);
@@ -141,10 +141,10 @@ public class ProgressView extends Region
 
 	private class ProgressItem extends GridPane
 	{
-		private Label lblName;
-		private ProgressBar pbProgress;
-		private Label lblStatus;
-		private Button btnDismiss;
+		private final Label lblName;
+		private final ProgressBar pbProgress;
+		private final Label lblStatus;
+		private final Button btnDismiss;
 		private boolean active;
 
 		public ProgressItem(final String jobName, final String parentId) {

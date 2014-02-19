@@ -58,7 +58,7 @@ public class MCUSettings extends BorderPane implements SettingsListener {
 	public Button btnPackURLAdd;
 	public Button btnPackURLRemove;
 	public Label lblNewURL;
-	private SettingsManager settingsManager = SettingsManager.getInstance();
+	private final SettingsManager settingsManager = SettingsManager.getInstance();
 	boolean allowEvents = false;
 
 	public MCUSettings() {

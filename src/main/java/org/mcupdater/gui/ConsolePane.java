@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 
 public class ConsolePane extends Region
 {
-	public TextArea console = new TextArea();
+	public final TextArea console = new TextArea();
 
 	public ConsolePane() {
 		getChildren().add(console);

@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class ModulePanel extends ScrollPane
 {
-	VBox content = new VBox();
+	final VBox content = new VBox();
 	private List<ModuleEntry> modules = new ArrayList<>();
 
 	public ModulePanel(){

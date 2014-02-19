@@ -70,7 +70,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	private int updateCounter = 0;
 	private boolean playing;
 	private ServerList selected;
-	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public MainController() {
 		INSTANCE = this;
@@ -328,15 +328,15 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		if (settings.isFullScreen()) {
 			clArgs.append(" --fullscreen");
 		} else {
-			clArgs.append(" --width " + settings.getResWidth() + " --height " + settings.getResHeight());
+			clArgs.append(" --width ").append(settings.getResWidth()).append(" --height ").append(settings.getResHeight());
 		}
 		if (settings.isAutoConnect() && selected.isAutoConnect()) {
 			URI address;
 			try {
 				address = new URI("my://" + selected.getAddress());
-				clArgs.append(" --server " + address.getHost());
+				clArgs.append(" --server ").append(address.getHost());
 				if (address.getPort() != -1) {
-					clArgs.append(" --port " + address.getPort());
+					clArgs.append(" --port ").append(address.getPort());
 				}
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
@@ -367,7 +367,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 					libs.add(entry.getModule().getId() + ".jar");
 				}
 				if (!entry.getModule().getLaunchArgs().isEmpty()) {
-					clArgs.append(" " + entry.getModule().getLaunchArgs());
+					clArgs.append(" ").append(entry.getModule().getLaunchArgs());
 				}
 				if (!entry.getModule().getJreArgs().isEmpty()) {
 					args.addAll(Arrays.asList(entry.getModule().getJreArgs().split(" ")));
@@ -378,7 +378,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 							libs.add(sm.getId() + ".jar");
 						}
 						if (!sm.getLaunchArgs().isEmpty()) {
-							clArgs.append(" " + sm.getLaunchArgs());
+							clArgs.append(" ").append(sm.getLaunchArgs());
 						}
 						if (!sm.getJreArgs().isEmpty()) {
 							args.addAll(Arrays.asList(sm.getJreArgs().split(" ")));
