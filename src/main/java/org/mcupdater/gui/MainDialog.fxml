@@ -42,7 +42,17 @@
                 <ListView fx:id="listInstances" styleClass="instances" />
             </center>
             <top>
-                <Label fx:id="lblInstances" />
+                <BorderPane prefHeight="25.0">
+                    <left>
+                        <Label fx:id="lblInstances" />
+                    </left>
+                    <right>
+                        <HBox>
+                            <Button text="+"/>
+                            <Button text="-"/>
+                        </HBox>
+                    </right>
+                </BorderPane>
             </top>
         </BorderPane>
     </left>
