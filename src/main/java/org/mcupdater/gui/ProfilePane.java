@@ -21,16 +21,19 @@ public class ProfilePane extends GridPane
 	private final ImageView imgFace;
 	private final Label lblProfile;
 	private final ComboBox<Profile> cmbProfile;
+	private boolean skipEvents = false;
 
 	public Profile getSelectedProfile() {
 		return cmbProfile.getSelectionModel().getSelectedItem();
 	}
 
 	public void refreshProfiles() {
+		skipEvents = true;
+		Profile selected = cmbProfile.getSelectionModel().getSelectedItem();
 		Settings settings = SettingsManager.getInstance().getSettings();
-		if (cmbProfile != null) {
-			cmbProfile.setItems(FXCollections.observableList(settings.getProfiles()));
-		}
+		cmbProfile.setItems(FXCollections.observableList(settings.getProfiles()));
+		cmbProfile.getSelectionModel().select(selected);
+		skipEvents = false;
 	}
 
 	public ProfilePane() {
@@ -43,7 +46,9 @@ public class ProfilePane extends GridPane
 		{
 			@Override
 			public void handle(ActionEvent event) {
-				changeProfile(cmbProfile.getSelectionModel().getSelectedItem());
+				if (!skipEvents) {
+					changeProfile(cmbProfile.getSelectionModel().getSelectedItem());
+				}
 			}
 		});
 		cmbProfile.setMinWidth(100);

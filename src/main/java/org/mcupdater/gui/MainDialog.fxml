@@ -42,16 +42,26 @@
                 <ListView fx:id="listInstances" styleClass="instances" />
             </center>
             <top>
-                <BorderPane prefHeight="25.0">
+                <BorderPane fx:id="pnlInstancesHeader" prefHeight="25.0">
                     <left>
                         <Label fx:id="lblInstances" />
                     </left>
                     <right>
                         <HBox>
-                            <Button text="+"/>
-                            <Button text="-"/>
+                            <Button fx:id="btnAddURL" onAction="#showUrlInput"/>
+                            <Button fx:id="btnRefresh" onAction="#refreshInstanceListWithSelection"/>
                         </HBox>
                     </right>
+                    <bottom>
+                        <BorderPane fx:id="pnlURLInput" visible="false" prefHeight="25.0">
+                            <center>
+                                <TextField fx:id="txtNewURL" text=""/>
+                            </center>
+                            <right>
+                                <Button text="Add" onAction="#addUrl"/>
+                            </right>
+                        </BorderPane>
+                    </bottom>
                 </BorderPane>
             </top>
         </BorderPane>
@@ -60,8 +70,10 @@
         <GridPane hgap="3" minHeight="40" prefHeight="40">
             <Label fx:id="lblStatus" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="LEFT"/>
             <ProfilePane fx:id="profiles" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-            <Button fx:id="btnUpdate" GridPane.rowIndex="0" GridPane.columnIndex="2" onAction="#doUpdate"/>
-            <Button fx:id="btnLaunch" GridPane.rowIndex="0" GridPane.columnIndex="3" onAction="#doLaunch"/>
+            <Label fx:id="lblHard" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <CheckBox fx:id="chkHard"  GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+            <Button fx:id="btnUpdate" GridPane.rowIndex="0" GridPane.columnIndex="4" onAction="#doUpdate"/>
+            <Button fx:id="btnLaunch" GridPane.rowIndex="0" GridPane.columnIndex="5" onAction="#doLaunch"/>
             <rowConstraints>
                 <RowConstraints vgrow="ALWAYS" fillHeight="true"/>
             </rowConstraints>

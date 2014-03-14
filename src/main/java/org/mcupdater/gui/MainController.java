@@ -8,6 +8,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import org.apache.commons.io.FileUtils;
@@ -49,6 +51,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	private static MainController INSTANCE;
 	public ModulePanel pnlModule;
 	public ConsolePane mcuConsole;
+	public Button btnAddURL;
+	public Button btnRefresh;
+	public BorderPane pnlURLInput;
+	public BorderPane pnlInstancesHeader;
+	public TextField txtNewURL;
+	public CheckBox chkHard;
+	public Label lblHard;
 	private FileHandler mcuHandler;
 	public NewsBrowser newsBrowser;
     public ListView<ServerList> listInstances;
@@ -140,7 +149,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 								}
 							}
 							if (!(currentSelection == null)) {
-								if (progress.getActiveById(currentSelection.getServerId()) > 0) {
+								if (progress.getActiveById(currentSelection.getServerId()) > 0 || playState) {
 									btnUpdate.setDisable(true);
 								} else {
 									btnUpdate.setDisable(false);
@@ -178,6 +187,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		tabProgress.setText(translate.progress);
 		btnUpdate.setText(translate.update);
 		btnLaunch.setText(translate.launchMinecraft);
+		lblHard.setText(translate.hardUpdate);
+		btnAddURL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("add.png"))));
+		btnRefresh.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("arrow_refresh.png"))));
 		listInstances.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ServerList>()
 		{
 			@Override
@@ -282,14 +294,17 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			}
 		}
 		try {
-			MCUpdater.getInstance().installMods(selected, selectedMods, selectedConfigs, false, instData, ModSide.CLIENT);
+			MCUpdater.getInstance().installMods(selected, selectedMods, selectedConfigs, chkHard.isSelected(), instData, ModSide.CLIENT);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		chkHard.setSelected(false);
 	}
 
 	public void doLaunch() {
 		btnLaunch.setDisable(true);
+		btnUpdate.setDisable(true);
+		setPlaying(true);
 		Profile launchProfile = profiles.getSelectedProfile();
 		if (!(launchProfile == null)) {
 			SettingsManager.getInstance().getSettings().setLastProfile(launchProfile.getName());
@@ -324,7 +339,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		String json;
 		json = FileUtils.readFileToString(indexFile);
 		AssetIndex index = gson.fromJson(json, AssetIndex.class);
-		Settings settings = SettingsManager.getInstance().getSettings();
+		final Settings settings = SettingsManager.getInstance().getSettings();
 		if (settings.isFullScreen()) {
 			clArgs.append(" --fullscreen");
 		} else {
@@ -430,7 +445,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		final ProcessBuilder pb = new ProcessBuilder(args);
 		pb.directory(mcu.getInstanceRoot().resolve(selected.getServerId()).toFile());
 		pb.redirectErrorStream(true);
-		Thread gameThread = new Thread(new Runnable(){
+		final Thread gameThread = new Thread(new Runnable(){
 			@Override
 			public void run() {
 				try{
@@ -439,18 +454,20 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 					String line;
 					while ((line = buffRead.readLine()) != null) {
 						if (line.length() > 0) {
-							consoleWrite(line);
+							if (settings.isMinecraftToConsole()) {
+								consoleWrite(line);
+							}
 						}
 					}
 				} catch (Exception e) {
 					consoleWrite(e.getMessage());
 				} finally {
+					consoleWrite("Minecraft process terminated");
 					setPlaying(false);
 				}
 			}
 		});
 		gameThread.start();
-		setPlaying(true);
 	}
 
 	private void consoleWrite(final String message) {
@@ -603,4 +620,28 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		MCUpdater.getInstance().setInstanceRoot(new File(newSettings.getInstanceRoot()).toPath());
 	}
 
+	public void refreshInstanceListWithSelection() {
+		ServerList selected = listInstances.getSelectionModel().getSelectedItem();
+		refreshInstanceList();
+		listInstances.getSelectionModel().select(selected);
+	}
+
+	public void showUrlInput() {
+		pnlInstancesHeader.setPrefHeight(50.0);
+		pnlURLInput.setVisible(true);
+	}
+
+	public void addUrl() {
+		if (!txtNewURL.getText().isEmpty()) {
+			SettingsManager.getInstance().getSettings().addPackURL(txtNewURL.getText());
+			if (!SettingsManager.getInstance().isDirty()) {
+				SettingsManager.getInstance().saveSettings();
+			}
+			SettingsManager.getInstance().fireSettingsUpdate();
+			refreshInstanceListWithSelection();
+		}
+		txtNewURL.setText("");
+		pnlURLInput.setVisible(false);
+		pnlInstancesHeader.setPrefHeight(25.0);
+	}
 }

@@ -37,4 +37,6 @@ public abstract class TranslateProxy {
 	public String cancel = "#MISSING#";
 	public String updateRequired = "#MISSING#";
 	public String oldMCUpdater = "#MISSING#";
+	public String minecraftConsole = "#MISSING#";
+	public String hardUpdate = "#MISSING#";
 }

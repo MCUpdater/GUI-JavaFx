@@ -88,9 +88,12 @@
 					<!-- Auto connect -->
 					<Label fx:id="lblAutoConnect" GridPane.columnIndex="0" GridPane.rowIndex="12" GridPane.valignment="CENTER" />
 					<CheckBox fx:id="chkAutoConnect" GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.valignment="CENTER" />
+                    <!-- Minecraft console -->
+                    <Label fx:id="lblMinecraftConsole" GridPane.columnIndex="0" GridPane.rowIndex="13" GridPane.valignment="CENTER" />
+                    <CheckBox fx:id="chkMinecraftConsole" GridPane.columnIndex="1" GridPane.rowIndex="13" GridPane.valignment="CENTER" />
 					<!-- Pack URLs -->
-					<Label fx:id="lblPackURLs" GridPane.columnIndex="0" GridPane.rowIndex="13" GridPane.valignment="TOP" />
-					<GridPane hgap="5" vgap="5" GridPane.columnIndex="1" GridPane.rowIndex="13" GridPane.valignment="TOP">
+					<Label fx:id="lblPackURLs" GridPane.columnIndex="0" GridPane.rowIndex="14" GridPane.valignment="TOP" />
+					<GridPane hgap="5" vgap="5" GridPane.columnIndex="1" GridPane.rowIndex="14" GridPane.valignment="TOP">
 						<children>
 							<ListView fx:id="lstPackURLs" GridPane.rowIndex="0" GridPane.columnSpan="4" GridPane.valignment="TOP" />
 							<Label fx:id="lblNewURL" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="CENTER" />
@@ -131,6 +134,7 @@
 					<RowConstraints vgrow="SOMETIMES" minHeight="20" />
 					<RowConstraints vgrow="SOMETIMES" minHeight="20" />
 					<RowConstraints vgrow="SOMETIMES" minHeight="20" />
+                    <RowConstraints vgrow="SOMETIMES" minHeight="20" />
 					<RowConstraints vgrow="ALWAYS" minHeight="60" />
 				</rowConstraints>
 			</GridPane>

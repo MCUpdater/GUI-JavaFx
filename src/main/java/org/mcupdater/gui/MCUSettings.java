@@ -59,6 +59,8 @@ public class MCUSettings extends BorderPane implements SettingsListener {
 	public Button btnPackURLRemove;
 	public Label lblNewURL;
 	private final SettingsManager settingsManager = SettingsManager.getInstance();
+	public Label lblMinecraftConsole;
+	public CheckBox chkMinecraftConsole;
 	boolean allowEvents = false;
 
 	public MCUSettings() {
@@ -96,6 +98,7 @@ public class MCUSettings extends BorderPane implements SettingsListener {
         lblProgramWrapper.setText(translate.programWrapper);
         lblMinimizeAtLaunch.setText(translate.minimize);
         lblAutoConnect.setText(translate.autoConnect);
+	    lblMinecraftConsole.setText(translate.minecraftConsole);
         lblPackURLs.setText(translate.definedPacks);
 	    btnJREBrowse.setText(translate.browse);
 	    btnInstancePathBrowse.setText(translate.browse);
@@ -122,6 +125,7 @@ public class MCUSettings extends BorderPane implements SettingsListener {
 		txtProgramWrapper.setText(imported.getProgramWrapper());
 		chkMinimize.setSelected(imported.isMinimizeOnLaunch());
 		chkAutoConnect.setSelected(imported.isAutoConnect());
+		chkMinecraftConsole.setSelected(imported.isMinecraftToConsole());
 		reloadProfiles();
 		reloadURLs();
 		MainController.getInstance().refreshInstanceList();
@@ -176,6 +180,17 @@ public class MCUSettings extends BorderPane implements SettingsListener {
 			    }
 		    }
 	    });
+		chkMinecraftConsole.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent event) {
+				if (allowEvents) {
+					settingsManager.getSettings().setMinecraftToConsole(chkMinecraftConsole.isSelected());
+					settingsManager.setDirty();
+					settingsManager.fireSettingsUpdate();
+				}
+			}
+		});
     }
 
 	private void watchField(final TextField toWatch, final Settings.TextField toChange)
@@ -210,6 +225,7 @@ public class MCUSettings extends BorderPane implements SettingsListener {
 	public void reloadSettings() {
 		settingsManager.reload();
 		loadFields();
+		MainController.getInstance().profiles.setSelectedProfile(settingsManager.getSettings().getLastProfile());
 	}
 
 	public void addProfile() {
@@ -283,5 +299,6 @@ public class MCUSettings extends BorderPane implements SettingsListener {
 
 	@Override
 	public void settingsChanged(Settings newSettings) {
+		loadFields();
 	}
 }
