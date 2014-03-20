@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import org.mcupdater.Version;
+import org.mcupdater.api.Version;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
 import org.mcupdater.settings.SettingsManager;

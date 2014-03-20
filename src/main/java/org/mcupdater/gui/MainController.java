@@ -16,6 +16,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.mcupdater.*;
+import org.mcupdater.api.Version;
+import org.mcupdater.downloadlib.*;
 import org.mcupdater.instance.Instance;
 import org.mcupdater.model.*;
 import org.mcupdater.mojang.AssetIndex;
@@ -119,10 +121,10 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 
 			@Override
 			public void run() {
-				int x=0;
+				//int x=0;
 				//noinspection InfiniteLoopStatement
 				while(true){
-					if (x >= 1000000) {
+					/*if (x >= 1000000) {
 						x=0;
 						activeJobs=99;
 						currentSelection = null;
@@ -132,7 +134,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 						}
 					} else {
 						x++;
-					}
+					}*/
 					try {
 						if (activeJobs != progress.getActiveCount() || currentSelection != listInstances.getSelectionModel().getSelectedItem() || playState != isPlaying()) {
 							currentSelection = listInstances.getSelectionModel().getSelectedItem();
@@ -158,6 +160,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 								btnUpdate.setDisable(true);
 							}
 						}
+						this.sleep(500);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -486,12 +489,18 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			List<Module> modList = ServerPackParser.loadFromURL(selected.getPackUrl(), selected.getServerId());
 			Set<String> digests = new HashSet<>();
 			for (Module mod : modList) {
-				if ( !mod.getMD5().isEmpty() ) { digests.add(mod.getMD5()); }
+				if (!mod.getMD5().isEmpty()) {
+					digests.add(mod.getMD5());
+				}
 				for (ConfigFile cf : mod.getConfigs()) {
-					if ( !cf.getMD5().isEmpty() ) { digests.add(cf.getMD5()); }
+					if (!cf.getMD5().isEmpty()) {
+						digests.add(cf.getMD5());
+					}
 				}
 				for (GenericModule sm : mod.getSubmodules()) {
-					if ( !sm.getMD5().isEmpty() ) { digests.add(sm.getMD5()); }
+					if (!sm.getMD5().isEmpty()) {
+						digests.add(sm.getMD5());
+					}
 				}
 			}
 			String remoteHash = MCUpdater.calculateGroupHash(digests);
