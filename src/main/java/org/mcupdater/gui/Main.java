@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import joptsimple.ArgumentAcceptingOptionSpec;
+import joptsimple.NonOptionArgumentSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import org.mcupdater.api.Version;
@@ -18,16 +19,21 @@ import org.mcupdater.translate.TranslateProxy;
 import org.mcupdater.util.MCUpdater;
 
 import java.io.File;
+import java.util.List;
 
 public class Main extends Application {
 	private static TranslateProxy translation;
 	private static String defaultPackURL;
+	public static List<String> passthroughArgs;
 
     public static void main(String[] args) {
 	    OptionParser optParser = new OptionParser();
+	    optParser.allowsUnrecognizedOptions();
 	    ArgumentAcceptingOptionSpec<String> packSpec = optParser.accepts("ServerPack").withRequiredArg().ofType(String.class);
 	    ArgumentAcceptingOptionSpec<File> rootSpec = optParser.accepts("MCURoot").withRequiredArg().ofType(File.class);
+	    NonOptionArgumentSpec<String> nonOpts = optParser.nonOptions();
 	    OptionSet options = optParser.parse(args);
+	    passthroughArgs = options.valuesOf(nonOpts);
 	    MCUpdater.getInstance(options.valueOf(rootSpec));
 	    setDefaultPackURL(options.valueOf(packSpec));
 	    try {

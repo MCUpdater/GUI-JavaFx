@@ -438,6 +438,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			fieldArr[i] = fieldReplacer.replace(fieldArr[i]);
 		}
 		args.addAll(Arrays.asList(fieldArr));
+		args.addAll(Main.passthroughArgs);
 
 		log("Launch args:");
 		log("=======================");
