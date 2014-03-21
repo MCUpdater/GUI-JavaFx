@@ -297,7 +297,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			}
 		}
 		try {
-			MCUpdater.getInstance().installMods(selected, selectedMods, selectedConfigs, chkHard.isSelected(), instData, ModSide.CLIENT);
+			Path installPath = MCUpdater.getInstance().getInstanceRoot().resolve(selected.getServerId());
+			MCUpdater.getInstance().installMods(selected, selectedMods, selectedConfigs, installPath, chkHard.isSelected(), instData, ModSide.CLIENT);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
