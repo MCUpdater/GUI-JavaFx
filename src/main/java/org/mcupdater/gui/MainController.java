@@ -362,7 +362,14 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			}
 		}
 		clArgs.append(" --resourcePackDir ${resource_packs}");
-		args.add((new File(settings.getJrePath()).toPath().resolve("bin").resolve("java").toString()));
+        if (!settings.getProgramWrapper().isEmpty()) {
+             args.add(settings.getProgramWrapper());
+        }
+        if (System.getProperty("os.name").startsWith("Win")) {
+            args.add((new File(settings.getJrePath()).toPath().resolve("bin").resolve("javaw.exe").toString()));
+        } else {
+            args.add((new File(settings.getJrePath()).toPath().resolve("bin").resolve("java").toString()));
+        }
 		args.add("-Xms" + settings.getMinMemory());
 		args.add("-Xmx" + settings.getMaxMemory());
 		args.add("-XX:PermSize=" + settings.getPermGen());
