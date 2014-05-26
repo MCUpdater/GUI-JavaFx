@@ -60,7 +60,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	public TextField txtNewURL;
 	public CheckBox chkHard;
 	public Label lblHard;
-	private FileHandler mcuHandler;
 	public NewsBrowser newsBrowser;
     public ListView<ServerList> listInstances;
 	public Tab tabNews;
@@ -75,9 +74,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	public Button btnUpdate;
 	public Button btnLaunch;
 	public BorderPane pnlContent;
-	//public Tab tabPackXML;
-	//public NewsBrowser xmlBrowser;
-	private Thread daemonMonitor;
 	private int updateCounter = 0;
 	private boolean playing;
 	private ServerList selected;
@@ -89,7 +85,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		this.baseLogger = Logger.getLogger("MCUpdater");
 		baseLogger.setLevel(Level.ALL);
 		try {
-			mcuHandler = new FileHandler(MCUpdater.getInstance().getArchiveFolder().resolve("MCUpdater.log").toString(),0,3);
+			FileHandler mcuHandler = new FileHandler(MCUpdater.getInstance().getArchiveFolder().resolve("MCUpdater.log").toString(), 0, 3);
 			mcuHandler.setFormatter(new FMLStyleFormatter());
 			mcuHandler.setLevel(Level.CONFIG);
 			baseLogger.addHandler(mcuHandler);
@@ -114,7 +110,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 		setupControls();
         System.out.println("Initialized");
 		SettingsManager.getInstance().addListener(this);
-		daemonMonitor = new Thread(){
+		Thread daemonMonitor = new Thread() {
 			private ServerList currentSelection;
 			private int activeJobs = 0;
 			private boolean playState;
@@ -123,7 +119,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 			public void run() {
 				//int x=0;
 				//noinspection InfiniteLoopStatement
-				while(true){
+				while (true) {
 					/*if (x >= 1000000) {
 						x=0;
 						activeJobs=99;
@@ -160,7 +156,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 								btnUpdate.setDisable(true);
 							}
 						}
-						this.sleep(500);
+						sleep(500);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
