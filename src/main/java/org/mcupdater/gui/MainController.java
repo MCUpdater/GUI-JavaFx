@@ -558,11 +558,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 	}
 
 	@Override
-	public void addServer(ServerList entry) {
-
-	}
-
-	@Override
 	public DownloadQueue submitNewQueue(String queueName, String parent, Collection<Downloadable> files, File basePath, File cachePath) {
 		progress.addProgressBar(queueName, parent);
 		if (profiles.getSelectedProfile() != null) {
