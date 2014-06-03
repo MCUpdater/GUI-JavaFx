@@ -34,6 +34,7 @@ public class ModulePanel extends ScrollPane
 		this.clear();
 		modules = new ArrayList<>();
 		for (Module m : modList) {
+			System.out.println(m.getName());
 			ModuleEntry newEntry = new ModuleEntry(m);
 			if (!m.getRequired() && optionalSelections.containsKey(m.getId())) {
 				newEntry.setSelected(optionalSelections.get(m.getId()));
