@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: gson-2.2.4.jar jopt-simple-4.5.jar commons-codec-1.6.jar c
- ommons-lang3-3.1.jar commons-io-2.1.jar xz-1.4.jar MCU-API.jar MCU-Yg
- gdrasil.jar MCU-DownloadLib.jar
-Main-Class: org.mcupdater.gui.Main
-
