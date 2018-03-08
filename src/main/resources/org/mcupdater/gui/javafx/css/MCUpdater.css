@@ -2,6 +2,8 @@
 	-fx-background-color: #666666;
 }
 
+/**********/
+
 #sidebar {
 	-fx-border-color: #000000;
 	-fx-border-width: 1px;
@@ -9,10 +11,15 @@
 }
 
 #sidebarButtons {
+	-fx-pref-height: 40px;
 	-fx-alignment: center;
+	-fx-padding: 2px;
+	-fx-spacing: 4px;
+	-fx-background-color: #ccff99;
 }
 #sidebarButtons Button {
-	-fx-pref-width: 65px;
+	-fx-pref-width: 60px;
+	-fx-pref-margin: 5px;
 }
 
 .add-button {
@@ -25,4 +32,51 @@
 
 .settings-button {
 	-fx-graphic: url('../icons/cog.png');
+}
+
+/**********/
+
+#titlebar {
+	-fx-pref-height: 40px;
+	-fx-alignment: center-left;
+	-fx-padding: 2px 0px 2px 5px;
+	-fx-background-color: #ffcc99;  
+}
+
+#titlebar Label {
+	-fx-font: bold 32px 'sans-serif';
+}
+
+/**********/
+
+#footerPane {
+	-fx-background-color: #99ccff;
+}
+
+/**********/
+
+#launchPane {
+	-fx-padding: 5px;
+	-fx-hgap: 5px;
+	-fx-vgap: 5px;
+	-fx-background-color: #ff99cc;
+}
+
+#lblAvatar {
+	/**-fx-graphic: url('../icons/mcu-icon.png');*/
+	-fx-background-color: 'yellow';
+	-fx-pref-height: 24px;
+	-fx-pref-width: 24px;
+}
+
+#boxProfile {
+	-fx-pref-width: 72px;
+}
+
+.update-button {
+	-fx-graphic: url('../icons/update.png');
+}
+
+.launch-button {
+	-fx-graphic: url('../icons/play.png');
 }

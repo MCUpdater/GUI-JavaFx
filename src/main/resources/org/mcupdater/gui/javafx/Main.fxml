@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.ComboBox?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" styleClass="root">
 	<stylesheets>
@@ -30,5 +31,44 @@
 			</top>
 		</BorderPane>
 	</left>
+	
+	<!-- Main Pane -->
+	<center>
+		<BorderPane fx:id='mainPane'>
+			<!-- Title -->
+			<top>
+				<FlowPane fx:id='titlebar'>
+					<Label fx:id='lblPackTitle' text='ServerPack Name || MOTD - 0/20'/>
+				</FlowPane>
+			</top>
+			<!-- Content -->
+			<center>
+			</center>
+			<!-- Footer -->
+			<bottom>
+				<BorderPane fx:id='footerPane'>
+					<center>
+					</center>
+					<!--  Launcher -->
+					<right>
+						<GridPane fx:id='launchPane'>
+							<Label fx:id='lblAvatar'
+								GridPane.rowIndex='0' GridPane.columnIndex='0'
+							/>
+							<ComboBox fx:id='boxProfile'
+								GridPane.rowIndex='0' GridPane.columnIndex='1'
+							/>
+							<Button fx:id='btnUpdate' styleClass='update-button'
+								GridPane.rowIndex='0' GridPane.columnIndex='3'
+							/>
+							<Button fx:id='btnLaunch' styleClass='launch-button'
+								GridPane.rowIndex='1' GridPane.columnIndex='3'
+							/>
+						</GridPane>
+					</right>
+				</BorderPane>
+			</bottom>
+		</BorderPane>
+	</center>
 	
 </BorderPane>
