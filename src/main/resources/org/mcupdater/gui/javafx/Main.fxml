@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" styleClass="root">
+	<stylesheets>
+		<URL value="@css/MCUpdater.css"/>
+	</stylesheets>
+	
+	<!-- Left Pane -->
+	<left>
+		<BorderPane fx:id='sidebar'>
+			<!-- Button Panel -->
+			<top>
+				<HBox fx:id='sidebarButtons'> 
+					<Button fx:id="btnAddURL" styleClass='add-button'>
+						<tooltip><Tooltip text='Add URL'/></tooltip>
+					</Button>
+					<Button fx:id="btnRefresh" styleClass='refresh-button'>
+						<tooltip><Tooltip text='Refresh'/></tooltip>
+					</Button>
+					<Button fx:id="btnSettings" styleClass='settings-button'>
+						<tooltip><Tooltip text='Settings'/></tooltip>
+					</Button>
+				</HBox>
+			</top>
+		</BorderPane>
+	</left>
+	
+</BorderPane>

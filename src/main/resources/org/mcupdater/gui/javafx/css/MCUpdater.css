@@ -1,0 +1,28 @@
+.root {
+	-fx-background-color: #666666;
+}
+
+#sidebar {
+	-fx-border-color: #000000;
+	-fx-border-width: 1px;
+	-fx-pref-width: 200px;
+}
+
+#sidebarButtons {
+	-fx-alignment: center;
+}
+#sidebarButtons Button {
+	-fx-pref-width: 65px;
+}
+
+.add-button {
+	-fx-graphic: url('../icons/add.png');
+}
+
+.refresh-button {
+	-fx-graphic: url('../icons/arrow_refresh.png');
+}
+
+.settings-button {
+	-fx-graphic: url('../icons/cog.png');
+}
