@@ -2,6 +2,9 @@
 	-fx-background-color: #666666;
 }
 
+.tab-header-background {
+    -fx-background-color: linear-gradient(to right, #555555, #000000);
+}
 /**********/
 
 #sidebar {
@@ -79,4 +82,10 @@
 
 .launch-button {
 	-fx-graphic: url('../icons/play.png');
+}
+
+.outline.label .text {
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.25px;
 }

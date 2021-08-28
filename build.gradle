@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'workspace.java-application-conventions'
     id 'org.openjfx.javafxplugin' version '0.0.10'
@@ -5,7 +7,7 @@ plugins {
 
 javafx {
     version = '16'
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.graphics' ]
 }
 
 version = sharedVersion
@@ -13,4 +15,28 @@ version = sharedVersion
 dependencies {
     implementation project(':MCU-API')
     implementation project(':MCU-DownloadLib')
+    implementation 'com.mojang:authlib:1.6.25'
+    implementation group: 'org.controlsfx', name: 'controlsfx', version: '11.1.0'
 }
+
+application {
+    mainClass = 'org.mcupdater.gui.javafx.Main'
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from(sourceSets*.resources.srcDirs) {
+        include '**/*.properties' filter(ReplaceTokens, tokens: [verMajor: Integer.toString(version.major), verMinor: Integer.toString(version.minor), verBuild: Integer.toString(version.buildNum)])
+    }
+    from(sourceSets*.resources.srcDirs) { exclude '**/*.properties' }
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest {
+        attributes "Main-Class": 'org.mcupdater.gui.javafx.Main'
+    }
+}
+
+jar.setDependsOn([':MCU-API:jar',':MCU-DownloadLib:jar'])

@@ -1,74 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.ComboBox?>
-
-<BorderPane xmlns:fx="http://javafx.com/fxml" styleClass="root">
-	<stylesheets>
-		<URL value="@css/MCUpdater.css"/>
-	</stylesheets>
-	
-	<!-- Left Pane -->
-	<left>
-		<BorderPane fx:id='sidebar'>
-			<!-- Button Panel -->
-			<top>
-				<HBox fx:id='sidebarButtons'> 
-					<Button fx:id="btnAddURL" styleClass='add-button'>
-						<tooltip><Tooltip text='Add URL'/></tooltip>
-					</Button>
-					<Button fx:id="btnRefresh" styleClass='refresh-button'>
-						<tooltip><Tooltip text='Refresh'/></tooltip>
-					</Button>
-					<Button fx:id="btnSettings" styleClass='settings-button'>
-						<tooltip><Tooltip text='Settings'/></tooltip>
-					</Button>
-				</HBox>
-			</top>
-		</BorderPane>
-	</left>
-	
-	<!-- Main Pane -->
-	<center>
-		<BorderPane fx:id='mainPane'>
-			<!-- Title -->
-			<top>
-				<FlowPane fx:id='titlebar'>
-					<Label fx:id='lblPackTitle' text='ServerPack Name || MOTD - 0/20'/>
-				</FlowPane>
-			</top>
-			<!-- Content -->
-			<center>
-			</center>
-			<!-- Footer -->
-			<bottom>
-				<BorderPane fx:id='footerPane'>
-					<center>
-					</center>
-					<!--  Launcher -->
-					<right>
-						<GridPane fx:id='launchPane'>
-							<Label fx:id='lblAvatar'
-								GridPane.rowIndex='0' GridPane.columnIndex='0'
-							/>
-							<ComboBox fx:id='boxProfile'
-								GridPane.rowIndex='0' GridPane.columnIndex='1'
-							/>
-							<Button fx:id='btnUpdate' styleClass='update-button'
-								GridPane.rowIndex='0' GridPane.columnIndex='3'
-							/>
-							<Button fx:id='btnLaunch' styleClass='launch-button'
-								GridPane.rowIndex='1' GridPane.columnIndex='3'
-							/>
-						</GridPane>
-					</right>
-				</BorderPane>
-			</bottom>
-		</BorderPane>
-	</center>
-	
-</BorderPane>
+<?import org.mcupdater.gui.javafx.components.ConsolePane?>
+<?import org.mcupdater.gui.javafx.components.ProgressView?>
+<?import org.mcupdater.gui.javafx.components.ProfilePane?>
+<TabPane fx:id="tabpaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mcupdater.gui.javafx.MainController" style="-fx-background-color: linear-gradient(#555555, #000000);">
+	<tabs>
+		<Tab fx:id="tabInstances">
+			<BorderPane>
+				<top>
+					<ListView fx:id="listInstances" fixedCellSize="128.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="136.0" prefWidth="128.0" style="-fx-background-image: url(/org/mcupdater/gui/javafx/img/bg_main.png);" BorderPane.alignment="CENTER"/>
+				</top>
+				<center>
+					<TabPane fx:id="tabpaneDetail" tabClosingPolicy="UNAVAILABLE"/>
+				</center>
+				<bottom>
+					<GridPane hgap="3" minHeight="40" prefHeight="40" style="-fx-background-image: url(/org/mcupdater/gui/javafx/img/dark_oak_planks.png);">
+						<Label fx:id="lblStatus" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" style="-fx-text-fill: white"/>
+						<ProfilePane fx:id="profiles" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+						<Label fx:id="lblHard" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-text-fill: white"/>
+						<CheckBox fx:id="chkHard" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+						<Button fx:id="btnUpdate" onAction="#doUpdate" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+						<Button fx:id="btnLaunch" onAction="#doLaunch" GridPane.columnIndex="5" GridPane.rowIndex="0"/>
+						<rowConstraints>
+							<RowConstraints fillHeight="true" vgrow="ALWAYS"/>
+						</rowConstraints>
+						<columnConstraints>
+							<ColumnConstraints hgrow="ALWAYS"/>
+							<ColumnConstraints hgrow="SOMETIMES"/>
+							<ColumnConstraints hgrow="NEVER"/>
+							<ColumnConstraints hgrow="NEVER"/>
+							<ColumnConstraints/>
+							<ColumnConstraints/>
+						</columnConstraints>
+						<padding>
+							<Insets bottom="5" left="5" right="5" top="5"/>
+						</padding>
+					</GridPane>
+				</bottom>
+			</BorderPane>
+		</Tab>
+		<Tab fx:id="tabSearch" text="Find Modpacks">
+			<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+		</Tab>
+		<Tab fx:id="tabCreate" text="Create Modpacks">
+			<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+		</Tab>
+		<Tab fx:id="tabConsole">
+			<ConsolePane fx:id="mcuConsole"/>
+		</Tab>
+		<Tab fx:id="tabProgress">
+			<AnchorPane>
+				<ProgressView fx:id="progress" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
+			</AnchorPane>
+		</Tab>
+		<Tab fx:id="tabSettings">
+			<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+		</Tab>
+	</tabs>
+</TabPane>
