@@ -1,17 +1,16 @@
 package org.mcupdater.gui.javafx;
 
-import joptsimple.ArgumentAcceptingOptionSpec;
-import joptsimple.NonOptionArgumentSpec;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
-import org.mcupdater.api.Version;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import joptsimple.ArgumentAcceptingOptionSpec;
+import joptsimple.NonOptionArgumentSpec;
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
+import org.mcupdater.api.Version;
 import org.mcupdater.gui.javafx.components.LoginDialog;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
@@ -19,14 +18,13 @@ import org.mcupdater.settings.SettingsManager;
 import org.mcupdater.util.MCUpdater;
 
 import java.io.File;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Main extends Application {
 	private static ResourceBundle translation;
 	private static String defaultPackURL;
 	public static List<String> passthroughArgs;
+	public static Map<Integer,File> javaRuntimes = new HashMap<>();
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -47,7 +45,7 @@ public class Main extends Application {
 		Profile newProfile;
 		if (settings.getProfiles().size() == 0) {
 			newProfile = LoginDialog.doLogin(stage, "");
-			if (newProfile.getStyle().equals("Yggdrasil")) {
+			if (Arrays.asList("Yggdrasil","MSA").contains(newProfile.getStyle())) {
 				settings.addOrReplaceProfile(newProfile);
 				settings.setLastProfile(newProfile.getName());
 				if (!SettingsManager.getInstance().isDirty()) {
@@ -71,8 +69,13 @@ public class Main extends Application {
 		optParser.allowsUnrecognizedOptions();
 		ArgumentAcceptingOptionSpec<String> packSpec = optParser.accepts("ServerPack").withRequiredArg().ofType(String.class);
 		ArgumentAcceptingOptionSpec<File> rootSpec = optParser.accepts("MCURoot").withRequiredArg().ofType(File.class);
+		ArgumentAcceptingOptionSpec<String> runtimes = optParser.accepts("runtimes").withRequiredArg().withValuesSeparatedBy(";").ofType(String.class).required();
 		NonOptionArgumentSpec<String> nonOpts = optParser.nonOptions();
 		OptionSet options = optParser.parse(args);
+		for (String entry : options.valuesOf(runtimes)) {
+			String[] nvPair = entry.split("#");
+			javaRuntimes.put(Integer.valueOf(nvPair[0]), new File(nvPair[1]));
+		}
 		passthroughArgs = options.valuesOf(nonOpts);
 		MCUpdater.getInstance(options.valueOf(rootSpec));
 		setDefaultPackURL(options.valueOf(packSpec));

@@ -14,6 +14,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import org.mcupdater.downloadlib.DownloadQueue;
+import org.mcupdater.downloadlib.QueueStatus;
+import org.mcupdater.gui.javafx.Main;
+import org.mcupdater.gui.javafx.MainController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,11 +53,11 @@ public class ProgressView extends Region
         items.put(key, newItem);
     }
 
-    public synchronized void updateProgress(final String jobName, final String parentId, float newProgress, int totalFiles, int successfulFiles) {
-        ProgressItem bar = items.get(new MultiKey(parentId, jobName));
+    public synchronized void updateProgress(DownloadQueue queue) {
+        ProgressItem bar = items.get(new MultiKey(queue.getParent(), queue.getName()));
         synchronized(bar){
             if (bar == null) { return; }
-            bar.setProgress(newProgress, totalFiles, successfulFiles);
+            bar.setProgress(queue.getProgress(), queue.getTotalFileCount(), queue.getSuccessFileCount(), queue.getStatus());
         }
     }
 
@@ -153,7 +157,7 @@ public class ProgressView extends Region
             pbProgress = new ProgressBar();
             pbProgress.setMaxWidth(Double.MAX_VALUE);
             lblStatus = new Label("Inactive");
-            btnDismiss = new Button("", new ImageView(new Image(getClass().getResourceAsStream("remove.png"))));
+            btnDismiss = new Button("", new ImageView(new Image(MainController.class.getResourceAsStream("icons/remove.png"))));
             btnDismiss.setDisable(true);
             btnDismiss.setOnAction(new EventHandler<ActionEvent>(){
                 @Override
@@ -177,20 +181,27 @@ public class ProgressView extends Region
             this.getChildren().addAll(lblName, pbProgress, lblStatus, btnDismiss);
         }
 
-        public void setProgress(final float progress, final int totalFiles, final int successfulFiles) {
-            Platform.runLater(new Runnable(){
-                @Override
-                public void run() {
-                    pbProgress.setProgress(progress);
-                    lblStatus.setText(String.format("%d/%d downloaded",successfulFiles,totalFiles)); //TODO: i18n
-                    if (progress >= 1) {
+        public void setProgress(final float progress, final int totalFiles, final int successfulFiles, QueueStatus status) {
+            Platform.runLater(() -> {
+                pbProgress.setProgress(progress);
+                switch (status) {
+                    case DOWNLOADING -> {
+                        lblStatus.setText(String.format("%d/%d %s", successfulFiles, totalFiles, Main.getTranslation().getString("downloaded")));
+                        break;
+                    }
+                    case POSTPROCESSING -> {
+                        lblStatus.setText("Executing");
+                        break;
+                    }
+                    case FINISHED -> {
                         if (successfulFiles == totalFiles) {
-                            lblStatus.setText("Finished"); //TODO: i18n
+                            lblStatus.setText(Main.getTranslation().getString("finished"));
                         } else {
-                            lblStatus.setText((totalFiles - successfulFiles) + " failed!"); //TODO: i18n
+                            lblStatus.setText(String.format("%d %s!",(totalFiles - successfulFiles), Main.getTranslation().getString("failed")));
                         }
                         btnDismiss.setDisable(false);
                         active = false;
+                        break;
                     }
                 }
             });

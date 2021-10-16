@@ -19,6 +19,7 @@ public class ModulePanel extends ScrollPane
 {
     final VBox content = new VBox();
     private Map<String,ModuleEntry> modules = new HashMap<>();
+    private boolean init;
 
     public ModulePanel(){
         super();
@@ -38,6 +39,7 @@ public class ModulePanel extends ScrollPane
 
     public void reload(List<Loader> loaderList, List<Module> modList, Map<String, Boolean> optionalSelections) {
         this.clear();
+        init = true;
         modules = new HashMap<>();
         for (Loader loader : loaderList) {
             LoaderEntry newEntry;
@@ -73,9 +75,14 @@ public class ModulePanel extends ScrollPane
             }
         }
         this.content.setFillWidth(true);
+        init = false;
     }
 
     public List<ModuleEntry> getModules() {
         return new ArrayList<>(modules.values());
+    }
+
+    public boolean isInitializing() {
+        return init;
     }
 }

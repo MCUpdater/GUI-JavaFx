@@ -6,7 +6,7 @@ plugins {
 }
 
 javafx {
-    version = '16'
+    version = '17'
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.graphics' ]
 }
 
@@ -15,8 +15,8 @@ version = sharedVersion
 dependencies {
     implementation project(':MCU-API')
     implementation project(':MCU-DownloadLib')
+    implementation project(':PackBuilder')
     implementation 'com.mojang:authlib:1.6.25'
-    implementation group: 'org.controlsfx', name: 'controlsfx', version: '11.1.0'
 }
 
 application {
@@ -32,8 +32,8 @@ processResources {
 }
 
 jar {
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    //duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    //from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     manifest {
         attributes "Main-Class": 'org.mcupdater.gui.javafx.Main'
     }

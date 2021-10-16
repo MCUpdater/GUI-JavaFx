@@ -1,19 +1,20 @@
 package org.mcupdater.gui.javafx.components;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import org.mcupdater.gui.javafx.MainController;
-import org.mcupdater.instance.Instance;
 import org.mcupdater.model.ServerList;
 import org.mcupdater.util.MCUpdater;
 
@@ -28,11 +29,15 @@ public class InstanceListCell extends ListCell<ServerList> {
     private Label entryName = new Label();
     private ImageView serverIcon = new ImageView();
 
+    public final Image STATUS_UNKNOWN = new Image(MainController.class.getResource("icons/disconnect.png").toString());
+    public final Image STATUS_ERROR = new Image(MainController.class.getResource("icons/cross.png").toString());
+    public final Image STATUS_UPDATE = new Image(MainController.class.getResource("icons/asterisk_yellow.png").toString());
+    public final Image STATUS_READY = new Image(MainController.class.getResource("icons/tick.png").toString());
+
     public InstanceListCell() {
         stack.setMaxSize(100,100);
         stack.setMinSize(100,100);
         stack.setAlignment(Pos.TOP_LEFT);
-        statusIcon.setImage(new Image(MainController.class.getResource("icons/asterisk_yellow.png").toString()));
         serverIcon.setEffect(new Blend(BlendMode.OVERLAY, new Reflection(), new InnerShadow(50,Color.rgb(0,0,0,0.9))));
         entryName.setTextFill(Color.LIGHTGREY);
         entryName.setEffect(null);
@@ -57,6 +62,15 @@ public class InstanceListCell extends ListCell<ServerList> {
     }
 
     @Override
+    public boolean isItemChanged(ServerList oldItem, ServerList newItem) {
+        boolean changed = super.isItemChanged(oldItem, newItem);
+        if (!changed && oldItem.getState() != newItem.getState()) {
+            changed = true;
+        }
+        return changed;
+    }
+
+    @Override
     public void updateItem(ServerList item, boolean empty){
         super.updateItem(item, empty);
         cell.getChildren().clear();
@@ -75,6 +89,13 @@ public class InstanceListCell extends ListCell<ServerList> {
             serverIcon.setFitHeight(64);
             serverIcon.setPreserveRatio(true);
             serverIcon.setSmooth(true);
+            switch (item.getState()) {
+                case READY -> statusIcon.setImage(STATUS_READY);
+                case UPDATE -> statusIcon.setImage(STATUS_UPDATE);
+                case ERROR -> statusIcon.setImage(STATUS_ERROR);
+                case UNKNOWN -> statusIcon.setImage(STATUS_UNKNOWN);
+                default -> statusIcon.setImage(null);
+            }
             //cell.setLeft(serverIcon);
             //VBox serverData = new VBox();
             entryName.setText(item.getName());

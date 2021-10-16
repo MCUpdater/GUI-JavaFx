@@ -6,21 +6,17 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.mcupdater.gui.javafx.MainController;
 import org.mcupdater.model.GenericModule;
 import org.mcupdater.model.Module;
 import org.mcupdater.settings.SettingsManager;
 
-import javax.swing.*;
-import javax.tools.Tool;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
 public class ModuleEntry extends VBox {
-    private boolean init;
     private CheckBox chkModule;
     private Module entry;
     private ModulePanel parent;
@@ -30,13 +26,14 @@ public class ModuleEntry extends VBox {
     public ModuleEntry(ModulePanel parent, Module module, Boolean overrideDefault, Boolean overrideValue) {
         this.parent = parent;
         this.entry = module;
-        init = true;
         if (!entry.getRequired() || SettingsManager.getInstance().getSettings().isProfessionalMode()) {
             chkModule = new CheckBox(module.getName());
             chkModule.addEventHandler(ActionEvent.ACTION, event -> {
                 if (selected != chkModule.isSelected()) {
                     selected = chkModule.isSelected();
-                    if (!init) MainController.getInstance().setDirty();
+                    if (!parent.isInitializing()) {
+                        MainController.getInstance().setDirty();
+                    }
                 }
                 for (String modid : entry.getDepends().split(" ")) {
                     for (ModuleEntry entry : this.parent.getModules()) {
@@ -80,7 +77,6 @@ public class ModuleEntry extends VBox {
             }
             this.setMinHeight(this.getMinHeight() + Math.max(0,(entry.getSubmodules().size()*2) - 8));
         }
-        init = false;
     }
 
     private void updateTooltip(Control control, String description) {

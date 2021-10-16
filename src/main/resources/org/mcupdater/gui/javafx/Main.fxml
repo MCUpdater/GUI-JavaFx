@@ -11,7 +11,13 @@
 		<Tab fx:id="tabInstances">
 			<BorderPane>
 				<top>
-					<ListView fx:id="listInstances" fixedCellSize="128.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="136.0" prefWidth="128.0" style="-fx-background-image: url(/org/mcupdater/gui/javafx/img/bg_main.png);" BorderPane.alignment="CENTER"/>
+					<AnchorPane>
+						<ListView fx:id="listInstances" fixedCellSize="128.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="144.0" prefWidth="128.0" style="-fx-background-image: url(/org/mcupdater/gui/javafx/img/bg_main.png);" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" />
+						<HBox AnchorPane.topAnchor="5" AnchorPane.rightAnchor="5">
+							<Button fx:id="btnAddURL" onAction="#addInstance"/>
+							<Button fx:id="btnReload" onAction="#doRefresh"/>
+						</HBox>
+					</AnchorPane>
 				</top>
 				<center>
 					<TabPane fx:id="tabpaneDetail" tabClosingPolicy="UNAVAILABLE"/>
@@ -42,14 +48,20 @@
 				</bottom>
 			</BorderPane>
 		</Tab>
+		<!-- Disabled until implemented
 		<Tab fx:id="tabSearch" text="Find Modpacks">
 			<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
 		</Tab>
+		-->
 		<Tab fx:id="tabCreate" text="Create Modpacks">
 			<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
 		</Tab>
 		<Tab fx:id="tabConsole">
-			<ConsolePane fx:id="mcuConsole"/>
+			<TabPane fx:id="tabpaneConsole">
+				<Tab fx:id="tabMainConsole" text="MCUpdater">
+					<ConsolePane fx:id="mcuConsole"/>
+				</Tab>
+			</TabPane>
 		</Tab>
 		<Tab fx:id="tabProgress">
 			<AnchorPane>
