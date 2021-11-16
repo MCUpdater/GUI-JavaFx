@@ -76,7 +76,7 @@ public class ProfilePane extends GridPane
     private void changeProfile(Profile selectedItem) {
         try {
             MainController.getInstance().setSelectedInstance(selectedItem.getLastInstance());
-            String avatarUrl = "https://cravatar.eu/helmhead/" + selectedItem.getName();
+            String avatarUrl = String.format("https://cravatar.eu/helmhead/%s/32", selectedItem.getUUID());
             setAvatar(new Image(avatarUrl,32,32,true,true));
         } catch (Exception e) {
             MainController.getInstance().baseLogger.log(Level.SEVERE, "Failed to fully load profile", e);
