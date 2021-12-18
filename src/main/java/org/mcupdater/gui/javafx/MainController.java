@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -228,6 +229,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         pnlModules.reload(loaderList, modList, instData.getOptionalMods());
         tabModules.setContent(pnlModules);
         tabpaneDetail.getTabs().add(tabModules);
+        if (!entry.getNewsUrl().isEmpty()) {
+            Tab tabNews = new Tab(translate.getString("news"));
+            WebView newsView = new WebView();
+            newsView.getEngine().load(entry.getNewsUrl());
+            tabNews.setContent(newsView);
+            tabpaneDetail.getTabs().add(tabNews);
+        }
         btnLaunch.setDisable(entry.getState() != ServerList.State.READY);
         currentModules = pnlModules;
     }
@@ -428,14 +436,15 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         args.add("-Xms" + settings.getMinMemory());
         args.add("-Xmx" + settings.getMaxMemory());
         //args.add("-XX:PermSize=" + settings.getPermGen());
+        args.add(mcVersion.getJVMArguments());
         if (!settings.getJvmOpts().isEmpty()) {
             args.addAll(Arrays.asList(settings.getJvmOpts().split(" ")));
         }
         if (System.getProperty("os.name").startsWith("Mac")) {
-            args.add("-Xdock:icon=" + mcu.getArchiveFolder().resolve("assets").resolve("icons").resolve("minecraft.icns").toString());
+            args.add("-Xdock:icon=" + mcu.getArchiveFolder().resolve("assets").resolve("icons").resolve("minecraft.icns"));
             args.add("-Xdock:name=Minecraft(MCUpdater)");
         }
-        args.add("-Djava.library.path=" + mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("libraries").resolve("natives").toString());
+        args.add("-Djava.library.path=" + mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("libraries").resolve("natives"));
         if (!selected.getMainClass().isEmpty()) {
             mainClass = selected.getMainClass();
         } else {
@@ -483,9 +492,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         args.add("-cp");
         StringBuilder classpath = new StringBuilder();
         for (String entry : libs) {
-            classpath.append(instancePath.resolve(entry).toString()).append(MCUpdater.cpDelimiter());
+            classpath.append(instancePath.resolve(entry)).append(MCUpdater.cpDelimiter());
         }
-        classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("bin").resolve("minecraft.jar").toString());
+        classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("bin").resolve("minecraft.jar"));
         args.add(classpath.toString());
         args.add(mainClass);
         String tmpclArgs = clArgs.toString();
@@ -584,7 +593,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         }
         args.add(javaBin.getAbsolutePath());
         if (System.getProperty("os.name").startsWith("Mac")) {
-            args.add("-Xdock:icon=" + mcuPath.resolve("assets").resolve("icons").resolve("minecraft.icns").toString());
+            args.add("-Xdock:icon=" + mcuPath.resolve("assets").resolve("icons").resolve("minecraft.icns"));
             args.add("-Xdock:name=Minecraft(MCUpdater)");
         }
         if (!settings.getJvmOpts().isEmpty()) {
