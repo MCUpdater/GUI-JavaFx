@@ -85,6 +85,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
                 String newOpts = String.join(" ", fieldJvmOpts.getItems());
                 settingsManager.getSettings().setJvmOpts(newOpts);
                 settingsManager.setDirty();
+                settingsManager.fireSettingsUpdate();
             });
             column1.setSortable(false);
             fieldJvmOpts.setItems(listOpts);
@@ -113,13 +114,9 @@ public class SettingsPane extends Accordion implements SettingsListener {
                 HBox groupOptsControls = new HBox();
                 {
                     Button addOpt = new Button(translate.getString("add"));
-                    addOpt.setOnAction(e -> {
-                        fieldJvmOpts.getItems().add("*ChangeMe*");
-                    });
+                    addOpt.setOnAction(e -> fieldJvmOpts.getItems().add("*ChangeMe*"));
                     Button deleteOpt = new Button(translate.getString("remove"));
-                    deleteOpt.setOnAction(e -> {
-                        fieldJvmOpts.getItems().remove(fieldJvmOpts.getSelectionModel().getSelectedIndex());
-                    });
+                    deleteOpt.setOnAction(e -> fieldJvmOpts.getItems().remove(fieldJvmOpts.getSelectionModel().getSelectedIndex()));
                     Button resetOpt = new Button(translate.getString("reset"));
                     resetOpt.setOnAction(e -> {
                         settingsManager.getSettings().setJvmOpts(MCUpdater.defaultJVMArgs);
@@ -193,12 +190,14 @@ public class SettingsPane extends Accordion implements SettingsListener {
                         if (newProfile != null) {
                             settingsManager.getSettings().addOrReplaceProfile(newProfile);
                             settingsManager.setDirty();
+                            settingsManager.fireSettingsUpdate();
                         }
                     });
                     Button deleteProfile = new Button(translate.getString("remove"));
                     deleteProfile.setOnAction(e -> {
                         settingsManager.getSettings().getProfiles().remove(fieldProfiles.getSelectionModel().getSelectedItem());
                         settingsManager.setDirty();
+                        settingsManager.fireSettingsUpdate();
                     });
                     groupProfilesControls.getChildren().addAll(addProfile,deleteProfile);
                 }
@@ -215,6 +214,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
                     deleteUrl.setOnAction(e -> {
                         settingsManager.getSettings().getPackURLs().remove(fieldUrls.getSelectionModel().getSelectedItem());
                         settingsManager.setDirty();
+                        settingsManager.fireSettingsUpdate();
                     });
                     groupUrlsControls.getChildren().addAll(addUrl,deleteUrl);
                 }
