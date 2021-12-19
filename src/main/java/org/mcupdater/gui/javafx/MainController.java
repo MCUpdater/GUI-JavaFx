@@ -113,7 +113,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         listInstances.setCellFactory(serverListListView -> new InstanceListCell());
         if (!SettingsManager.getInstance().getSettings().getPackURLs().contains(Main.getDefaultPackURL())) {
             SettingsManager.getInstance().getSettings().addPackURL(Main.getDefaultPackURL());
-            SettingsManager.getInstance().saveSettings();
+            SettingsManager.getInstance().setDirty();
         }
         setupControls();
         baseLogger.info("The power is yours!");
@@ -174,7 +174,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             tabpaneConsole.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
             tabMainConsole.setClosable(false);
             tabSettings.setText(translate.getString("settings"));
-            SettingsManager.getInstance().addListener(paneSettings);
             tabSettings.setContent(paneSettings);
             tabProgress.setText(translate.getString("progress"));
             btnUpdate.setText(translate.getString("update"));
@@ -357,7 +356,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             if (!(launchProfile == null)) {
                 SettingsManager.getInstance().getSettings().setLastProfile(launchProfile.getName());
                 SettingsManager.getInstance().getSettings().findProfile(launchProfile.getName()).setLastInstance(launchPack.getServerId());
-                SettingsManager.getInstance().saveSettings();
+                SettingsManager.getInstance().setDirty();
                 try {
                     if (launchPack.getLauncherType().equals("Legacy")) {
                         tryOldLaunch(launchPack, launchProfile);
@@ -680,7 +679,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         inputDialog.setHeaderText(translate.getString("enterUrl"));
         inputDialog.showAndWait().ifPresent(s -> {
             SettingsManager.getInstance().getSettings().addPackURL(s);
-            SettingsManager.getInstance().saveSettings();
+            SettingsManager.getInstance().setDirty();
         });
     }
 
@@ -732,15 +731,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
 
     // Begin SettingsListener methods
     // -----
-    @Override
-    public void stateChanged(boolean newState) {
-
-    }
 
     @Override
     public void settingsChanged(Settings newSettings) {
-        refreshInstanceList();
-        refreshProfiles();
+        Platform.runLater(() -> {
+            refreshInstanceList();
+            refreshProfiles();
+        });
         MCUpdater.getInstance().setInstanceRoot(new File(newSettings.getInstanceRoot()).toPath());
     }
     // -----

@@ -48,13 +48,9 @@ public class SettingsPane extends Accordion implements SettingsListener {
     private final ObservableList<Profile> listProfiles;
 
     @Override
-    public void stateChanged(boolean newState) {
-
-    }
-
-    @Override
     public void settingsChanged(Settings newSettings) {
-        System.out.println("Settings changed!");
+        MCUpdater.apiLogger.finer("Settings changed!");
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         fieldJvmMinMem.setText(newSettings.getMinMemory());
         fieldJvmMaxMem.setText(newSettings.getMaxMemory());
         //ObservableList<String> listOpts = FXCollections.observableArrayList(Arrays.asList(newSettings.getJvmOpts().split(" ")));
@@ -88,7 +84,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
                 fieldJvmOpts.getItems().set(event.getTablePosition().getRow(), event.getNewValue());
                 String newOpts = String.join(" ", fieldJvmOpts.getItems());
                 settingsManager.getSettings().setJvmOpts(newOpts);
-                settingsManager.saveSettings();
+                settingsManager.setDirty();
             });
             column1.setSortable(false);
             fieldJvmOpts.setItems(listOpts);
@@ -127,7 +123,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
                     Button resetOpt = new Button(translate.getString("reset"));
                     resetOpt.setOnAction(e -> {
                         settingsManager.getSettings().setJvmOpts(MCUpdater.defaultJVMArgs);
-                        settingsManager.saveSettings();
+                        settingsManager.setDirty();
                         listOpts.clear();
                         listOpts.addAll(Arrays.asList(settingsManager.getSettings().getJvmOpts().split(" ")));
                         fieldJvmOpts.refresh();
@@ -196,13 +192,13 @@ public class SettingsPane extends Accordion implements SettingsListener {
                         Profile newProfile = MainController.getInstance().requestLogin("");
                         if (newProfile != null) {
                             settingsManager.getSettings().addOrReplaceProfile(newProfile);
-                            settingsManager.saveSettings();
+                            settingsManager.setDirty();
                         }
                     });
                     Button deleteProfile = new Button(translate.getString("remove"));
                     deleteProfile.setOnAction(e -> {
                         settingsManager.getSettings().getProfiles().remove(fieldProfiles.getSelectionModel().getSelectedItem());
-                        settingsManager.saveSettings();
+                        settingsManager.setDirty();
                     });
                     groupProfilesControls.getChildren().addAll(addProfile,deleteProfile);
                 }
@@ -218,7 +214,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
                     Button deleteUrl = new Button(translate.getString("remove"));
                     deleteUrl.setOnAction(e -> {
                         settingsManager.getSettings().getPackURLs().remove(fieldUrls.getSelectionModel().getSelectedItem());
-                        settingsManager.saveSettings();
+                        settingsManager.setDirty();
                     });
                     groupUrlsControls.getChildren().addAll(addUrl,deleteUrl);
                 }
@@ -242,30 +238,30 @@ public class SettingsPane extends Accordion implements SettingsListener {
     private void mapFields() {
         fieldJvmMinMem.textProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setMinMemory(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldJvmMaxMem.textProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setMaxMemory(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
 //        fieldJvmOpts.editingCellProperty().addListener((observable, oldValue, newValue) -> {
 //            String newOpts = String.join(" ", fieldJvmOpts.getItems());
 //            settingsManager.getSettings().setJvmOpts(newOpts);
-//            settingsManager.saveSettings();
+//            settingsManager.setDirty();
 //        });
         fieldWrapper.textProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setProgramWrapper(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldFullscreen.selectedProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setFullScreen(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldWindowWidth.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 if (Integer.parseInt(newValue) > 0) {
                     settingsManager.getSettings().setResWidth(Integer.parseInt(newValue));
-                    settingsManager.saveSettings();
+                    settingsManager.setDirty();
                 }
             } catch (NumberFormatException nfe) {
                 // Ignore exception
@@ -275,7 +271,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
             try {
                 if (Integer.parseInt(newValue) > 0) {
                     settingsManager.getSettings().setResHeight(Integer.parseInt(newValue));
-                    settingsManager.saveSettings();
+                    settingsManager.setDirty();
                 }
             } catch (NumberFormatException nfe) {
                 // Ignore exception
@@ -283,27 +279,27 @@ public class SettingsPane extends Accordion implements SettingsListener {
         });
         fieldAutoConnect.selectedProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setAutoConnect(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldMinimize.selectedProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setMinimizeOnLaunch(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldMCConsole.selectedProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setMinecraftToConsole(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldInstancePath.textProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setInstanceRoot(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldUrls.itemsProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setPackURLs(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
         fieldProfessional.selectedProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setProfessionalMode(newValue);
-            settingsManager.saveSettings();
+            settingsManager.setDirty();
         });
     }
 

@@ -48,9 +48,7 @@ public class Main extends Application {
 			if (Arrays.asList("Yggdrasil","MSA").contains(newProfile.getStyle())) {
 				settings.addOrReplaceProfile(newProfile);
 				settings.setLastProfile(newProfile.getName());
-				if (!SettingsManager.getInstance().isDirty()) {
-					SettingsManager.getInstance().saveSettings();
-				}
+				SettingsManager.getInstance().setDirty();
 			}
 		} else {
 			newProfile = settings.findProfile(settings.getLastProfile());
