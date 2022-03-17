@@ -240,6 +240,10 @@ public class MainController extends MCUApp implements Initializable, TrackerList
     }
 
     public void refreshInstanceList() {
+        String currentSelection = null;
+        if (this.selected != null) {
+            currentSelection = this.selected.getServerId();
+        }
         Settings current = SettingsManager.getInstance().getSettings();
         List<ServerList> slList = new ArrayList<>();
 
@@ -261,6 +265,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         }
         if (listInstances != null) {
             listInstances.setItems(FXCollections.observableList(slList));
+            if (currentSelection != null) {
+                setSelectedInstance(currentSelection);
+            }
         }
     }
 
@@ -435,7 +442,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         args.add("-Xms" + settings.getMinMemory());
         args.add("-Xmx" + settings.getMaxMemory());
         //args.add("-XX:PermSize=" + settings.getPermGen());
-        args.add(mcVersion.getJVMArguments());
+        if (!mcVersion.getJVMArguments().isEmpty()) {
+            args.add(mcVersion.getJVMArguments());
+        }
         if (!settings.getJvmOpts().isEmpty()) {
             args.addAll(Arrays.asList(settings.getJvmOpts().split(" ")));
         }

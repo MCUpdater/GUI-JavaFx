@@ -50,11 +50,8 @@ public class SettingsPane extends Accordion implements SettingsListener {
     @Override
     public void settingsChanged(Settings newSettings) {
         MCUpdater.apiLogger.finer("Settings changed!");
-        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         fieldJvmMinMem.setText(newSettings.getMinMemory());
         fieldJvmMaxMem.setText(newSettings.getMaxMemory());
-        //ObservableList<String> listOpts = FXCollections.observableArrayList(Arrays.asList(newSettings.getJvmOpts().split(" ")));
-        //fieldJvmOpts.setItems(listOpts);
         fieldWrapper.setText(newSettings.getProgramWrapper());
         fieldFullscreen.setSelected(newSettings.isFullScreen());
         fieldWindowWidth.setText(Integer.toString(newSettings.getResWidth()));
@@ -244,11 +241,6 @@ public class SettingsPane extends Accordion implements SettingsListener {
             settingsManager.getSettings().setMaxMemory(newValue);
             settingsManager.setDirty();
         });
-//        fieldJvmOpts.editingCellProperty().addListener((observable, oldValue, newValue) -> {
-//            String newOpts = String.join(" ", fieldJvmOpts.getItems());
-//            settingsManager.getSettings().setJvmOpts(newOpts);
-//            settingsManager.setDirty();
-//        });
         fieldWrapper.textProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setProgramWrapper(newValue);
             settingsManager.setDirty();
