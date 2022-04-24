@@ -446,11 +446,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         args.add("-Xms" + settings.getMinMemory());
         args.add("-Xmx" + settings.getMaxMemory());
         //args.add("-XX:PermSize=" + settings.getPermGen());
-        if (!mcVersion.getJVMArguments().isEmpty()) {
-            args.add(mcVersion.getJVMArguments());
-        }
         if (loaderVersion != null && !loaderVersion.getJVMArguments().isEmpty()) {
-            args.add(loaderVersion.getJVMArguments());
+            clArgs.append(" ");
+            clArgs.append(loaderVersion.getJVMArguments());
+        }
+        if (!mcVersion.getJVMArguments().isEmpty()) {
+            // we may only want to try the mc version's args if we don't have one for forge?
+            args.add(mcVersion.getJVMArguments());
         }
         if (!settings.getJvmOpts().isEmpty()) {
             args.addAll(Arrays.asList(settings.getJvmOpts().split(" ")));
@@ -533,6 +535,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         fields.put("user_properties", "{}"); //TODO: This will likely actually get used at some point.
         fields.put("user_type", (launchProfile.getStyle()));
         fields.put("version_type", mcVersion.getType());
+        fields.put("library_directory", mcu.getInstanceRoot().resolve("libraries").toString());
+        fields.put("classpath_separator", File.pathSeparator);
+        //fields.put("version_name", "minecraft"); // the filename of the jar to be executed
         String[] fieldArr = tmpclArgs.split(" ");
         for (int i = 0; i < fieldArr.length; i++) {
             fieldArr[i] = fieldReplacer.replace(fieldArr[i]);
