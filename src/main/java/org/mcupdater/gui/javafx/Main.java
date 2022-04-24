@@ -52,10 +52,17 @@ public class Main extends Application {
 			}
 		} else {
 			newProfile = settings.findProfile(settings.getLastProfile());
+			// if no 'last profile' was saved, just default to the first one in the list
+			if (newProfile == null) {
+				newProfile = settings.getProfiles().get(0);
+			}
 		}
 		controller.refreshInstanceList();
 		controller.refreshProfiles();
-		controller.profiles.setSelectedProfile(newProfile.getName());
+		// if no profile is set, avoid npe on the name lookup
+		if (newProfile != null) {
+			controller.profiles.setSelectedProfile(newProfile.getName());
+		}
 	}
 	
 	public Image getImage(String filename) {

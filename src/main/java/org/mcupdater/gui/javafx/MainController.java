@@ -394,7 +394,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         }
         String playerName = launchProfile.getName();
         String sessionKey = launchProfile.getSessionKey(this);
+
+        MCUpdater mcu = MCUpdater.getInstance();
+        Path instancePath = mcu.getInstanceRoot().resolve(selected.getServerId());
+        // NB: we want to use the loader's version json for arguments if one exists
+        MinecraftVersion loaderVersion = MinecraftVersion.loadLocalVersion(instancePath.toFile(), selected.getLoaderVersion());
         MinecraftVersion mcVersion = MinecraftVersion.loadVersion(selected.getVersion());
+
         selected.getLoaders().sort(new OrderComparator());
         String indexName = mcVersion.getAssets();
         if (indexName == null) {
@@ -409,8 +415,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             clArgs = new StringBuilder();
         }
         List<String> libs = new ArrayList<>();
-        MCUpdater mcu = MCUpdater.getInstance();
-        Path instancePath = mcu.getInstanceRoot().resolve(selected.getServerId());
         File indexesPath = mcu.getArchiveFolder().resolve("assets").resolve("indexes").toFile();
         File indexFile = new File(indexesPath, indexName + ".json");
         String json;
@@ -444,6 +448,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         //args.add("-XX:PermSize=" + settings.getPermGen());
         if (!mcVersion.getJVMArguments().isEmpty()) {
             args.add(mcVersion.getJVMArguments());
+        }
+        if (loaderVersion != null && !loaderVersion.getJVMArguments().isEmpty()) {
+            args.add(loaderVersion.getJVMArguments());
         }
         if (!settings.getJvmOpts().isEmpty()) {
             args.addAll(Arrays.asList(settings.getJvmOpts().split(" ")));
