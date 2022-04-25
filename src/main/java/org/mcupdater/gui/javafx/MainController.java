@@ -394,7 +394,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         }
         String playerName = launchProfile.getName();
         String sessionKey = launchProfile.getSessionKey(this);
+
+        MCUpdater mcu = MCUpdater.getInstance();
+        Path instancePath = mcu.getInstanceRoot().resolve(selected.getServerId());
+        // NB: we want to use the loader's version json for arguments if one exists
+        MinecraftVersion loaderVersion = MinecraftVersion.loadLocalVersion(instancePath.toFile(), selected.getLoaderVersion());
         MinecraftVersion mcVersion = MinecraftVersion.loadVersion(selected.getVersion());
+
         selected.getLoaders().sort(new OrderComparator());
         String indexName = mcVersion.getAssets();
         if (indexName == null) {
@@ -409,8 +415,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             clArgs = new StringBuilder();
         }
         List<String> libs = new ArrayList<>();
-        MCUpdater mcu = MCUpdater.getInstance();
-        Path instancePath = mcu.getInstanceRoot().resolve(selected.getServerId());
         File indexesPath = mcu.getArchiveFolder().resolve("assets").resolve("indexes").toFile();
         File indexFile = new File(indexesPath, indexName + ".json");
         String json;
@@ -442,7 +446,12 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         args.add("-Xms" + settings.getMinMemory());
         args.add("-Xmx" + settings.getMaxMemory());
         //args.add("-XX:PermSize=" + settings.getPermGen());
+        if (loaderVersion != null && !loaderVersion.getJVMArguments().isEmpty()) {
+            clArgs.append(" ");
+            clArgs.append(loaderVersion.getJVMArguments());
+        }
         if (!mcVersion.getJVMArguments().isEmpty()) {
+            // we may only want to try the mc version's args if we don't have one for forge?
             args.add(mcVersion.getJVMArguments());
         }
         if (!settings.getJvmOpts().isEmpty()) {
@@ -526,6 +535,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         fields.put("user_properties", "{}"); //TODO: This will likely actually get used at some point.
         fields.put("user_type", (launchProfile.getStyle()));
         fields.put("version_type", mcVersion.getType());
+        fields.put("library_directory", mcu.getInstanceRoot().resolve("libraries").toString());
+        fields.put("classpath_separator", File.pathSeparator);
+        //fields.put("version_name", "minecraft"); // the filename of the jar to be executed
         String[] fieldArr = tmpclArgs.split(" ");
         for (int i = 0; i < fieldArr.length; i++) {
             fieldArr[i] = fieldReplacer.replace(fieldArr[i]);

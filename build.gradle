@@ -11,16 +11,45 @@ javafx {
 }
 
 version = sharedVersion
+sourceCompatibility = 17
 
 dependencies {
     implementation project(':MCU-API')
     implementation project(':MCU-DownloadLib')
     implementation project(':PackBuilder')
+
     implementation 'com.mojang:authlib:1.6.25'
+
+    runtimeOnly project(':MCU-ForgeLoader')
+    runtimeOnly project(':MCU-ForgeLoaderV2')
 }
 
 application {
     mainClass = 'org.mcupdater.gui.javafx.Main'
+}
+
+def testMCURoot = "c:\\Users\\"+System.properties['user.name']+"\\MCU-Test"
+run.doFirst {
+    // provide default args if we're running via gradle
+    if( args.size() == 0 ) {
+        mkdir(testMCURoot)
+        args = [
+                "-ServerPack", "http://files.mcupdater.com/official_packs/mcu-1.16.5-together.xml",
+                "-MCURoot", testMCURoot,
+                "--runtimes=8#c:\\temp\\jdk8u302-b08-jre\\bin\\java.exe;11#c:\\temp\\jdk-11.0.12+7-jre\\bin\\java.exe;17#c:\\temp\\jdk-17+35\\bin\\java.exe",
+        ]
+
+        // make sure we have current forgeloader jars
+        copyForgeLoaders
+    }
+}
+tasks.register("copyForgeLoaders", Copy) {
+    def dest = mkdir(testMCURoot + "\\lib" )
+
+    from file("..\\MCU-ForgeLoader\\build\\libs\\MCU-ForgeLoader.jar"),
+         file("..\\MCU-ForgeLoaderV2\\build\\libs\\MCU-ForgeLoaderV2.jar"),
+         file("..\\MCU-LegacyForgeLoader\\build\\libs\\MCU-LegacyForgeLoader.jar")
+    into dest
 }
 
 processResources {
