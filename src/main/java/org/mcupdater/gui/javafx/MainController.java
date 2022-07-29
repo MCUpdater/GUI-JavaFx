@@ -53,6 +53,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainController extends MCUApp implements Initializable, TrackerListener, SettingsListener {
 
@@ -141,6 +143,13 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                                         tabProgress.setText(String.format("%s (%s %d)", translate.getString("progress"), translate.getString("activeJobs"), newValue));
                                     });
                                 }
+                                if (activeJobs == 0) {
+                                    for (ServerList pack : listInstances.getItems()) {
+                                        Instance instData = new Instance();
+                                        AtomicReference<Instance> ref = new AtomicReference<>(instData);
+                                        pack.setState(getPackState(pack, ref));
+                                    }
+                                }
                             }
                             btnLaunch.setDisable(currentSelection == null || currentSelection.getState() != ServerList.State.READY || activeJobs > 0 || playState);
                             btnUpdate.setDisable(currentSelection == null || progress.getActiveById(currentSelection.getServerId()) > 0 || playState);
@@ -223,11 +232,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             }
         }
         tabpaneDetail.getTabs().clear();
-        Tab tabModules = new Tab(translate.getString("modules"));
-        ModulePanel pnlModules = new ModulePanel();
-        pnlModules.reload(loaderList, modList, instData.getOptionalMods());
-        tabModules.setContent(pnlModules);
-        tabpaneDetail.getTabs().add(tabModules);
         if (!entry.getNewsUrl().isEmpty()) {
             Tab tabNews = new Tab(translate.getString("news"));
             WebView newsView = new WebView();
@@ -235,6 +239,11 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             tabNews.setContent(newsView);
             tabpaneDetail.getTabs().add(tabNews);
         }
+        Tab tabModules = new Tab(translate.getString("modules"));
+        ModulePanel pnlModules = new ModulePanel();
+        pnlModules.reload(loaderList, modList, instData.getOptionalMods());
+        tabModules.setContent(pnlModules);
+        tabpaneDetail.getTabs().add(tabModules);
         btnLaunch.setDisable(entry.getState() != ServerList.State.READY);
         currentModules = pnlModules;
     }
@@ -443,7 +452,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         args.add("-Xmx" + settings.getMaxMemory());
         //args.add("-XX:PermSize=" + settings.getPermGen());
         if (!mcVersion.getJVMArguments().isEmpty()) {
-            args.add(mcVersion.getJVMArguments());
+            //args.addAll(Arrays.asList(mcVersion.getJVMArguments().replace(" -cp ${classpath}","").split(" ")));
+            args.addAll(Arrays.asList(mcVersion.getJVMArguments().split(" ")));
         }
         if (!settings.getJvmOpts().isEmpty()) {
             args.addAll(Arrays.asList(settings.getJvmOpts().split(" ")));
@@ -452,7 +462,6 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             args.add("-Xdock:icon=" + mcu.getArchiveFolder().resolve("assets").resolve("icons").resolve("minecraft.icns"));
             args.add("-Xdock:name=Minecraft(MCUpdater)");
         }
-        args.add("-Djava.library.path=" + mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("libraries").resolve("natives"));
         if (!selected.getMainClass().isEmpty()) {
             mainClass = selected.getMainClass();
         } else {
@@ -484,7 +493,14 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 }
             }
         }
+        String versionName = selected.getVersion();
         for (Loader loader : selected.getLoaders()) {
+            if (loader.getType().equals("Forge") && Version.requestedFeatureLevel(selected.getVersion(),"1.18")) {
+                versionName = loader.getVersion();
+            }
+            if (!loader.getILoader().getJVMArguments(instancePath.toFile()).isEmpty()) {
+                args.addAll(Arrays.asList(loader.getILoader().getJVMArguments(instancePath.toFile()).split(" ")));
+            }
             libs.addAll(loader.getILoader().getClasspathEntries(instancePath.toFile()));
             clArgs.append(loader.getILoader().getArguments(instancePath.toFile()));
         }
@@ -497,13 +513,18 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 libs.add("libraries/" + lib.getFilename());
             }
         }
-        args.add("-cp");
         StringBuilder classpath = new StringBuilder();
         for (String entry : libs) {
             classpath.append(instancePath.resolve(entry)).append(MCUpdater.cpDelimiter());
         }
-        classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("bin").resolve("minecraft.jar"));
-        args.add(classpath.toString());
+        if (mcVersion.getJVMArguments().isEmpty()) {
+            args.add("-Djava.library.path=" + mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("libraries").resolve("natives"));
+            args.add("-cp");
+            args.add("${classpath}");
+            classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("versions").resolve(mcVersion.getId()).resolve(mcVersion.getId() + ".jar"));
+        }
+        //classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("bin").resolve("minecraft.jar"));
+        //args.add(classpath.toString());
         args.add(mainClass);
         String tmpclArgs = clArgs.toString();
         Map<String,String> fields = new HashMap<>();
@@ -512,7 +533,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         fields.put("auth_uuid", launchProfile.getUUID().replace("-",""));
         fields.put("auth_access_token", launchProfile.getAuthAccessToken());
         fields.put("auth_session", sessionKey);
-        fields.put("version_name", selected.getVersion());
+        fields.put("version_name", versionName);
+        //fields.put("version_name", "1.18.2-forge-40.1.0");
         fields.put("game_directory", mcu.getInstanceRoot().resolve(selected.getServerId()).toString());
         if (index.isVirtual()) {
             fields.put("game_assets", mcu.getArchiveFolder().resolve("assets").resolve("virtual").toString());
@@ -524,23 +546,44 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         fields.put("assets_index_name", indexName);
         fields.put("resource_packs", mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("resourcepacks").toString());
         fields.put("user_properties", "{}"); //TODO: This will likely actually get used at some point.
-        fields.put("user_type", (launchProfile.getStyle()));
+        fields.put("user_type", (launchProfile.getStyle().toLowerCase()));
         fields.put("version_type", mcVersion.getType());
+        fields.put("library_directory", instancePath.resolve("libraries").toString());
+        fields.put("classpath_separator", MCUpdater.cpDelimiter());
+        fields.put("natives_directory", mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("libraries").resolve("natives").toString());
+        fields.put("launcher_name","MCUpdater");
+        fields.put("launcher_version",Version.API_VERSION);
+        fields.put("classpath", classpath.toString());
+        fields.put("clientid", Base64.getEncoder().encodeToString(SettingsManager.getInstance().getSettings().getClientToken().toString().getBytes(StandardCharsets.UTF_8)));
         String[] fieldArr = tmpclArgs.split(" ");
         for (int i = 0; i < fieldArr.length; i++) {
             fieldArr[i] = fieldReplacer.replace(fieldArr[i]);
         }
-        args.addAll(Arrays.asList(fieldArr));
-        args.addAll(Main.passthroughArgs);
+
+        List<String> processedArgs = new ArrayList<>();
+        for (String entry : args) {
+            if (!entry.trim().isEmpty()) {
+                if (entry.startsWith("-DignoreList")) {
+                    Pattern forge = Pattern.compile("-forge-\\d+\\.\\d+\\.\\d+");
+                    Matcher matcher = forge.matcher(fieldReplacer.replace(entry));
+                    processedArgs.add(matcher.replaceAll(""));
+                } else {
+                    processedArgs.add(fieldReplacer.replace(entry));
+                }
+            }
+        }
+
+        processedArgs.addAll(Arrays.asList(fieldArr));
+        processedArgs.addAll(Main.passthroughArgs);
 
         log("Launch args:");
         log("=======================");
-        for (String entry : args) {
+        for (String entry : processedArgs) {
             log(entry);
         }
         log("=======================");
-        System.out.println(String.join(" ", args));
-        final ProcessBuilder pb = new ProcessBuilder(args);
+        System.out.println(String.join(" ", processedArgs));
+        final ProcessBuilder pb = new ProcessBuilder(processedArgs);
         pb.environment().put("openeye.tags","MCUpdater," + selected.getName() + " (" + selected.getServerId() + ")");
         pb.directory(mcu.getInstanceRoot().resolve(selected.getServerId()).toFile());
         pb.redirectErrorStream(true);
