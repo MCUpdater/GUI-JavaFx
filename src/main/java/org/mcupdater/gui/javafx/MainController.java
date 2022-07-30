@@ -496,7 +496,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         String versionName = selected.getVersion();
         for (Loader loader : selected.getLoaders()) {
             if (loader.getType().equals("Forge") && Version.requestedFeatureLevel(selected.getVersion(),"1.18")) {
-                versionName = loader.getVersion();
+                String[] parts = loader.getVersion().split("-");
+                versionName = String.format("%s-forge-%s",parts[0],parts[1]);
             }
             if (!loader.getILoader().getJVMArguments(instancePath.toFile()).isEmpty()) {
                 args.addAll(Arrays.asList(loader.getILoader().getJVMArguments(instancePath.toFile()).split(" ")));
@@ -522,9 +523,14 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             args.add("-cp");
             args.add("${classpath}");
             classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("versions").resolve(mcVersion.getId()).resolve(mcVersion.getId() + ".jar"));
+        } else {
+            Path mcJar = mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("versions").resolve(versionName).resolve(versionName+".jar");
+            if (mcJar.toFile().exists()) {
+                classpath.append(mcJar);
+            } else {
+                classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("bin").resolve("minecraft.jar"));
+            }
         }
-        //classpath.append(mcu.getInstanceRoot().resolve(selected.getServerId()).resolve("bin").resolve("minecraft.jar"));
-        //args.add(classpath.toString());
         args.add(mainClass);
         String tmpclArgs = clArgs.toString();
         Map<String,String> fields = new HashMap<>();
@@ -563,13 +569,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         List<String> processedArgs = new ArrayList<>();
         for (String entry : args) {
             if (!entry.trim().isEmpty()) {
-                if (entry.startsWith("-DignoreList")) {
-                    Pattern forge = Pattern.compile("-forge-\\d+\\.\\d+\\.\\d+");
-                    Matcher matcher = forge.matcher(fieldReplacer.replace(entry));
-                    processedArgs.add(matcher.replaceAll(""));
-                } else {
-                    processedArgs.add(fieldReplacer.replace(entry));
-                }
+                processedArgs.add(fieldReplacer.replace(entry));
             }
         }
 
