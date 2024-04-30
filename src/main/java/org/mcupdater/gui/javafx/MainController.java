@@ -17,6 +17,7 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.mcupdater.FMLStyleFormatter;
 import org.mcupdater.MCUApp;
 import org.mcupdater.api.Version;
+import org.mcupdater.auth.TokenResponse;
 import org.mcupdater.auth.YggdrasilAuthManager;
 import org.mcupdater.downloadlib.DownloadQueue;
 import org.mcupdater.downloadlib.Downloadable;
@@ -30,10 +31,7 @@ import org.mcupdater.mojang.AssetManager;
 import org.mcupdater.mojang.Library;
 import org.mcupdater.mojang.MinecraftVersion;
 import org.mcupdater.packbuilder.gui.MainFormController;
-import org.mcupdater.settings.Profile;
-import org.mcupdater.settings.Settings;
-import org.mcupdater.settings.SettingsListener;
-import org.mcupdater.settings.SettingsManager;
+import org.mcupdater.settings.*;
 import org.mcupdater.util.MCUpdater;
 import org.mcupdater.util.ServerPackParser;
 
@@ -148,6 +146,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                                         Instance instData = new Instance();
                                         AtomicReference<Instance> ref = new AtomicReference<>(instData);
                                         pack.setState(getPackState(pack, ref));
+                                        listInstances.refresh();
                                     }
                                 }
                             }
@@ -189,11 +188,11 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             btnLaunch.setText(translate.getString("launchMinecraft"));
             lblHard.setText(translate.getString("hardUpdate"));
             btnAddURL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icons/add.png"))));
-            btnAddURL.setText(translate.getString("addInstance"));
+            btnAddURL.setTooltip(new Tooltip(translate.getString("addInstance")));
             btnReload.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icons/arrow_refresh.png"))));
-            btnReload.setText(translate.getString("reloadInstances"));
+            btnReload.setTooltip(new Tooltip(translate.getString("reloadInstances")));
             listInstances.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSL, newSL) -> {
-                instanceChanged(newSL);
+                if (newSL != null) instanceChanged(newSL);
             });
             ConsoleHandler consoleHandler = new ConsoleHandler(mcuConsole);
             consoleHandler.setLevel(Level.INFO);
@@ -777,6 +776,12 @@ public class MainController extends MCUApp implements Initializable, TrackerList
     public void alert(String msg) {
         Alert alert = new Alert(Alert.AlertType.WARNING, msg);
         alert.showAndWait();
+    }
+
+    @Override
+    public TokenResponse refreshAuth(MSAProfile msaProfile) {
+        LoginDialog login = new LoginDialog();
+        return login.doMicrosoftLogin(msaProfile);
     }
     // -----
     // End MCUApp methods

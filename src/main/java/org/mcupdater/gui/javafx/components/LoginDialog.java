@@ -100,6 +100,10 @@ public class LoginDialog extends Dialog<Profile> {
     }
 
     public void doMicrosoftLogin() {
+        doMicrosoftLogin(null);
+    }
+
+    public TokenResponse doMicrosoftLogin(MSAProfile inputProfile) {
         Dialog<String> msftLoginDialog = new Dialog<>();
         AtomicReference<String> debug = new AtomicReference<>("");
         ButtonType buttonLogin = new ButtonType("Finish login", ButtonBar.ButtonData.FINISH);
@@ -124,25 +128,30 @@ public class LoginDialog extends Dialog<Profile> {
         engine.load(MicrosoftAuth.getAuthUrl());
         webView.setPrefHeight(406);
         webView.setPrefWidth(406);
+        AtomicReference<TokenResponse> token = new AtomicReference<>();
         engine.locationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.startsWith(MicrosoftAuth.redirectUri)) {
                 String authCode = newValue.substring(newValue.indexOf("code=")+5,newValue.indexOf("&"));
                 MainController.getInstance().baseLogger.info("authCode: " + authCode);
                 debug.set(authCode);
-                TokenResponse token = MicrosoftAuth.getAuthToken(authCode);
-                XBLToken xblToken = MicrosoftAuth.getXBLAuth(token.getAccessToken());
-                XBLToken xstsToken = MicrosoftAuth.getXSTSAuth(xblToken.getToken());
-                MCToken mcToken = MicrosoftAuth.getMCToken(xstsToken.getDisplayClaims().getXui()[0].getUhs(), xstsToken.getToken());
-                MCProfile mcProfile = MicrosoftAuth.getMinecraftProfile(mcToken.getAccessToken());
-                MainController.getInstance().baseLogger.info("Owns Minecraft: " + MicrosoftAuth.isMinecraftOwned(mcToken.getAccessToken()));
-                MainController.getInstance().baseLogger.info("Minecraft player name: " + MicrosoftAuth.getMinecraftProfile(mcToken.getAccessToken()).getName());
-                MainController.getInstance().baseLogger.info("access_token: " + mcToken.getAccessToken());
-                MSAProfile msaProfile = new MSAProfile();
-                msaProfile.setRefreshToken(token.getRefreshToken());
-                msaProfile.setAuthAccessToken(mcToken.getAccessToken());
-                msaProfile.setName(mcProfile.getName());
-                msaProfile.setUUID(mcProfile.getId());
-                newProfile = msaProfile;
+                token.set(MicrosoftAuth.getAuthToken(authCode));
+                    XBLToken xblToken = MicrosoftAuth.getXBLAuth(token.get().getAccessToken());
+                    XBLToken xstsToken = MicrosoftAuth.getXSTSAuth(xblToken.getToken());
+                    MCToken mcToken = MicrosoftAuth.getMCToken(xstsToken.getDisplayClaims().getXui()[0].getUhs(), xstsToken.getToken());
+                    MCProfile mcProfile = MicrosoftAuth.getMinecraftProfile(mcToken.getAccessToken());
+                    MainController.getInstance().baseLogger.info("Owns Minecraft: " + MicrosoftAuth.isMinecraftOwned(mcToken.getAccessToken()));
+                    MainController.getInstance().baseLogger.info("Minecraft player name: " + MicrosoftAuth.getMinecraftProfile(mcToken.getAccessToken()).getName());
+                    MainController.getInstance().baseLogger.info("access_token: " + mcToken.getAccessToken());
+                if (inputProfile == null) {
+                    MSAProfile msaProfile = new MSAProfile();
+                    msaProfile.setRefreshToken(token.get().getRefreshToken());
+                    msaProfile.setAuthAccessToken(mcToken.getAccessToken());
+                    msaProfile.setName(mcProfile.getName());
+                    msaProfile.setUUID(mcProfile.getId());
+                    newProfile = msaProfile;
+                } else {
+                    inputProfile.setRefreshToken(token.get().getRefreshToken());
+                }
                 try {
                     Platform.runLater(() -> {
                         String content = String.format("<html><body style=\"background: radial-gradient(circle, #99990099, #00000000),url('http://files.mcupdater.com/images/bg_main.png');\"><table style=\"margin-left: auto; margin-right: auto;\"><tbody><tr><td style=\"text-align: center;\"><img src=\"https://cravatar.eu/helmhead/%s/240.png\"></td></tr><tr><td style=\"text-align: center;\"><h4><span style=\"font-family: helvetica, arial, sans-serif; color: #ffffff; text-shadow: 2px 2px black;\">You have successfully logged in as</span></h4><br><h2><span style=\"font-family: helvetica, arial, sans-serif; color: #ffffff; text-shadow: 2px 2px black;\">%s</span></h2></td></tr></tbody></table></body></html>",mcProfile.getId(),mcProfile.getName());
@@ -158,8 +167,9 @@ public class LoginDialog extends Dialog<Profile> {
         Optional<String> result = msftLoginDialog.showAndWait();
         result.ifPresent(x -> {
             System.out.println(x);
-            btnCancel.fire();
+            if (btnCancel != null) btnCancel.fire();
         });
+        return token.get();
     }
 
 }
