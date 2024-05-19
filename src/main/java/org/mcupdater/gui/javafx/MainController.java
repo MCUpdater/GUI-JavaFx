@@ -393,8 +393,10 @@ public class MainController extends MCUApp implements Initializable, TrackerList
     private void tryNewLaunch(ServerList selected, List<ModuleEntry> modules, Profile launchProfile) throws Exception {
         File javaBin;
         //TODO: Implement pack-specific Java version requirements
-        if (Version.requestedFeatureLevel(selected.getVersion(),"1.17")) {
-            javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() >= 16).findFirst().get().getValue();
+        if (Version.requestedFeatureLevel(selected.getVersion(), "1.20.5")) {
+            javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() >= 21).findFirst().get().getValue();
+        } else if (Version.requestedFeatureLevel(selected.getVersion(),"1.17")) {
+            javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() == 17).findFirst().get().getValue();
         } else if (Version.requestedFeatureLevel(selected.getVersion(),"1.16")) {
             javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> (entry.getKey() >= 8 && entry.getKey() < 16)).max(Comparator.comparingInt(entry -> entry.getKey())).get().getValue();
         } else {
@@ -416,7 +418,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         } else {
             clArgs = new StringBuilder();
         }
-        List<String> libs = new ArrayList<>();
+        Map<String,String> libs = new HashMap<>();
         MCUpdater mcu = MCUpdater.getInstance();
         Path instancePath = mcu.getInstanceRoot().resolve(selected.getServerId());
         File indexesPath = mcu.getArchiveFolder().resolve("assets").resolve("indexes").toFile();
@@ -469,7 +471,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         for (ModuleEntry entry : modules) {
             if (entry.isSelected()) {
                 if (entry.getModule().getModType().equals(ModType.Library)) {
-                    libs.add(entry.getModule().getFilename());
+                    libs.putIfAbsent(entry.getModule().getId(),entry.getModule().getFilename());
                 }
                 if (!entry.getModule().getLaunchArgs().isEmpty()) {
                     clArgs.append(" ").append(entry.getModule().getLaunchArgs());
@@ -480,7 +482,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 if (entry.getModule().hasSubmodules()) {
                     for (GenericModule sm : entry.getModule().getSubmodules()) {
                         if (sm.getModType().equals(ModType.Library)) {
-                            libs.add(sm.getFilename());
+                            libs.putIfAbsent(sm.getId(),sm.getFilename());
                         }
                         if (!sm.getLaunchArgs().isEmpty()) {
                             clArgs.append(" ").append(sm.getLaunchArgs());
@@ -501,7 +503,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             if (!loader.getILoader().getJVMArguments(instancePath.toFile()).isEmpty()) {
                 args.addAll(Arrays.asList(loader.getILoader().getJVMArguments(instancePath.toFile()).split(" ")));
             }
-            libs.addAll(loader.getILoader().getClasspathEntries(instancePath.toFile()));
+            loader.getILoader().getClasspathEntries(instancePath.toFile()).stream().forEach(path -> libs.putIfAbsent(String.join("/",Arrays.asList(path.split("/")).subList(0,(path.split("/").length-2))),path));
+            //libs.addAll(loader.getILoader().getClasspathEntries(instancePath.toFile()));
             clArgs.append(loader.getILoader().getArguments(instancePath.toFile()));
         }
         for (Library lib : mcVersion.getLibraries()) {
@@ -510,11 +513,11 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 lib.setName("libraries/" + selected.getLibOverrides().get(key));
             }
             if (lib.validForOS() && !lib.hasNatives()) {
-                libs.add("libraries/" + lib.getFilename());
+                libs.putIfAbsent("libraries/" + String.join("/",Arrays.asList(lib.getFilename().split("/")).subList(0,(lib.getFilename().split("/").length-2))), "libraries/" + lib.getFilename());
             }
         }
         StringBuilder classpath = new StringBuilder();
-        for (String entry : libs) {
+        for (String entry : libs.values()) {
             classpath.append(instancePath.resolve(entry)).append(MCUpdater.cpDelimiter());
         }
         if (mcVersion.getJVMArguments().isEmpty()) {
