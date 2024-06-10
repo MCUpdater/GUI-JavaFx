@@ -79,6 +79,7 @@ public class Main extends Application {
 		setDefaultPackURL(options.valueOf(packSpec));
 		Locale locale = new Locale(System.getProperty("user.language"),System.getProperty("user.country"));
 		translation = ResourceBundle.getBundle("org.mcupdater.gui.javafx.translate.language",locale);
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> MCUpdater.getInstance().getDbManager().shutdown(), "Shutdown-thread"));
 		launch(args);
 	}
 

@@ -45,6 +45,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
     private final TableView<Profile> fieldProfiles = new TableView<>();
     private final ListView<String> fieldUrls = new ListView<>();
     private final CheckBox fieldProfessional = new CheckBox();
+    private final TextField fieldSkynetApiKey = new TextField();
     private final ObservableList<Profile> listProfiles;
 
     @Override
@@ -60,6 +61,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
         fieldMinimize.setSelected(newSettings.isMinimizeOnLaunch());
         fieldMCConsole.setSelected(newSettings.isMinecraftToConsole());
         fieldInstancePath.setText(newSettings.getInstanceRoot());
+        fieldSkynetApiKey.setText(newSettings.getSkynetApiKey());
         listProfiles.clear();
         listProfiles.addAll(newSettings.getProfiles());
         fieldUrls.getItems().clear();
@@ -219,6 +221,7 @@ public class SettingsPane extends Accordion implements SettingsListener {
             }
             addControlEntry(gridMCUpdater, ++row, "definedPacks", groupUrls);
             addControlEntry(gridMCUpdater, ++row, "professionalMode", fieldProfessional);
+            addControlEntry(gridMCUpdater, ++row, "skynetApiKey", fieldSkynetApiKey);
         }
         TitledPane sectionJava = new TitledPane("Java",gridJava);
         TitledPane sectionMinecraft = new TitledPane("Minecraft",gridMinecraft);
@@ -291,6 +294,10 @@ public class SettingsPane extends Accordion implements SettingsListener {
         });
         fieldProfessional.selectedProperty().addListener((observable, oldValue, newValue) -> {
             settingsManager.getSettings().setProfessionalMode(newValue);
+            settingsManager.setDirty();
+        });
+        fieldSkynetApiKey.textProperty().addListener((observable, oldValue, newValue) -> {
+            settingsManager.getSettings().setSkynetApiKey(newValue);
             settingsManager.setDirty();
         });
     }
