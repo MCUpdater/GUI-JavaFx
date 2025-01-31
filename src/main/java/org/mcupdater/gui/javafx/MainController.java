@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.mcupdater.FMLStyleFormatter;
 import org.mcupdater.MCUApp;
+import org.mcupdater.api.Install;
 import org.mcupdater.api.Version;
 import org.mcupdater.auth.TokenResponse;
 import org.mcupdater.auth.YggdrasilAuthManager;
@@ -355,9 +356,12 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 }
             }
             baseLogger.finer("Library overrides: " + selected.getLibOverrides().size());
-            MCUpdater.getInstance().installMods(selected, selectedMods, selectedConfigs, instPath, chkHard.isSelected(), instData, ModSide.CLIENT);
+            Install install = new Install(selected, selectedMods, selectedConfigs);
+            install.doInstall(instPath, chkHard.isSelected(), instData, ModSide.CLIENT);
         } catch (IOException e1) {
             baseLogger.log(Level.SEVERE, translate.getString("errorInstanceDirectoryCreate"), e1);
+        } catch (Exception e) {
+            baseLogger.log(Level.SEVERE, translate.getString("errorInstallationGeneric"), e);
         }
     }
 
