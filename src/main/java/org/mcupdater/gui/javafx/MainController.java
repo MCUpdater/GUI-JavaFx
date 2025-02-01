@@ -16,7 +16,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.mcupdater.FMLStyleFormatter;
 import org.mcupdater.MCUApp;
+import org.mcupdater.api.Install;
 import org.mcupdater.api.Version;
+import org.mcupdater.auth.TokenResponse;
 import org.mcupdater.auth.YggdrasilAuthManager;
 import org.mcupdater.downloadlib.DownloadQueue;
 import org.mcupdater.downloadlib.Downloadable;
@@ -30,10 +32,7 @@ import org.mcupdater.mojang.AssetManager;
 import org.mcupdater.mojang.Library;
 import org.mcupdater.mojang.MinecraftVersion;
 import org.mcupdater.packbuilder.gui.MainFormController;
-import org.mcupdater.settings.Profile;
-import org.mcupdater.settings.Settings;
-import org.mcupdater.settings.SettingsListener;
-import org.mcupdater.settings.SettingsManager;
+import org.mcupdater.settings.*;
 import org.mcupdater.util.MCUpdater;
 import org.mcupdater.util.ServerPackParser;
 
@@ -148,6 +147,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                                         Instance instData = new Instance();
                                         AtomicReference<Instance> ref = new AtomicReference<>(instData);
                                         pack.setState(getPackState(pack, ref));
+                                        listInstances.refresh();
                                     }
                                 }
                             }
@@ -189,11 +189,11 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             btnLaunch.setText(translate.getString("launchMinecraft"));
             lblHard.setText(translate.getString("hardUpdate"));
             btnAddURL.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icons/add.png"))));
-            btnAddURL.setText(translate.getString("addInstance"));
+            btnAddURL.setTooltip(new Tooltip(translate.getString("addInstance")));
             btnReload.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("icons/arrow_refresh.png"))));
-            btnReload.setText(translate.getString("reloadInstances"));
+            btnReload.setTooltip(new Tooltip(translate.getString("reloadInstances")));
             listInstances.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSL, newSL) -> {
-                instanceChanged(newSL);
+                if (newSL != null) instanceChanged(newSL);
             });
             ConsoleHandler consoleHandler = new ConsoleHandler(mcuConsole);
             consoleHandler.setLevel(Level.INFO);
@@ -356,9 +356,12 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 }
             }
             baseLogger.finer("Library overrides: " + selected.getLibOverrides().size());
-            MCUpdater.getInstance().installMods(selected, selectedMods, selectedConfigs, instPath, chkHard.isSelected(), instData, ModSide.CLIENT);
+            Install install = new Install(selected, selectedMods, selectedConfigs);
+            install.doInstall(instPath, chkHard.isSelected(), instData, ModSide.CLIENT);
         } catch (IOException e1) {
             baseLogger.log(Level.SEVERE, translate.getString("errorInstanceDirectoryCreate"), e1);
+        } catch (Exception e) {
+            baseLogger.log(Level.SEVERE, translate.getString("errorInstallationGeneric"), e);
         }
     }
 
@@ -394,8 +397,10 @@ public class MainController extends MCUApp implements Initializable, TrackerList
     private void tryNewLaunch(ServerList selected, List<ModuleEntry> modules, Profile launchProfile) throws Exception {
         File javaBin;
         //TODO: Implement pack-specific Java version requirements
-        if (Version.requestedFeatureLevel(selected.getVersion(),"1.17")) {
-            javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() >= 16).findFirst().get().getValue();
+        if (Version.requestedFeatureLevel(selected.getVersion(), "1.20.5")) {
+            javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() >= 21).findFirst().get().getValue();
+        } else if (Version.requestedFeatureLevel(selected.getVersion(),"1.17")) {
+            javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() == 17).findFirst().get().getValue();
         } else if (Version.requestedFeatureLevel(selected.getVersion(),"1.16")) {
             javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> (entry.getKey() >= 8 && entry.getKey() < 16)).max(Comparator.comparingInt(entry -> entry.getKey())).get().getValue();
         } else {
@@ -417,7 +422,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         } else {
             clArgs = new StringBuilder();
         }
-        List<String> libs = new ArrayList<>();
+        Map<String,String> libs = new HashMap<>();
         MCUpdater mcu = MCUpdater.getInstance();
         Path instancePath = mcu.getInstanceRoot().resolve(selected.getServerId());
         File indexesPath = mcu.getArchiveFolder().resolve("assets").resolve("indexes").toFile();
@@ -470,7 +475,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
         for (ModuleEntry entry : modules) {
             if (entry.isSelected()) {
                 if (entry.getModule().getModType().equals(ModType.Library)) {
-                    libs.add(entry.getModule().getFilename());
+                    libs.putIfAbsent(entry.getModule().getId(),entry.getModule().getFilename());
                 }
                 if (!entry.getModule().getLaunchArgs().isEmpty()) {
                     clArgs.append(" ").append(entry.getModule().getLaunchArgs());
@@ -481,7 +486,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 if (entry.getModule().hasSubmodules()) {
                     for (GenericModule sm : entry.getModule().getSubmodules()) {
                         if (sm.getModType().equals(ModType.Library)) {
-                            libs.add(sm.getFilename());
+                            libs.putIfAbsent(sm.getId(),sm.getFilename());
                         }
                         if (!sm.getLaunchArgs().isEmpty()) {
                             clArgs.append(" ").append(sm.getLaunchArgs());
@@ -502,7 +507,8 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             if (!loader.getILoader().getJVMArguments(instancePath.toFile()).isEmpty()) {
                 args.addAll(Arrays.asList(loader.getILoader().getJVMArguments(instancePath.toFile()).split(" ")));
             }
-            libs.addAll(loader.getILoader().getClasspathEntries(instancePath.toFile()));
+            loader.getILoader().getClasspathEntries(instancePath.toFile()).stream().forEach(path -> libs.putIfAbsent(String.join("/",Arrays.asList(path.split("/")).subList(0,(path.split("/").length-2))),path));
+            //libs.addAll(loader.getILoader().getClasspathEntries(instancePath.toFile()));
             clArgs.append(loader.getILoader().getArguments(instancePath.toFile()));
         }
         for (Library lib : mcVersion.getLibraries()) {
@@ -511,11 +517,11 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 lib.setName("libraries/" + selected.getLibOverrides().get(key));
             }
             if (lib.validForOS() && !lib.hasNatives()) {
-                libs.add("libraries/" + lib.getFilename());
+                libs.putIfAbsent("libraries/" + String.join("/",Arrays.asList(lib.getFilename().split("/")).subList(0,(lib.getFilename().split("/").length-2))), "libraries/" + lib.getFilename());
             }
         }
         StringBuilder classpath = new StringBuilder();
-        for (String entry : libs) {
+        for (String entry : libs.values()) {
             classpath.append(instancePath.resolve(entry)).append(MCUpdater.cpDelimiter());
         }
         if (mcVersion.getJVMArguments().isEmpty()) {
@@ -777,6 +783,12 @@ public class MainController extends MCUApp implements Initializable, TrackerList
     public void alert(String msg) {
         Alert alert = new Alert(Alert.AlertType.WARNING, msg);
         alert.showAndWait();
+    }
+
+    @Override
+    public TokenResponse refreshAuth(MSAProfile msaProfile) {
+        LoginDialog login = new LoginDialog();
+        return login.doMicrosoftLogin(msaProfile);
     }
     // -----
     // End MCUApp methods

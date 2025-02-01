@@ -12,11 +12,11 @@
 			<BorderPane>
 				<top>
 					<AnchorPane>
-						<ListView fx:id="listInstances" fixedCellSize="128.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="144.0" prefWidth="128.0" style="-fx-background-image: url(/org/mcupdater/gui/javafx/img/bg_main.png);" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" />
-						<HBox AnchorPane.topAnchor="5" AnchorPane.rightAnchor="5">
+						<ListView fx:id="listInstances" fixedCellSize="128.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="144.0" prefWidth="128.0" style="-fx-background-image: url(/org/mcupdater/gui/javafx/img/bg_main.png);" AnchorPane.rightAnchor="32" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" />
+						<VBox AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
 							<Button fx:id="btnAddURL" onAction="#addInstance"/>
 							<Button fx:id="btnReload" onAction="#doRefresh"/>
-						</HBox>
+						</VBox>
 					</AnchorPane>
 				</top>
 				<center>
