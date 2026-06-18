@@ -223,9 +223,21 @@ public class SettingsPane extends Accordion implements SettingsListener {
             addControlEntry(gridMCUpdater, ++row, "professionalMode", fieldProfessional);
             addControlEntry(gridMCUpdater, ++row, "skynetApiKey", fieldSkynetApiKey);
         }
-        TitledPane sectionJava = new TitledPane("Java",gridJava);
-        TitledPane sectionMinecraft = new TitledPane("Minecraft",gridMinecraft);
-        TitledPane sectionMCUpdater = new TitledPane("MCUpdater",gridMCUpdater);
+        ScrollPane scrollJava = new ScrollPane(gridJava);
+        //scrollJava.fitToWidthProperty().set(true);
+        scrollJava.fitToHeightProperty().set(true);
+        scrollJava.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        ScrollPane scrollMinecraft = new ScrollPane(gridMinecraft);
+        //scrollMinecraft.fitToWidthProperty().set(true);
+        scrollMinecraft.fitToHeightProperty().set(true);
+        scrollMinecraft.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        ScrollPane scrollMCUpdater = new ScrollPane(gridMCUpdater);
+        //scrollMCUpdater.fitToWidthProperty().set(true);
+        scrollMCUpdater.fitToHeightProperty().set(true);
+        scrollMCUpdater.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        TitledPane sectionJava = new TitledPane("Java",scrollJava);
+        TitledPane sectionMinecraft = new TitledPane("Minecraft",scrollMinecraft);
+        TitledPane sectionMCUpdater = new TitledPane("MCUpdater",scrollMCUpdater);
         this.settingsChanged(settingsManager.getSettings());
         this.getPanes().addAll(sectionJava,sectionMinecraft,sectionMCUpdater);
     }

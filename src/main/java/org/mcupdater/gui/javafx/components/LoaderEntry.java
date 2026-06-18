@@ -2,7 +2,7 @@ package org.mcupdater.gui.javafx.components;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import org.mcupdater.model.Loader;
+import org.mcupdater.model.v2.Loader;
 
 public class LoaderEntry extends Region {
 

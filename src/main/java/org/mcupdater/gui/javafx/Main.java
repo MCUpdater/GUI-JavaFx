@@ -12,6 +12,7 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import org.mcupdater.api.Version;
 import org.mcupdater.gui.javafx.components.LoginDialog;
+import org.mcupdater.gui.javafx.panels.Navigation;
 import org.mcupdater.settings.Profile;
 import org.mcupdater.settings.Settings;
 import org.mcupdater.settings.SettingsManager;
@@ -28,7 +29,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("panels/navigation.fxml"));
 		loader.setResources(translation);
 		Parent root = loader.load();
 
@@ -39,7 +40,7 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.getIcons().add(getImage("icons/mcu-icon.png"));
 		stage.show();
-		MainController controller = loader.getController();
+		Navigation controller = loader.getController();
 		Settings settings = SettingsManager.getInstance().getSettings();
 		MCUpdater.getInstance().setInstanceRoot(new File(settings.getInstanceRoot()).toPath());
 		Profile newProfile;
@@ -53,9 +54,9 @@ public class Main extends Application {
 		} else {
 			newProfile = settings.findProfile(settings.getLastProfile());
 		}
-		controller.refreshInstanceList();
-		controller.refreshProfiles();
-		controller.profiles.setSelectedProfile(newProfile.getName());
+		//controller.refreshInstanceList();
+		//controller.refreshProfiles();
+		//controller.profiles.setSelectedProfile(newProfile.getName());
 	}
 	
 	public Image getImage(String filename) {
