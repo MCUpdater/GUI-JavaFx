@@ -395,7 +395,9 @@ public class MainController extends MCUApp implements Initializable, TrackerList
     private void tryNewLaunch(ServerList selected, List<ModuleEntry> modules, Profile launchProfile) throws Exception {
         File javaBin;
         //TODO: Implement pack-specific Java version requirements
-        if (Version.requestedFeatureLevel(selected.getVersion(), "1.20.5")) {
+        if (Version.requestedFeatureLevel(selected.getVersion(), "26")) {
+            javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() >= 25).findFirst().get().getValue();
+        } else if (Version.requestedFeatureLevel(selected.getVersion(), "1.20.5")) {
             javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() >= 21).findFirst().get().getValue();
         } else if (Version.requestedFeatureLevel(selected.getVersion(),"1.17")) {
             javaBin = Main.javaRuntimes.entrySet().stream().filter(entry -> entry.getKey() == 17).findFirst().get().getValue();
@@ -505,8 +507,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
             if (!loader.getILoader().getJVMArguments(instancePath.toFile()).isEmpty()) {
                 args.addAll(Arrays.asList(loader.getILoader().getJVMArguments(instancePath.toFile()).split(" ")));
             }
-            loader.getILoader().getClasspathEntries(instancePath.toFile()).stream().forEach(path -> libs.putIfAbsent(String.join("/",Arrays.asList(path.split("/")).subList(0,(path.split("/").length-2))),path));
-            //libs.addAll(loader.getILoader().getClasspathEntries(instancePath.toFile()));
+            loader.getILoader().getClasspathEntries(instancePath.toFile()).entrySet().stream().forEach(entry -> libs.putIfAbsent(entry.getKey(),entry.getValue()));
             clArgs.append(loader.getILoader().getArguments(instancePath.toFile()));
         }
         for (Library lib : mcVersion.getLibraries()) {
@@ -515,7 +516,7 @@ public class MainController extends MCUApp implements Initializable, TrackerList
                 lib.setName("libraries/" + selected.getLibOverrides().get(key));
             }
             if (lib.validForOS() && !lib.hasNatives()) {
-                libs.putIfAbsent("libraries/" + String.join("/",Arrays.asList(lib.getFilename().split("/")).subList(0,(lib.getFilename().split("/").length-2))), "libraries/" + lib.getFilename());
+                libs.putIfAbsent(lib.getName(), "libraries/" + lib.getFilename());
             }
         }
         StringBuilder classpath = new StringBuilder();
