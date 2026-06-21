@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import org.mcupdater.gui.javafx.MainController;
-import org.mcupdater.model.GenericModule;
-import org.mcupdater.model.Module;
+import org.mcupdater.model.v2.GenericModule;
+import org.mcupdater.model.v2.Module;
 import org.mcupdater.settings.SettingsManager;
 
 import java.util.ArrayList;

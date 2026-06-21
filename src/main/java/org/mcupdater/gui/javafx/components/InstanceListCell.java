@@ -15,7 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import org.mcupdater.gui.javafx.MainController;
-import org.mcupdater.model.ServerList;
+import org.mcupdater.model.v2.ServerList;
 import org.mcupdater.util.MCUpdater;
 
 import java.net.URI;

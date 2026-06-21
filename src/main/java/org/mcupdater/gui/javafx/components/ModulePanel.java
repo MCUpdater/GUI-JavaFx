@@ -5,9 +5,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.mcupdater.gui.javafx.MainController;
-import org.mcupdater.model.Loader;
-import org.mcupdater.model.ModSide;
-import org.mcupdater.model.Module;
+import org.mcupdater.model.v2.Loader;
+import org.mcupdater.model.v2.ModSide;
+import org.mcupdater.model.v2.Module;
 
 import java.util.ArrayList;
 import java.util.HashMap;
