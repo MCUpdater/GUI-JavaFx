@@ -20,6 +20,7 @@ import org.mcupdater.downloadlib.DownloadQueue;
 import org.mcupdater.downloadlib.Downloadable;
 import org.mcupdater.downloadlib.TrackerListener;
 import org.mcupdater.gui.javafx.Main;
+import org.mcupdater.gui.javafx.components.LoginDialog;
 import org.mcupdater.mojang.MinecraftVersion;
 import org.mcupdater.packbuilder.gui.MainFormController;
 import org.mcupdater.settings.MSAProfile;
@@ -50,6 +51,8 @@ public class Navigation extends MCUApp implements Initializable, TrackerListener
 	@FXML
 	private VBox vboxCreate;
 	@FXML
+	private VBox vboxProgress;
+	@FXML
 	private VBox vboxConsole;
 	@FXML
 	private VBox vboxSettings;
@@ -59,6 +62,8 @@ public class Navigation extends MCUApp implements Initializable, TrackerListener
 	private SVGPath find;
 	@FXML
 	private SVGPath create;
+	@FXML
+	private SVGPath progress;
 	@FXML
 	private SVGPath console;
 	@FXML
@@ -95,6 +100,9 @@ public class Navigation extends MCUApp implements Initializable, TrackerListener
 		Tooltip ttCreate = new Tooltip("Create Modpacks");
 		ttCreate.setFont(Font.font("Liberation Sans", 18));
 		Tooltip.install(vboxCreate, ttCreate);
+		Tooltip ttProgress = new Tooltip("Progress");
+		ttProgress.setFont(Font.font("Liberation Sans", 18));
+		Tooltip.install(vboxProgress, ttProgress);
 		Tooltip ttConsole = new Tooltip("Console");
 		ttConsole.setFont(Font.font("Liberation Sans", 18));
 		Tooltip.install(vboxConsole, ttConsole);
@@ -110,6 +118,8 @@ public class Navigation extends MCUApp implements Initializable, TrackerListener
 		find.setFill(Color.DIMGRAY);
 		create.setEffect(new DropShadow(20, Color.BLACK));
 		create.setFill(Color.DIMGRAY);
+		progress.setEffect(new DropShadow(20, Color.BLACK));
+		progress.setFill(Color.DIMGRAY);
 		console.setEffect(new DropShadow(20, Color.BLACK));
 		console.setFill(Color.DIMGRAY);
 		settings.setEffect(new DropShadow(20, Color.BLACK));
@@ -163,6 +173,13 @@ public class Navigation extends MCUApp implements Initializable, TrackerListener
 		loadFXML(getClass().getResource("instances.fxml"));
 	}
 
+	public void openProgress(MouseEvent mouseEvent) {
+		resetGraphics();
+		progress.setFill(Color.WHITE);
+		progress.setEffect(new DropShadow(20, Color.MAGENTA));
+		loadFXML(getClass().getResource("progress.fxml"));
+	}
+
 	public void clickGrid(MouseEvent mouseEvent) {
 	}
 
@@ -173,12 +190,12 @@ public class Navigation extends MCUApp implements Initializable, TrackerListener
 
 	@Override
 	public void log(String msg) {
-
+		baseLogger.info(msg);
 	}
 
 	@Override
 	public Profile requestLogin(String username) {
-		return null;
+		return LoginDialog.doLogin(this.navPane.getScene().getWindow(), username);
 	}
 
 	@Override
